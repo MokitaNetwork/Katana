@@ -22,11 +22,11 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/umee-network/umee/price-feeder/config"
-	"github.com/umee-network/umee/price-feeder/oracle"
-	"github.com/umee-network/umee/price-feeder/oracle/client"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
-	v1 "github.com/umee-network/umee/price-feeder/router/v1"
+	"github.com/umee-network/katana/price-feeder/config"
+	"github.com/umee-network/katana/price-feeder/oracle"
+	"github.com/umee-network/katana/price-feeder/oracle/client"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	v1 "github.com/umee-network/katana/price-feeder/router/v1"
 )
 
 const (
@@ -42,9 +42,9 @@ const (
 var rootCmd = &cobra.Command{
 	Use:   "price-feeder [config-file]",
 	Args:  cobra.ExactArgs(1),
-	Short: "price-feeder is a side-car process for providing Umee's on-chain oracle with price data",
-	Long: `A side-car process that Umee validators must run in order to provide
-Umee's on-chain price oracle with price information. The price-feeder performs
+	Short: "price-feeder is a side-car process for providing Katana's on-chain oracle with price data",
+	Long: `A side-car process that Katana validators must run in order to provide
+Katana's on-chain price oracle with price information. The price-feeder performs
 two primary functions. First, it is responsible for obtaining price information
 from various reliable data sources, e.g. exchanges, and exposing this data via
 an API. Secondly, the price-feeder consumes this data and periodically submits

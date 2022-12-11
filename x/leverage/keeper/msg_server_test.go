@@ -4,13 +4,13 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/umee-network/umee/v3/x/leverage/fixtures"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/fixtures"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func (s *IntegrationTestSuite) TestAddTokensToRegistry() {
 	govAccAddr := s.app.GovKeeper.GetGovernanceAccount(s.ctx).GetAddress().String()
-	registeredUmee := fixtures.Token("uumee", "UMEE", 6)
+	registeredKatana := fixtures.Token("ukatana", "KATANA", 6)
 	newTokens := fixtures.Token("uabcd", "ABCD", 6)
 
 	testCases := []struct {
@@ -39,7 +39,7 @@ func (s *IntegrationTestSuite) TestAddTokensToRegistry() {
 				Title:       "test",
 				Description: "test",
 				AddTokens: []types.Token{
-					registeredUmee,
+					registeredKatana,
 				},
 			},
 			true,
@@ -52,11 +52,11 @@ func (s *IntegrationTestSuite) TestAddTokensToRegistry() {
 				Title:       "test",
 				Description: "test",
 				AddTokens: []types.Token{
-					registeredUmee,
+					registeredKatana,
 				},
 			},
 			true,
-			fmt.Sprintf("token %s is already registered", registeredUmee.BaseDenom),
+			fmt.Sprintf("token %s is already registered", registeredKatana.BaseDenom),
 		},
 		{
 			"valid authority and valid token for registry",
@@ -95,8 +95,8 @@ func (s *IntegrationTestSuite) TestAddTokensToRegistry() {
 
 func (s *IntegrationTestSuite) TestUpdateRegistry() {
 	govAccAddr := s.app.GovKeeper.GetGovernanceAccount(s.ctx).GetAddress().String()
-	modifiedUmee := fixtures.Token("uumee", "UMEE", 6)
-	modifiedUmee.ReserveFactor = sdk.MustNewDecFromStr("0.69")
+	modifiedKatana := fixtures.Token("ukatana", "KATANA", 6)
+	modifiedKatana.ReserveFactor = sdk.MustNewDecFromStr("0.69")
 
 	testCases := []struct {
 		name      string
@@ -137,7 +137,7 @@ func (s *IntegrationTestSuite) TestUpdateRegistry() {
 				Title:       "test",
 				Description: "test",
 				UpdateTokens: []types.Token{
-					modifiedUmee,
+					modifiedKatana,
 				},
 			},
 			false,
@@ -157,7 +157,7 @@ func (s *IntegrationTestSuite) TestUpdateRegistry() {
 				tokens := s.app.LeverageKeeper.GetAllRegisteredTokens(s.ctx)
 				s.Require().Len(tokens, 3)
 
-				token, err := s.app.LeverageKeeper.GetTokenSettings(s.ctx, "uumee")
+				token, err := s.app.LeverageKeeper.GetTokenSettings(s.ctx, "ukatana")
 				s.Require().NoError(err)
 				s.Require().Equal("0.690000000000000000", token.ReserveFactor.String(),
 					"reserve factor is correctly set")

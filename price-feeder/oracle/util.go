@@ -6,7 +6,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
 )
 
 var (

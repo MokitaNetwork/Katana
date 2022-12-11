@@ -33,9 +33,9 @@ import (
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/leverage/fixtures"
-	leveragetypes "github.com/umee-network/umee/v3/x/leverage/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/leverage/fixtures"
+	leveragetypes "github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 const (
@@ -92,17 +92,17 @@ func (s *IntegrationTestSuite) SetupSuite() {
 
 	s.T().Logf("Ethereum and peggo are disable due to Ethereum PoS migration and PoW fork")
 	// var useGanache bool
-	// if str := os.Getenv("UMEE_E2E_USE_GANACHE"); len(str) > 0 {
+	// if str := os.Getenv("KATANA_E2E_USE_GANACHE"); len(str) > 0 {
 	// 	useGanache, err = strconv.ParseBool(str)
 	// 	s.Require().NoError(err)
 	// }
 
 	// The boostrapping phase is as follows:
 	//
-	// 1. Initialize Umee validator nodes.
+	// 1. Initialize Katana validator nodes.
 	// 2. Launch an Ethereum container that mines.
-	// 3. Create and initialize Umee validator genesis files (setting delegate keys for validators).
-	// 4. Start Umee network.
+	// 3. Create and initialize Katana validator genesis files (setting delegate keys for validators).
+	// 4. Start Katana network.
 	// 5. Run an Oracle price feeder.
 	// 6. Create and run Gaia container(s).
 	// 7. Create and run IBC relayer (Hermes) containers.
@@ -126,7 +126,7 @@ func (s *IntegrationTestSuite) SetupSuite() {
 }
 
 func (s *IntegrationTestSuite) TearDownSuite() {
-	if str := os.Getenv("UMEE_E2E_SKIP_CLEANUP"); len(str) > 0 {
+	if str := os.Getenv("KATANA_E2E_SKIP_CLEANUP"); len(str) > 0 {
 		skipCleanup, err := strconv.ParseBool(str)
 		s.Require().NoError(err)
 
@@ -372,7 +372,7 @@ func (s *IntegrationTestSuite) initValidatorConfigs() {
 func (s *IntegrationTestSuite) runGanacheContainer() {
 	s.T().Log("starting Ganache container...")
 
-	tmpDir, err := os.MkdirTemp("", "umee-e2e-testnet-eth-")
+	tmpDir, err := os.MkdirTemp("", "katana-e2e-testnet-eth-")
 	s.Require().NoError(err)
 	s.tmpDirs = append(s.tmpDirs, tmpDir)
 
@@ -452,7 +452,7 @@ func (s *IntegrationTestSuite) runGanacheContainer() {
 
 func (s *IntegrationTestSuite) runEthContainer() {
 	s.T().Log("starting Ethereum container...")
-	tmpDir, err := os.MkdirTemp("", "umee-e2e-testnet-eth-")
+	tmpDir, err := os.MkdirTemp("", "katana-e2e-testnet-eth-")
 	s.Require().NoError(err)
 	s.tmpDirs = append(s.tmpDirs, tmpDir)
 
@@ -511,7 +511,7 @@ func (s *IntegrationTestSuite) runEthContainer() {
 }
 
 func (s *IntegrationTestSuite) runValidators() {
-	s.T().Log("starting Umee validator containers...")
+	s.T().Log("starting Katana validator containers...")
 
 	s.valResources = make([]*dockertest.Resource, len(s.chain.validators))
 	for i, val := range s.chain.validators {
@@ -519,9 +519,9 @@ func (s *IntegrationTestSuite) runValidators() {
 			Name:      val.instanceName(),
 			NetworkID: s.dkrNet.Network.ID,
 			Mounts: []string{
-				fmt.Sprintf("%s/:/root/.umee", val.configDir()),
+				fmt.Sprintf("%s/:/root/.katana", val.configDir()),
 			},
-			Repository: "umeenet/umeed-e2e",
+			Repository: "katananet/katanad-e2e",
 		}
 
 		// expose the first validator for debugging and communication
@@ -544,7 +544,7 @@ func (s *IntegrationTestSuite) runValidators() {
 		s.Require().NoError(err)
 
 		s.valResources[i] = resource
-		s.T().Logf("started Umee validator container: %s", resource.Container.ID)
+		s.T().Logf("started Katana validator container: %s", resource.Container.ID)
 	}
 
 	rpcClient, err := rpchttp.New("tcp://localhost:26657", "/websocket")
@@ -569,14 +569,14 @@ func (s *IntegrationTestSuite) runValidators() {
 		},
 		5*time.Minute,
 		time.Second,
-		"umee node failed to produce blocks",
+		"katana node failed to produce blocks",
 	)
 }
 
 func (s *IntegrationTestSuite) runGaiaNetwork() {
 	s.T().Log("starting Gaia network container...")
 
-	tmpDir, err := os.MkdirTemp("", "umee-e2e-testnet-gaia-")
+	tmpDir, err := os.MkdirTemp("", "katana-e2e-testnet-gaia-")
 	s.Require().NoError(err)
 	s.tmpDirs = append(s.tmpDirs, tmpDir)
 
@@ -607,8 +607,8 @@ func (s *IntegrationTestSuite) runGaiaNetwork() {
 				"26657/tcp": {{HostIP: "", HostPort: "27657"}},
 			},
 			Env: []string{
-				fmt.Sprintf("UMEE_E2E_GAIA_CHAIN_ID=%s", gaiaChainID),
-				fmt.Sprintf("UMEE_E2E_GAIA_VAL_MNEMONIC=%s", gaiaVal.mnemonic),
+				fmt.Sprintf("KATANA_E2E_GAIA_CHAIN_ID=%s", gaiaChainID),
+				fmt.Sprintf("KATANA_E2E_GAIA_VAL_MNEMONIC=%s", gaiaVal.mnemonic),
 			},
 			Entrypoint: []string{
 				"sh",
@@ -652,12 +652,12 @@ func (s *IntegrationTestSuite) runGaiaNetwork() {
 func (s *IntegrationTestSuite) runIBCRelayer() {
 	s.T().Log("starting Hermes relayer container...")
 
-	tmpDir, err := os.MkdirTemp("", "umee-e2e-testnet-hermes-")
+	tmpDir, err := os.MkdirTemp("", "katana-e2e-testnet-hermes-")
 	s.Require().NoError(err)
 	s.tmpDirs = append(s.tmpDirs, tmpDir)
 
 	gaiaVal := s.chain.gaiaValidators[0]
-	umeeVal := s.chain.validators[0]
+	katanaVal := s.chain.validators[0]
 	hermesCfgPath := path.Join(tmpDir, "hermes")
 
 	s.Require().NoError(os.MkdirAll(hermesCfgPath, 0o755))
@@ -669,7 +669,7 @@ func (s *IntegrationTestSuite) runIBCRelayer() {
 
 	s.hermesResource, err = s.dkrPool.RunWithOptions(
 		&dockertest.RunOptions{
-			Name:       "umee-gaia-relayer",
+			Name:       "katana-gaia-relayer",
 			Repository: "ghcr.io/umee-network/hermes-e2e",
 			Tag:        "latest",
 			NetworkID:  s.dkrNet.Network.ID,
@@ -680,12 +680,12 @@ func (s *IntegrationTestSuite) runIBCRelayer() {
 				"3031/tcp": {{HostIP: "", HostPort: "3031"}},
 			},
 			Env: []string{
-				fmt.Sprintf("UMEE_E2E_GAIA_CHAIN_ID=%s", gaiaChainID),
-				fmt.Sprintf("UMEE_E2E_UMEE_CHAIN_ID=%s", s.chain.id),
-				fmt.Sprintf("UMEE_E2E_GAIA_VAL_MNEMONIC=%s", gaiaVal.mnemonic),
-				fmt.Sprintf("UMEE_E2E_UMEE_VAL_MNEMONIC=%s", umeeVal.mnemonic),
-				fmt.Sprintf("UMEE_E2E_GAIA_VAL_HOST=%s", s.gaiaResource.Container.Name[1:]),
-				fmt.Sprintf("UMEE_E2E_UMEE_VAL_HOST=%s", s.valResources[0].Container.Name[1:]),
+				fmt.Sprintf("KATANA_E2E_GAIA_CHAIN_ID=%s", gaiaChainID),
+				fmt.Sprintf("KATANA_E2E_KATANA_CHAIN_ID=%s", s.chain.id),
+				fmt.Sprintf("KATANA_E2E_GAIA_VAL_MNEMONIC=%s", gaiaVal.mnemonic),
+				fmt.Sprintf("KATANA_E2E_KATANA_VAL_MNEMONIC=%s", katanaVal.mnemonic),
+				fmt.Sprintf("KATANA_E2E_GAIA_VAL_HOST=%s", s.gaiaResource.Container.Name[1:]),
+				fmt.Sprintf("KATANA_E2E_KATANA_VAL_HOST=%s", s.valResources[0].Container.Name[1:]),
 			},
 			Entrypoint: []string{
 				"sh",
@@ -729,7 +729,7 @@ func (s *IntegrationTestSuite) runIBCRelayer() {
 
 	s.T().Logf("started Hermes relayer container: %s", s.hermesResource.Container.ID)
 
-	// create the client, connection and channel between the Umee and Gaia chains
+	// create the client, connection and channel between the Katana and Gaia chains
 	s.connectIBCChains()
 }
 
@@ -740,7 +740,7 @@ func (s *IntegrationTestSuite) runContractDeployment() {
 		&dockertest.RunOptions{
 			Name:       "gravity-contract-deployer",
 			NetworkID:  s.dkrNet.Network.ID,
-			Repository: "umeenet/umeed-e2e",
+			Repository: "katananet/katanad-e2e",
 			// NOTE: container names are prefixed with '/'
 			Env: []string{"PEGGO_ETH_PK=" + ethMinerPK},
 			Entrypoint: []string{
@@ -833,7 +833,7 @@ func (s *IntegrationTestSuite) runOrchestrators() {
 			&dockertest.RunOptions{
 				Name:       s.chain.orchestrators[i].instanceName(),
 				NetworkID:  s.dkrNet.Network.ID,
-				Repository: "umeenet/umeed-e2e",
+				Repository: "katananet/katanad-e2e",
 				Env:        []string{"PEGGO_ETH_PK=" + orch.ethereumKey.privateKey},
 				// NOTE: container names are prefixed with '/'
 				Entrypoint: []string{
@@ -907,7 +907,7 @@ func (s *IntegrationTestSuite) runOrchestrators() {
 func (s *IntegrationTestSuite) runPriceFeeder() {
 	s.T().Log("starting price-feeder container...")
 
-	tmpDir, err := os.MkdirTemp("", "umee-e2e-testnet-price-feeder-")
+	tmpDir, err := os.MkdirTemp("", "katana-e2e-testnet-price-feeder-")
 	s.Require().NoError(err)
 	s.tmpDirs = append(s.tmpDirs, tmpDir)
 
@@ -920,28 +920,28 @@ func (s *IntegrationTestSuite) runPriceFeeder() {
 	)
 	s.Require().NoError(err)
 
-	umeeVal := s.chain.validators[0]
-	umeeValAddr, err := umeeVal.keyInfo.GetAddress()
+	katanaVal := s.chain.validators[0]
+	katanaValAddr, err := katanaVal.keyInfo.GetAddress()
 	s.Require().NoError(err)
 
 	s.priceFeederResource, err = s.dkrPool.RunWithOptions(
 		&dockertest.RunOptions{
-			Name:       "umee-price-feeder",
+			Name:       "katana-price-feeder",
 			NetworkID:  s.dkrNet.Network.ID,
-			Repository: "umeenet/umeed-e2e",
+			Repository: "katananet/katanad-e2e",
 			Mounts: []string{
 				fmt.Sprintf("%s/:/root/price-feeder", priceFeederCfgPath),
-				fmt.Sprintf("%s/:/root/.umee", umeeVal.configDir()),
+				fmt.Sprintf("%s/:/root/.katana", katanaVal.configDir()),
 			},
 			PortBindings: map[docker.Port][]docker.PortBinding{
 				"7171/tcp": {{HostIP: "", HostPort: "7171"}},
 			},
 			Env: []string{
-				"UMEE_E2E_UMEE_VAL_KEY_DIR=/root/.umee",
+				"KATANA_E2E_KATANA_VAL_KEY_DIR=/root/.katana",
 				fmt.Sprintf("PRICE_FEEDER_PASS=%s", keyringPassphrase),
-				fmt.Sprintf("UMEE_E2E_PRICE_FEEDER_ADDRESS=%s", umeeValAddr),
-				fmt.Sprintf("UMEE_E2E_PRICE_FEEDER_VALIDATOR=%s", sdk.ValAddress(umeeValAddr)),
-				fmt.Sprintf("UMEE_E2E_UMEE_VAL_HOST=%s", s.valResources[0].Container.Name[1:]),
+				fmt.Sprintf("KATANA_E2E_PRICE_FEEDER_ADDRESS=%s", katanaValAddr),
+				fmt.Sprintf("KATANA_E2E_PRICE_FEEDER_VALIDATOR=%s", sdk.ValAddress(katanaValAddr)),
+				fmt.Sprintf("KATANA_E2E_KATANA_VAL_HOST=%s", s.valResources[0].Container.Name[1:]),
 			},
 			Entrypoint: []string{
 				"sh",

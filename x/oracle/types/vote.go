@@ -8,7 +8,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"gopkg.in/yaml.v3"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func NewAggregateExchangeRatePrevote(

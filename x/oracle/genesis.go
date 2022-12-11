@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/umee-network/umee/v3/x/oracle/keeper"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/keeper"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // InitGenesis initializes the x/oracle module's state from a provided genesis

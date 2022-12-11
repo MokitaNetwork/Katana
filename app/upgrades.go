@@ -11,15 +11,15 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	bech32ibctypes "github.com/osmosis-labs/bech32-ibc/x/bech32ibc/types"
 
-	"github.com/umee-network/umee/v3/app/upgradev3"
-	"github.com/umee-network/umee/v3/app/upgradev3x3"
-	leveragetypes "github.com/umee-network/umee/v3/x/leverage/types"
-	oracletypes "github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/app/upgradev3"
+	"github.com/mokitanetwork/katana/app/upgradev3x3"
+	leveragetypes "github.com/mokitanetwork/katana/x/leverage/types"
+	oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // RegisterUpgradeHandlersregisters upgrade handlers.
 // It takes a boolean parameter to enable or disable experimental features.
-func (app UmeeApp) RegisterUpgradeHandlers(bool) {
+func (app KatanaApp) RegisterUpgradeHandlers(bool) {
 	upgradeInfo, err := app.UpgradeKeeper.ReadUpgradeInfoFromDisk()
 	if err != nil {
 		panic(err)
@@ -33,7 +33,7 @@ func (app UmeeApp) RegisterUpgradeHandlers(bool) {
 }
 
 // performs upgrade from v3.1 -> v3.3 (including the v3.2 chanages)
-func (app *UmeeApp) registerUpgrade3_1to3_3(_ upgradetypes.Plan) {
+func (app *KatanaApp) registerUpgrade3_1to3_3(_ upgradetypes.Plan) {
 	const planName = "v3.1-v3.3"
 	app.UpgradeKeeper.SetUpgradeHandler(
 		planName,
@@ -55,7 +55,7 @@ func (app *UmeeApp) registerUpgrade3_1to3_3(_ upgradetypes.Plan) {
 }
 
 // performs upgrade from v3.2 -> v3.3
-func (app *UmeeApp) registerUpgrade3_2to3_3(_ upgradetypes.Plan) {
+func (app *KatanaApp) registerUpgrade3_2to3_3(_ upgradetypes.Plan) {
 	const planName = "v3.2-v3.3"
 	app.UpgradeKeeper.SetUpgradeHandler(
 		planName,
@@ -72,13 +72,13 @@ func (app *UmeeApp) registerUpgrade3_2to3_3(_ upgradetypes.Plan) {
 }
 
 // performs upgrade from v3.0 -> v3.1
-func (app *UmeeApp) registerUpgrade3_1(_ upgradetypes.Plan) {
+func (app *KatanaApp) registerUpgrade3_1(_ upgradetypes.Plan) {
 	const planName = "v3.1.0"
 	app.UpgradeKeeper.SetUpgradeHandler(planName, onlyModuleMigrations(app, planName))
 }
 
 // performs upgrade from v1->v3
-func (app *UmeeApp) registerUpgrade3_0(upgradeInfo upgradetypes.Plan) {
+func (app *KatanaApp) registerUpgrade3_0(upgradeInfo upgradetypes.Plan) {
 	const planName = "v1.1-v3.0"
 	app.UpgradeKeeper.SetUpgradeHandler(
 		planName,
@@ -131,7 +131,7 @@ func (app *UmeeApp) registerUpgrade3_0(upgradeInfo upgradetypes.Plan) {
 	})
 }
 
-func onlyModuleMigrations(app *UmeeApp, planName string) upgradetypes.UpgradeHandler {
+func onlyModuleMigrations(app *KatanaApp, planName string) upgradetypes.UpgradeHandler {
 	return func(ctx sdk.Context, plan upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
 		ctx.Logger().Info("Upgrade handler execution", "name", planName)
 		return app.mm.RunMigrations(ctx, app.configurator, fromVM)
@@ -139,7 +139,7 @@ func onlyModuleMigrations(app *UmeeApp, planName string) upgradetypes.UpgradeHan
 }
 
 // helper function to check if the store loader should be upgraded
-func (app *UmeeApp) storeUpgrade(planName string, ui upgradetypes.Plan, stores storetypes.StoreUpgrades) {
+func (app *KatanaApp) storeUpgrade(planName string, ui upgradetypes.Plan, stores storetypes.StoreUpgrades) {
 	if ui.Name == planName && !app.UpgradeKeeper.IsSkipHeight(ui.Height) {
 		// configure store loader that checks if version == upgradeHeight and applies store upgrades
 		app.SetStoreLoader(

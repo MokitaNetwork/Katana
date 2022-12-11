@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title: Umee SDK - gRPC Gateway docs
+  title: Katana SDK - gRPC Gateway docs
   description: A REST interface for state queries
   version: 1.0.0
 paths:
-  /umee/leverage/v1/account_balances:
+  /katana/leverage/v1/account_balances:
     get:
       summary: >-
         AccountBalances queries an account's current supply, collateral, and
@@ -114,7 +114,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/leverage/v1/account_summary:
+  /katana/leverage/v1/account_summary:
     get:
       summary: >-
         AccountSummary queries USD values representing an account's total
@@ -184,7 +184,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/leverage/v1/bad_debts:
+  /katana/leverage/v1/bad_debts:
     get:
       summary: >-
         BadDebts queries a list of borrow positions that have been marked for
@@ -238,7 +238,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/leverage/v1/liquidation_targets:
+  /katana/leverage/v1/liquidation_targets:
     get:
       summary: >-
         LiquidationTargets queries a list of all borrower account addresses
@@ -284,7 +284,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/leverage/v1/market_summary:
+  /katana/leverage/v1/market_summary:
     get:
       summary: >-
         MarketSummary queries a base asset's current borrowing and supplying
@@ -300,14 +300,14 @@ paths:
                 type: string
                 description: >-
                   Symbol Denom is the human-readable representation of a token
-                  denom, for example "UMEE" or "ATOM".
+                  denom, for example "KATANA" or "ATOM".
               exponent:
                 type: integer
                 format: int64
                 description: >-
                   Exponent is the power of ten required to get from base denom
                   to symbol denom. For example, an exponent of 6 means 10^6
-                  uumee = 1 UMEE.
+                  ukatana = 1 KATANA.
               oracle_price:
                 type: string
                 description: >-
@@ -318,9 +318,9 @@ paths:
                 description: >-
                   uToken Exchange Rate is the amount of base tokens received
                   when withdrawing 1 uToken. For example, a uToken exchange rate
-                  of 1.5 means a supplier receives 3 uumee for every 2 u/uumee
+                  of 1.5 means a supplier receives 3 ukatana for every 2 u/ukatana
                   they wish to withdraw. The same applies in reverse: supplying
-                  3 uumee would award 2 u/uumee at that time.
+                  3 ukatana would award 2 u/ukatana at that time.
               supply_APY:
                 type: string
                 description: >-
@@ -356,7 +356,7 @@ paths:
                   all borrowers. Collateral is denominated in uTokenso, so both
                   uToken exchange rate and exponent must also be applied to
                   convert to symbol denom. For example, if collateral is 4000000
-                  u/uumee and uToken exhange rate is 1.2, then 5 UMEE have been
+                  u/ukatana and uToken exhange rate is 1.2, then 5 KATANA have been
                   collateralized.
               borrowed:
                 type: string
@@ -379,7 +379,7 @@ paths:
                   This amount is less than total supply due to safety limits. It
                   is denominated in base tokens, so exponent must be applied to
                   convert to symbol denom. For example, if borrowed is 3000000
-                  uumee and maximum borrow is 4000000 uumee, then 1 UMEE is
+                  ukatana and maximum borrow is 4000000 ukatana, then 1 KATANA is
                   currently available for borrowing.
               maximum_collateral:
                 type: string
@@ -389,9 +389,9 @@ paths:
                   This amount is less than total supply due to safety limits. It
                   is denominated in uTokens, so both uToken exchange rate and
                   exponent must be applied to convert to symbol denom. For
-                  example, if collateral is 4000000 u/uumee, uToken exhange rate
-                  is 1.2, and maximum borrow is 7000000 uumee, then a maximum of
-                  2 additional UMEE is permitted to be collateralized.
+                  example, if collateral is 4000000 u/ukatana, uToken exhange rate
+                  is 1.2, and maximum borrow is 7000000 ukatana, then a maximum of
+                  2 additional KATANA is permitted to be collateralized.
               minimum_liquidity:
                 type: string
                 description: >-
@@ -399,8 +399,8 @@ paths:
                   module required by safety limits, based on the current
                   collateral. It is denominated in base tokens, so exponent must
                   be applied to convert to symbol denom. For example, if
-                  liquidity is 9000000 uumee and minimum liquidity is 8000000
-                  uumee, then a maximum of 1 additional UMEE is currently
+                  liquidity is 9000000 ukatana and minimum liquidity is 8000000
+                  ukatana, then a maximum of 1 additional KATANA is currently
                   available for borrowing or withdrawal.
               uToken_supply:
                 type: string
@@ -471,7 +471,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/leverage/v1/max_withdraw:
+  /katana/leverage/v1/max_withdraw:
     get:
       summary: >-
         MaxWithdraw queries the maximum amount of a given token an address can
@@ -556,7 +556,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/leverage/v1/params:
+  /katana/leverage/v1/params:
     get:
       summary: Params queries the parameters of the x/leverage module.
       operationId: LeverageParams
@@ -654,7 +654,7 @@ paths:
                   Params defines the parameters for the leverage module.
 
                   See
-                  https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+                  https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
                   for more details.
             description: >-
@@ -686,7 +686,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/leverage/v1/registered_tokens:
+  /katana/leverage/v1/registered_tokens:
     get:
       summary: RegisteredTokens queries for all the registered tokens.
       operationId: RegisteredTokens
@@ -908,12 +908,12 @@ paths:
                         must be set to false.
                   description: >-
                     Token defines a token, along with its metadata and
-                    parameters, in the Umee
+                    parameters, in the Katana
 
                     capital facility that can be supplied and borrowed.
 
                     See
-                    https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+                    https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
                     for more details.
             description: >-
@@ -945,7 +945,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/historacle/v1/denoms/median_deviations:
+  /katana/historacle/v1/denoms/median_deviations:
     get:
       summary: |-
         MedianDeviations returns median deviations of all denoms,
@@ -1011,7 +1011,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/historacle/v1/denoms/medians:
+  /katana/historacle/v1/denoms/medians:
     get:
       summary: |-
         Medians returns medians of all denoms,
@@ -1075,7 +1075,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/oracle/v1/denoms/active_exchange_rates:
+  /katana/oracle/v1/denoms/active_exchange_rates:
     get:
       summary: ActiveExchangeRates returns all active denoms
       operationId: ActiveExchangeRates
@@ -1121,7 +1121,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/oracle/v1/denoms/exchange_rates/{denom}:
+  /katana/oracle/v1/denoms/exchange_rates/{denom}:
     get:
       summary: |-
         ExchangeRates returns exchange rates of all denoms,
@@ -1189,7 +1189,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/oracle/v1/params:
+  /katana/oracle/v1/params:
     get:
       summary: Params queries all parameters.
       operationId: OracleParams
@@ -1308,7 +1308,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/oracle/v1/slash_window:
+  /katana/oracle/v1/slash_window:
     get:
       summary: SlashWindow returns slash window information
       operationId: SlashWindow
@@ -1351,7 +1351,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/oracle/v1/valdiators/{validator_addr}/aggregate_vote:
+  /katana/oracle/v1/valdiators/{validator_addr}/aggregate_vote:
     get:
       summary: AggregateVote returns an aggregate vote of a validator
       operationId: AggregateVote
@@ -1419,7 +1419,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/oracle/v1/validators/aggregate_prevotes:
+  /katana/oracle/v1/validators/aggregate_prevotes:
     get:
       summary: AggregatePrevotes returns aggregate prevotes of all validators
       operationId: AggregatePrevotes
@@ -1484,7 +1484,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/oracle/v1/validators/aggregate_votes:
+  /katana/oracle/v1/validators/aggregate_votes:
     get:
       summary: AggregateVotes returns aggregate votes of all validators
       operationId: AggregateVotes
@@ -1548,7 +1548,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /umee/oracle/v1/validators/{validator_addr}/aggregate_prevote:
+  /katana/oracle/v1/validators/{validator_addr}/aggregate_prevote:
     get:
       summary: AggregatePrevote returns an aggregate prevote of a validator
       operationId: AggregatePrevote
@@ -1612,7 +1612,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/oracle/v1/validators/{validator_addr}/feeder:
+  /katana/oracle/v1/validators/{validator_addr}/feeder:
     get:
       summary: FeederDelegation returns feeder delegation of a validator
       operationId: FeederDelegation
@@ -1658,7 +1658,7 @@ paths:
           type: string
       tags:
         - Query
-  /umee/oracle/v1/validators/{validator_addr}/miss:
+  /katana/oracle/v1/validators/{validator_addr}/miss:
     get:
       summary: MissCounter returns oracle miss counter of a validator
       operationId: MissCounter
@@ -1746,7 +1746,7 @@ definitions:
             value:
               type: string
               format: byte
-  umee.leverage.v1.BadDebt:
+  katana.leverage.v1.BadDebt:
     type: object
     properties:
       address:
@@ -1756,7 +1756,7 @@ definitions:
     description: >-
       BadDebt is a bad debt instance used in the leverage module's genesis
       state.
-  umee.leverage.v1.Params:
+  katana.leverage.v1.Params:
     type: object
     properties:
       complete_liquidation_threshold:
@@ -1834,10 +1834,10 @@ definitions:
       Params defines the parameters for the leverage module.
 
       See
-      https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+      https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
       for more details.
-  umee.leverage.v1.QueryAccountBalancesResponse:
+  katana.leverage.v1.QueryAccountBalancesResponse:
     type: object
     properties:
       supplied:
@@ -1900,7 +1900,7 @@ definitions:
     description: >-
       QueryAccountBalancesResponse defines the response structure for the
       AccountBalances gRPC service handler.
-  umee.leverage.v1.QueryAccountSummaryResponse:
+  katana.leverage.v1.QueryAccountSummaryResponse:
     type: object
     properties:
       supplied_value:
@@ -1931,7 +1931,7 @@ definitions:
     description: >-
       QueryAccountSummaryResponse defines the response structure for the
       AccountSummary gRPC service handler.
-  umee.leverage.v1.QueryBadDebtsResponse:
+  katana.leverage.v1.QueryBadDebtsResponse:
     type: object
     properties:
       targets:
@@ -1952,7 +1952,7 @@ definitions:
     description: >-
       QueryBadDebtsResponse defines the response structure for the BedDebts gRPC
       service handler.
-  umee.leverage.v1.QueryLiquidationTargetsResponse:
+  katana.leverage.v1.QueryLiquidationTargetsResponse:
     type: object
     properties:
       targets:
@@ -1963,20 +1963,20 @@ definitions:
     description: >-
       QueryLiquidationTargetsResponse defines the response structure for the
       LiquidationTargets gRPC service handler.
-  umee.leverage.v1.QueryMarketSummaryResponse:
+  katana.leverage.v1.QueryMarketSummaryResponse:
     type: object
     properties:
       symbol_denom:
         type: string
         description: >-
           Symbol Denom is the human-readable representation of a token denom,
-          for example "UMEE" or "ATOM".
+          for example "KATANA" or "ATOM".
       exponent:
         type: integer
         format: int64
         description: >-
           Exponent is the power of ten required to get from base denom to symbol
-          denom. For example, an exponent of 6 means 10^6 uumee = 1 UMEE.
+          denom. For example, an exponent of 6 means 10^6 ukatana = 1 KATANA.
       oracle_price:
         type: string
         description: >-
@@ -1987,8 +1987,8 @@ definitions:
         description: >-
           uToken Exchange Rate is the amount of base tokens received when
           withdrawing 1 uToken. For example, a uToken exchange rate of 1.5 means
-          a supplier receives 3 uumee for every 2 u/uumee they wish to withdraw.
-          The same applies in reverse: supplying 3 uumee would award 2 u/uumee
+          a supplier receives 3 ukatana for every 2 u/ukatana they wish to withdraw.
+          The same applies in reverse: supplying 3 ukatana would award 2 u/ukatana
           at that time.
       supply_APY:
         type: string
@@ -2023,8 +2023,8 @@ definitions:
           Collateral is the total amount of uTokens collateralized by all
           borrowers. Collateral is denominated in uTokenso, so both uToken
           exchange rate and exponent must also be applied to convert to symbol
-          denom. For example, if collateral is 4000000 u/uumee and uToken
-          exhange rate is 1.2, then 5 UMEE have been collateralized.
+          denom. For example, if collateral is 4000000 u/ukatana and uToken
+          exhange rate is 1.2, then 5 KATANA have been collateralized.
       borrowed:
         type: string
         description: >-
@@ -2044,8 +2044,8 @@ definitions:
           borrowing, including that which has already been borrowed out. This
           amount is less than total supply due to safety limits. It is
           denominated in base tokens, so exponent must be applied to convert to
-          symbol denom. For example, if borrowed is 3000000 uumee and maximum
-          borrow is 4000000 uumee, then 1 UMEE is currently available for
+          symbol denom. For example, if borrowed is 3000000 ukatana and maximum
+          borrow is 4000000 ukatana, then 1 KATANA is currently available for
           borrowing.
       maximum_collateral:
         type: string
@@ -2055,8 +2055,8 @@ definitions:
           amount is less than total supply due to safety limits. It is
           denominated in uTokens, so both uToken exchange rate and exponent must
           be applied to convert to symbol denom. For example, if collateral is
-          4000000 u/uumee, uToken exhange rate is 1.2, and maximum borrow is
-          7000000 uumee, then a maximum of 2 additional UMEE is permitted to be
+          4000000 u/ukatana, uToken exhange rate is 1.2, and maximum borrow is
+          7000000 ukatana, then a maximum of 2 additional KATANA is permitted to be
           collateralized.
       minimum_liquidity:
         type: string
@@ -2064,8 +2064,8 @@ definitions:
           Mimimum Liquidity is the minimum amount of liquidity in the module
           required by safety limits, based on the current collateral. It is
           denominated in base tokens, so exponent must be applied to convert to
-          symbol denom. For example, if liquidity is 9000000 uumee and minimum
-          liquidity is 8000000 uumee, then a maximum of 1 additional UMEE is
+          symbol denom. For example, if liquidity is 9000000 ukatana and minimum
+          liquidity is 8000000 ukatana, then a maximum of 1 additional KATANA is
           currently available for borrowing or withdrawal.
       uToken_supply:
         type: string
@@ -2105,7 +2105,7 @@ definitions:
     description: >-
       QueryMarketSummaryResponse defines the response structure for the
       MarketSummary gRPC service handler.
-  umee.leverage.v1.QueryMaxWithdrawResponse:
+  katana.leverage.v1.QueryMaxWithdrawResponse:
     type: object
     properties:
       uTokens:
@@ -2137,7 +2137,7 @@ definitions:
     description: >-
       QueryMaxWithdrawResponse defines the response structure for the
       MaxWithdraw gRPC service handler.
-  umee.leverage.v1.QueryParamsResponse:
+  katana.leverage.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -2221,13 +2221,13 @@ definitions:
           Params defines the parameters for the leverage module.
 
           See
-          https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+          https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
           for more details.
     description: |-
       QueryParamsResponse defines the response structure for the Params gRPC
       service handler.
-  umee.leverage.v1.QueryRegisteredTokensResponse:
+  katana.leverage.v1.QueryRegisteredTokensResponse:
     type: object
     properties:
       registry:
@@ -2422,18 +2422,18 @@ definitions:
                 set to false.
           description: >-
             Token defines a token, along with its metadata and parameters, in
-            the Umee
+            the Katana
 
             capital facility that can be supplied and borrowed.
 
             See
-            https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+            https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
             for more details.
     description: |-
       QueryRegisteredTokensResponse defines the response structure for the
       RegisteredTokens gRPC service handler.
-  umee.leverage.v1.Token:
+  katana.leverage.v1.Token:
     type: object
     properties:
       base_denom:
@@ -2606,12 +2606,12 @@ definitions:
           To mark a token as not valid for supply, `msg_supply` must be set to
           false.
     description: >-
-      Token defines a token, along with its metadata and parameters, in the Umee
+      Token defines a token, along with its metadata and parameters, in the Katana
 
       capital facility that can be supplied and borrowed.
 
       See
-      https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
+      https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
 
       for more details.
   cosmos.base.v1beta1.DecCoin:
@@ -2626,7 +2626,7 @@ definitions:
 
       NOTE: The amount field is an Dec which implements the custom method
       signatures required by gogoproto.
-  umee.oracle.v1.AggregateExchangeRatePrevote:
+  katana.oracle.v1.AggregateExchangeRatePrevote:
     type: object
     properties:
       hash:
@@ -2642,7 +2642,7 @@ definitions:
       The purpose of aggregate prevote is to hide vote exchange rates with hash
       which is formatted as hex string in SHA256("{salt}:{exchange
       rate}{denom},...,{exchange rate}{denom}:{voter}")
-  umee.oracle.v1.AggregateExchangeRateVote:
+  katana.oracle.v1.AggregateExchangeRateVote:
     type: object
     properties:
       exchange_rate_tuples:
@@ -2662,7 +2662,7 @@ definitions:
     description: |-
       AggregateExchangeRateVote - struct for voting on
       the exchange rates of USD denominated in various assets.
-  umee.oracle.v1.Denom:
+  katana.oracle.v1.Denom:
     type: object
     properties:
       base_denom:
@@ -2673,7 +2673,7 @@ definitions:
         type: integer
         format: int64
     title: Denom - the object to hold configurations of each denom
-  umee.oracle.v1.ExchangeRateTuple:
+  katana.oracle.v1.ExchangeRateTuple:
     type: object
     properties:
       denom:
@@ -2683,7 +2683,7 @@ definitions:
     title: >-
       ExchangeRateTuple - struct to store interpreted exchange rates data to
       store
-  umee.oracle.v1.Params:
+  katana.oracle.v1.Params:
     type: object
     properties:
       vote_period:
@@ -2753,7 +2753,7 @@ definitions:
           price stamping protection methodology (mainly manipulatable assets).
           Any assets not on this list will not be stamped.
     description: Params defines the parameters for the oracle module.
-  umee.oracle.v1.QueryActiveExchangeRatesResponse:
+  katana.oracle.v1.QueryActiveExchangeRatesResponse:
     type: object
     properties:
       active_rates:
@@ -2768,7 +2768,7 @@ definitions:
     description: |-
       QueryActiveExchangeRatesResponse is response type for the
       Query/ActiveExchangeRates RPC method.
-  umee.oracle.v1.QueryAggregatePrevoteResponse:
+  katana.oracle.v1.QueryAggregatePrevoteResponse:
     type: object
     properties:
       aggregate_prevote:
@@ -2795,7 +2795,7 @@ definitions:
     description: |-
       QueryAggregatePrevoteResponse is response type for the
       Query/AggregatePrevote RPC method.
-  umee.oracle.v1.QueryAggregatePrevotesResponse:
+  katana.oracle.v1.QueryAggregatePrevotesResponse:
     type: object
     properties:
       aggregate_prevotes:
@@ -2829,7 +2829,7 @@ definitions:
     description: |-
       QueryAggregatePrevotesResponse is response type for the
       Query/AggregatePrevotes RPC method.
-  umee.oracle.v1.QueryAggregateVoteResponse:
+  katana.oracle.v1.QueryAggregateVoteResponse:
     type: object
     properties:
       aggregate_vote:
@@ -2860,7 +2860,7 @@ definitions:
     description: |-
       QueryAggregateVoteResponse is response type for the
       Query/AggregateVote RPC method.
-  umee.oracle.v1.QueryAggregateVotesResponse:
+  katana.oracle.v1.QueryAggregateVotesResponse:
     type: object
     properties:
       aggregate_votes:
@@ -2893,7 +2893,7 @@ definitions:
     description: |-
       QueryAggregateVotesResponse is response type for the
       Query/AggregateVotes RPC method.
-  umee.oracle.v1.QueryExchangeRatesResponse:
+  katana.oracle.v1.QueryExchangeRatesResponse:
     type: object
     properties:
       exchange_rates:
@@ -2916,7 +2916,7 @@ definitions:
     description: |-
       QueryExchangeRatesResponse is response type for the
       Query/ExchangeRates RPC method.
-  umee.oracle.v1.QueryFeederDelegationResponse:
+  katana.oracle.v1.QueryFeederDelegationResponse:
     type: object
     properties:
       feeder_addr:
@@ -2925,7 +2925,7 @@ definitions:
     description: |-
       QueryFeederDelegationResponse is response type for the
       Query/FeederDelegation RPC method.
-  umee.oracle.v1.QueryMedianDeviationsResponse:
+  katana.oracle.v1.QueryMedianDeviationsResponse:
     type: object
     properties:
       medianDeviations:
@@ -2948,7 +2948,7 @@ definitions:
     description: |-
       QueryMedianDeviationsResponse is response type for the
       Query/MedianDeviations RPC method.
-  umee.oracle.v1.QueryMediansResponse:
+  katana.oracle.v1.QueryMediansResponse:
     type: object
     properties:
       medians:
@@ -2969,7 +2969,7 @@ definitions:
     description: |-
       QueryMediansResponse is response type for the
       Query/Medians RPC method.
-  umee.oracle.v1.QueryMissCounterResponse:
+  katana.oracle.v1.QueryMissCounterResponse:
     type: object
     properties:
       miss_counter:
@@ -2979,7 +2979,7 @@ definitions:
     description: |-
       QueryMissCounterResponse is response type for the
       Query/MissCounter RPC method.
-  umee.oracle.v1.QueryParamsResponse:
+  katana.oracle.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -3057,7 +3057,7 @@ definitions:
 
               Any assets not on this list will not be stamped.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
-  umee.oracle.v1.QuerySlashWindowResponse:
+  katana.oracle.v1.QuerySlashWindowResponse:
     type: object
     properties:
       window_progress:

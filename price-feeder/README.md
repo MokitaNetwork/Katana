@@ -1,6 +1,6 @@
 # Oracle Price Feeder
 
-The `price-feeder` tool is an extension of Umee's `x/oracle` module, both of
+The `price-feeder` tool is an extension of Katana's `x/oracle` module, both of
 which are based on Terra's [x/oracle](https://github.com/terra-money/classic-core/tree/main/x/oracle)
 module and [oracle-feeder](https://github.com/terra-money/oracle-feeder). The
 core differences are as follows:
@@ -19,7 +19,7 @@ The `price-feeder` tool is responsible for performing the following:
    Binance and Osmosis, based on operator configuration. These exchange rates
    are exposed via an API and are used to feed into the main oracle process.
 2. Taking aggregated exchange rate price data and submitting those exchange rates
-   on-chain to Umee's `x/oracle` module following Umee's [Oracle](https://github.com/umee-network/umee/tree/main/x/oracle#readme)
+   on-chain to Katana's `x/oracle` module following Katana's [Oracle](https://github.com/umee-network/katana/tree/main/x/oracle#readme)
    specification.
 
 <!-- markdown-link-check-disable -->

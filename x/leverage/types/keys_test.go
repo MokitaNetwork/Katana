@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func TestAddressFromKey(t *testing.T) {
@@ -63,19 +63,19 @@ func TestGetKeys(t *testing.T) {
 
 	addr := sdk.AccAddress("addr________________") // length: 20
 	addrbytes := []byte{0x61, 0x64, 0x64, 0x72, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f}
-	uumeebytes := []byte{0x75, 0x75, 0x6d, 0x65, 0x65}                              // uumee
+	ukatanabytes := []byte{0x75, 0x75, 0x6d, 0x65, 0x65}                              // ukatana
 	ibcabcdbytes := []byte{0x69, 0x62, 0x63, 0x2f, 0x61, 0x62, 0x63, 0x64}          // ibc/abcd
 	uibcbytes := []byte{0x75, 0x2f, 0x69, 0x62, 0x63, 0x2f, 0x61, 0x62, 0x63, 0x64} // u/ibc/abcd
 
 	testCases := []testCase{
 		{
-			types.KeyRegisteredToken("uumee"),
+			types.KeyRegisteredToken("ukatana"),
 			[][]byte{
 				{0x01},     // prefix
-				uumeebytes, // uumee
+				ukatanabytes, // ukatana
 				{0x00},     // null terminator
 			},
-			"registered token key (uumee)",
+			"registered token key (ukatana)",
 		},
 		{
 			types.KeyRegisteredToken("ibc/abcd"),
@@ -87,15 +87,15 @@ func TestGetKeys(t *testing.T) {
 			"registered token key (ibc/abcd)",
 		},
 		{
-			types.KeyAdjustedBorrow(addr, "uumee"),
+			types.KeyAdjustedBorrow(addr, "ukatana"),
 			[][]byte{
 				{0x02},     // prefix
 				{0x14},     // address length prefix = 20
 				addrbytes,  // addr________________
-				uumeebytes, // uumee
+				ukatanabytes, // ukatana
 				{0x00},     // null terminator
 			},
-			"adjusted borrow key (uumee)",
+			"adjusted borrow key (ukatana)",
 		},
 		{
 			types.KeyAdjustedBorrow(addr, "ibc/abcd"),

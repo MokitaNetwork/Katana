@@ -8,8 +8,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/umee-network/umee/v3/x/oracle/types"
-	oracletypes "github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
+	oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // GenerateSalt generates a random salt, size length/2,  as a HEX encoded string.
@@ -30,7 +30,7 @@ func GenerateSalt(length int) (string, error) {
 func (s *IntegrationTestSuite) TestMsgServer_AggregateExchangeRatePrevote() {
 	ctx := s.ctx
 
-	exchangeRatesStr := "123.2:UMEE"
+	exchangeRatesStr := "123.2:KATANA"
 	salt, err := GenerateSalt(32)
 	s.Require().NoError(err)
 	hash := oracletypes.GetAggregateVoteHash(salt, exchangeRatesStr, valAddr)
@@ -69,8 +69,8 @@ func (s *IntegrationTestSuite) TestMsgServer_AggregateExchangeRatePrevote() {
 func (s *IntegrationTestSuite) TestMsgServer_AggregateExchangeRateVote() {
 	ctx := s.ctx
 
-	ratesStr := "umee:123.2"
-	ratesStrInvalidCoin := "umee:123.2,badcoin:234.5"
+	ratesStr := "katana:123.2"
+	ratesStrInvalidCoin := "katana:123.2,badcoin:234.5"
 	salt, err := GenerateSalt(32)
 	s.Require().NoError(err)
 	hash := oracletypes.GetAggregateVoteHash(salt, ratesStr, valAddr)

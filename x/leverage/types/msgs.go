@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/gov/types"
 	gov1b1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	"github.com/umee-network/umee/v3/util/checkers"
+	"github.com/mokitanetwork/katana/util/checkers"
 	"gopkg.in/yaml.v3"
 )
 

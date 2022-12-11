@@ -23,9 +23,9 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/umee-network/umee/v3/ante"
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
+	"github.com/mokitanetwork/katana/ante"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 type appCreator struct {
@@ -71,20 +71,20 @@ func (a appCreator) newApp(
 	)
 
 	minGasPrices := cast.ToString(appOpts.Get(server.FlagMinGasPrices))
-	mustMinUmeeGasPrice(minGasPrices)
+	mustMinKatanaGasPrice(minGasPrices)
 
 	var wasmOpts []wasm.Option
 	if cast.ToBool(appOpts.Get("telemetry.enabled")) {
 		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
 	}
 
-	return umeeapp.New(
+	return katanaapp.New(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(server.FlagInvCheckPeriod)),
 		a.encCfg,
 		appOpts,
-		umeeapp.GetWasmEnabledProposals(),
+		katanaapp.GetWasmEnabledProposals(),
 		wasmOpts,
 		baseapp.SetPruning(pruningOpts),
 		baseapp.SetMinGasPrices(minGasPrices),
@@ -98,7 +98,7 @@ func (a appCreator) newApp(
 	)
 }
 
-func mustMinUmeeGasPrice(minGasPrices string) {
+func mustMinKatanaGasPrice(minGasPrices string) {
 	gasPrices, err := sdk.ParseDecCoins(minGasPrices)
 	if err != nil {
 		stdlog.Fatalf("invalid minimum gas prices: %v", err)
@@ -129,7 +129,7 @@ func (a appCreator) appExport(
 		loadLatest = true
 	}
 
-	app := umeeapp.New(
+	app := katanaapp.New(
 		logger,
 		db,
 		traceStore,
@@ -139,8 +139,8 @@ func (a appCreator) appExport(
 		uint(1),
 		a.encCfg,
 		appOpts,
-		umeeapp.GetWasmEnabledProposals(),
-		umeeapp.EmptyWasmOpts,
+		katanaapp.GetWasmEnabledProposals(),
+		katanaapp.EmptyWasmOpts,
 	)
 
 	if height != -1 {

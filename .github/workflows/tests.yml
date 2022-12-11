@@ -107,11 +107,11 @@ jobs:
         run: |
           cd price-feeder && make test-unit
 
-  build-umeed:
+  build-katanad:
     uses: ./.github/workflows/build.yml
 
   liveness-test:
-    needs: build-umeed
+    needs: build-katanad
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -128,15 +128,15 @@ jobs:
         id: cache-binaries
         uses: actions/cache@v3
         with:
-          path: ./cmd/umeed/umeed
-          key: umeed-linux-amd64
+          path: ./cmd/katanad/katanad
+          key: katanad-linux-amd64
 
       - name: Move new version binary to build folder
         if: steps.cache-binaries.outputs.cache-hit == 'true'
         run: |
           mkdir -p build
-          cp ./cmd/umeed/umeed ./build/umeed
-          chmod +x ./build/umeed
+          cp ./cmd/katanad/katanad ./build/katanad
+          chmod +x ./build/katanad
 
       - name: Start single node chain
         if: env.GIT_DIFF && steps.cache-binaries.outputs.cache-hit == 'true'

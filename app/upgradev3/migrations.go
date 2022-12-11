@@ -39,7 +39,7 @@ func SetMinimumCommissionRateToValidators(ctx sdk.Context, keeper StakingKeeper,
 	return nil
 }
 
-// SetupBech32ibcKeeper updates keeper by setting the native account prefix to "umee".
+// SetupBech32ibcKeeper updates keeper by setting the native account prefix to "katana".
 // Failing to set the native prefix will cause a chain halt on init genesis or
 // in the firstBeginBlocker assertions.
 func SetupBech32ibcKeeper(bech32IbcKeeper *bech32ibckeeper.Keeper, ctx sdk.Context) error {

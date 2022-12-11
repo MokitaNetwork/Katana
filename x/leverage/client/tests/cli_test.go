@@ -10,11 +10,11 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
+	katanaapp "github.com/mokitanetwork/katana/app"
 )
 
 func TestIntegrationTestSuite(t *testing.T) {
-	cfg := umeeapp.IntegrationTestNetworkConfig()
+	cfg := katanaapp.IntegrationTestNetworkConfig()
 	cfg.NumValidators = 2
 	cfg.Mnemonics = []string{
 		"empower ridge mystery shrimp predict alarm swear brick across funny vendor essay antique vote place lava proof gaze crush head east arch twin lady",
@@ -26,13 +26,13 @@ func TestIntegrationTestSuite(t *testing.T) {
 
 	gravityGenState.DelegateKeys = []gravitytypes.MsgSetOrchestratorAddress{
 		{
-			Validator:    "umeevaloper1t3ass54lpra0klz047k0dax33ckahym5phdrpg",
-			Orchestrator: "umee1t3ass54lpra0klz047k0dax33ckahym5pn2vsz",
+			Validator:    "katanavaloper1t3ass54lpra0klz047k0dax33ckahym5phdrpg",
+			Orchestrator: "katana1t3ass54lpra0klz047k0dax33ckahym5pn2vsz",
 			EthAddress:   "0x9fc56f2e851e1ab2b4c0fc4f6344800f29652ffe",
 		},
 		{
-			Validator:    "umeevaloper1kqh6nt4f48vptvq4j5cgr0nfd2x4z9ulvrtqrh",
-			Orchestrator: "umee1kqh6nt4f48vptvq4j5cgr0nfd2x4z9ulv8v0ja",
+			Validator:    "katanavaloper1kqh6nt4f48vptvq4j5cgr0nfd2x4z9ulvrtqrh",
+			Orchestrator: "katana1kqh6nt4f48vptvq4j5cgr0nfd2x4z9ulv8v0ja",
 			EthAddress:   "0xddfda961410b2815b48679377baa0009ace173a2",
 		},
 	}

@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 func TestGateProvider_GetTickerPrices(t *testing.T) {
@@ -42,7 +42,7 @@ func TestGateProvider_GetTickerPrices(t *testing.T) {
 
 	t.Run("valid_request_multi_ticker", func(t *testing.T) {
 		lastPriceAtom := "34.69000000"
-		lastPriceUMEE := "41.35000000"
+		lastPriceKATANA := "41.35000000"
 		volume := "2396974.02000000"
 
 		tickerMap := map[string]GateTicker{}
@@ -52,23 +52,23 @@ func TestGateProvider_GetTickerPrices(t *testing.T) {
 			Vol:    volume,
 		}
 
-		tickerMap["UMEE_USDT"] = GateTicker{
-			Symbol: "UMEE_USDT",
-			Last:   lastPriceUMEE,
+		tickerMap["KATANA_USDT"] = GateTicker{
+			Symbol: "KATANA_USDT",
+			Last:   lastPriceKATANA,
 			Vol:    volume,
 		}
 
 		p.tickers = tickerMap
 		prices, err := p.GetTickerPrices(
 			types.CurrencyPair{Base: "ATOM", Quote: "USDT"},
-			types.CurrencyPair{Base: "UMEE", Quote: "USDT"},
+			types.CurrencyPair{Base: "KATANA", Quote: "USDT"},
 		)
 		require.NoError(t, err)
 		require.Len(t, prices, 2)
 		require.Equal(t, sdk.MustNewDecFromStr(lastPriceAtom), prices["ATOMUSDT"].Price)
 		require.Equal(t, sdk.MustNewDecFromStr(volume), prices["ATOMUSDT"].Volume)
-		require.Equal(t, sdk.MustNewDecFromStr(lastPriceUMEE), prices["UMEEUSDT"].Price)
-		require.Equal(t, sdk.MustNewDecFromStr(volume), prices["UMEEUSDT"].Volume)
+		require.Equal(t, sdk.MustNewDecFromStr(lastPriceKATANA), prices["KATANAUSDT"].Price)
+		require.Equal(t, sdk.MustNewDecFromStr(volume), prices["KATANAUSDT"].Volume)
 	})
 
 	t.Run("invalid_request_invalid_ticker", func(t *testing.T) {

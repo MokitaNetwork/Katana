@@ -11,13 +11,13 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 const (
 	binanceWSHost     = "stream.binance.com:9443"
 	binanceUSWSHost   = "stream.binance.us:9443"
-	binanceWSPath     = "/ws/umeestream"
+	binanceWSPath     = "/ws/katanastream"
 	binanceRestHost   = "https://api1.binance.com"
 	binanceRestUSHost = "https://api.binance.us"
 	binanceRestPath   = "/api/v3/ticker/price"
@@ -314,7 +314,7 @@ func (p *BinanceProvider) setSubscribedPairs(cps ...types.CurrencyPair) {
 }
 
 // GetAvailablePairs returns all pairs to which the provider can subscribe.
-// ex.: map["ATOMUSDT" => {}, "UMEEUSDC" => {}].
+// ex.: map["ATOMUSDT" => {}, "KATANAUSDC" => {}].
 func (p *BinanceProvider) GetAvailablePairs() (map[string]struct{}, error) {
 	resp, err := http.Get(p.endpoints.Rest + binanceRestPath)
 	if err != nil {

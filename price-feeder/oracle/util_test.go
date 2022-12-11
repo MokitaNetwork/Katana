@@ -6,9 +6,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/umee/price-feeder/oracle"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 func TestComputeVWAP(t *testing.T) {
@@ -31,7 +31,7 @@ func TestComputeVWAP(t *testing.T) {
 						Price:  sdk.MustNewDecFromStr("28.21000000"),
 						Volume: sdk.MustNewDecFromStr("2749102.78000000"),
 					},
-					"UMEE": types.TickerPrice{
+					"KATANA": types.TickerPrice{
 						Price:  sdk.MustNewDecFromStr("1.13000000"),
 						Volume: sdk.MustNewDecFromStr("249102.38000000"),
 					},
@@ -59,7 +59,7 @@ func TestComputeVWAP(t *testing.T) {
 			},
 			expected: map[string]sdk.Dec{
 				"ATOM": sdk.MustNewDecFromStr("28.185812745610043621"),
-				"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+				"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 				"LUNA": sdk.MustNewDecFromStr("64.870470848638112395"),
 			},
 		},
@@ -111,7 +111,7 @@ func TestComputeTVWAP(t *testing.T) {
 							TimeStamp: provider.PastUnixTime(2 * time.Minute),
 						},
 					},
-					"UMEE": []types.CandlePrice{
+					"KATANA": []types.CandlePrice{
 						{
 							Price:     sdk.MustNewDecFromStr("1.13000000"),
 							Volume:    sdk.MustNewDecFromStr("178277.53314385"),
@@ -138,7 +138,7 @@ func TestComputeTVWAP(t *testing.T) {
 			},
 			expected: map[string]sdk.Dec{
 				"ATOM": sdk.MustNewDecFromStr("28.045149332478338614"),
-				"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+				"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 				"LUNA": sdk.MustNewDecFromStr("64.878530000000000000"),
 			},
 		},
@@ -161,7 +161,7 @@ func TestComputeTVWAP(t *testing.T) {
 							TimeStamp: provider.PastUnixTime(2 * time.Minute),
 						},
 					},
-					"UMEE": []types.CandlePrice{
+					"KATANA": []types.CandlePrice{
 						{
 							Price:     sdk.MustNewDecFromStr("1.13000000"),
 							Volume:    sdk.MustNewDecFromStr("178277.53314385"),
@@ -188,7 +188,7 @@ func TestComputeTVWAP(t *testing.T) {
 			},
 			expected: map[string]sdk.Dec{
 				"ATOM": sdk.MustNewDecFromStr("26.601468076898424151"),
-				"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+				"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 				"LUNA": sdk.MustNewDecFromStr("64.878530000000000000"),
 			},
 		},
@@ -211,7 +211,7 @@ func TestComputeTVWAP(t *testing.T) {
 							TimeStamp: provider.PastUnixTime(5 * time.Minute),
 						},
 					},
-					"UMEE": []types.CandlePrice{
+					"KATANA": []types.CandlePrice{
 						{
 							Price:     sdk.MustNewDecFromStr("1.13000000"),
 							Volume:    sdk.MustNewDecFromStr("178277.53314385"),
@@ -276,12 +276,12 @@ func TestStandardDeviation(t *testing.T) {
 			prices: map[provider.Name]map[string]sdk.Dec{
 				provider.ProviderBinance: {
 					"ATOM": sdk.MustNewDecFromStr("28.21000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 					"LUNA": sdk.MustNewDecFromStr("64.87000000"),
 				},
 				provider.ProviderKraken: {
 					"ATOM": sdk.MustNewDecFromStr("28.23000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13050000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13050000"),
 					"LUNA": sdk.MustNewDecFromStr("64.85000000"),
 				},
 			},
@@ -291,16 +291,16 @@ func TestStandardDeviation(t *testing.T) {
 			prices: map[provider.Name]map[string]sdk.Dec{
 				provider.ProviderBinance: {
 					"ATOM": sdk.MustNewDecFromStr("28.21000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 					"LUNA": sdk.MustNewDecFromStr("64.87000000"),
 				},
 				provider.ProviderKraken: {
 					"ATOM": sdk.MustNewDecFromStr("28.23000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13050000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13050000"),
 				},
 				provider.ProviderOsmosis: {
 					"ATOM": sdk.MustNewDecFromStr("28.40000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.14000000"),
+					"KATANA": sdk.MustNewDecFromStr("1.14000000"),
 					"LUNA": sdk.MustNewDecFromStr("64.10000000"),
 				},
 			},
@@ -309,7 +309,7 @@ func TestStandardDeviation(t *testing.T) {
 					mean:      sdk.MustNewDecFromStr("28.28"),
 					deviation: sdk.MustNewDecFromStr("0.085244745683629475"),
 				},
-				"UMEE": {
+				"KATANA": {
 					mean:      sdk.MustNewDecFromStr("1.1335"),
 					deviation: sdk.MustNewDecFromStr("0.004600724580614015"),
 				},
@@ -320,17 +320,17 @@ func TestStandardDeviation(t *testing.T) {
 			prices: map[provider.Name]map[string]sdk.Dec{
 				provider.ProviderBinance: {
 					"ATOM": sdk.MustNewDecFromStr("28.21000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 					"LUNA": sdk.MustNewDecFromStr("64.87000000"),
 				},
 				provider.ProviderKraken: {
 					"ATOM": sdk.MustNewDecFromStr("28.23000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.13050000"),
+					"KATANA": sdk.MustNewDecFromStr("1.13050000"),
 					"LUNA": sdk.MustNewDecFromStr("64.85000000"),
 				},
 				provider.ProviderOsmosis: {
 					"ATOM": sdk.MustNewDecFromStr("28.40000000"),
-					"UMEE": sdk.MustNewDecFromStr("1.14000000"),
+					"KATANA": sdk.MustNewDecFromStr("1.14000000"),
 					"LUNA": sdk.MustNewDecFromStr("64.10000000"),
 				},
 			},
@@ -339,7 +339,7 @@ func TestStandardDeviation(t *testing.T) {
 					mean:      sdk.MustNewDecFromStr("28.28"),
 					deviation: sdk.MustNewDecFromStr("0.085244745683629475"),
 				},
-				"UMEE": {
+				"KATANA": {
 					mean:      sdk.MustNewDecFromStr("1.1335"),
 					deviation: sdk.MustNewDecFromStr("0.004600724580614015"),
 				},

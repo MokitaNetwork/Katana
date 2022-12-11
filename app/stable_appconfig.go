@@ -27,9 +27,9 @@ var (
 // pass into the application.
 func GetWasmEnabledProposals() []wasm.ProposalType { return []wasm.ProposalType{} }
 
-func (app *UmeeApp) registerCustomExtensions() {}
+func (app *KatanaApp) registerCustomExtensions() {}
 
-func (app *UmeeApp) customKeepers(
+func (app *KatanaApp) customKeepers(
 	_ *baseapp.BaseApp,
 	_ map[string]*storetypes.KVStoreKey,
 	_ codec.Codec, _ govv1beta1.Router, _ string,
@@ -37,4 +37,4 @@ func (app *UmeeApp) customKeepers(
 	_ []wasm.Option) {
 }
 
-func (app *UmeeApp) initializeCustomScopedKeepers() {}
+func (app *KatanaApp) initializeCustomScopedKeepers() {}

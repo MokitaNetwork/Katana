@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 // GetTxCmd returns the CLI transaction commands for the x/leverage module.
@@ -254,8 +254,8 @@ func GetCmdLiquidate() *cobra.Command {
 Liquidate up to a specified amount of a borrower's debt for a chosen reward denomination.
 
 Example:
-$ umeed tx leverage liquidate %s  50000000uumee u/uumee --from mykey`,
-				"umee1qqy7cst5qm83ldupph2dcq0wypprkfpc9l3jg2",
+$ katanad tx leverage liquidate %s  50000000ukatana u/ukatana --from mykey`,
+				"katana1qqy7cst5qm83ldupph2dcq0wypprkfpc9l3jg2",
 			),
 		),
 

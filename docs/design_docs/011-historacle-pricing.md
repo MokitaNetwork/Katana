@@ -18,7 +18,7 @@ In order to support small-volume assets in a safe manner, we need to be able to 
 
 ## Context
 
-Right now, the volume of assets such as Juno, Umee, and Osmo are so low that it would be relatively easy to use the leverage protocol on UMEE to manipulate the prices of these assets and game the system.
+Right now, the volume of assets such as Juno, Katana, and Osmo are so low that it would be relatively easy to use the leverage protocol on KATANA to manipulate the prices of these assets and game the system.
 
 The attack goes:
 
@@ -30,7 +30,7 @@ The attack goes:
 
 In order to avoid these attacks, and to continue with our goal of allowing users to collateralize and borrow low-volume assets, we need to have a safety net.
 
-Currently, this is defended against by disallowing the use of `Umee` as collateral, however, we would like to re-enable that and list other assets with low volume for collateral.
+Currently, this is defended against by disallowing the use of `Katana` as collateral, however, we would like to re-enable that and list other assets with low volume for collateral.
 
 Historacle pricing will provide an API for the leverage module to tell when prices have changed in an abnormal fashion and avoid such events.
 

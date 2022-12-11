@@ -11,10 +11,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/umee-network/umee/price-feeder/config"
-	"github.com/umee-network/umee/price-feeder/oracle/client"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/config"
+	"github.com/umee-network/katana/price-feeder/oracle/client"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 type mockProvider struct {
@@ -80,12 +80,12 @@ func (ots *OracleTestSuite) SetupSuite() {
 		client.OracleClient{},
 		[]config.CurrencyPair{
 			{
-				Base:      "UMEE",
+				Base:      "KATANA",
 				Quote:     "USDT",
 				Providers: []provider.Name{provider.ProviderBinance},
 			},
 			{
-				Base:      "UMEE",
+				Base:      "KATANA",
 				Quote:     "USDC",
 				Providers: []provider.Name{provider.ProviderKraken},
 			},
@@ -140,7 +140,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.oracle.priceProviders = map[provider.Name]provider.Provider{
 		provider.ProviderBinance: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDX": {
+				"KATANAUSDX": {
 					Price:  sdk.MustNewDecFromStr("3.72"),
 					Volume: sdk.MustNewDecFromStr("2396974.02000000"),
 				},
@@ -148,7 +148,7 @@ func (ots *OracleTestSuite) TestPrices() {
 		},
 		provider.ProviderKraken: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDX": {
+				"KATANAUSDX": {
 					Price:  sdk.MustNewDecFromStr("3.70"),
 					Volume: sdk.MustNewDecFromStr("1994674.34000000"),
 				},
@@ -163,7 +163,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.oracle.priceProviders = map[provider.Name]provider.Provider{
 		provider.ProviderBinance: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDT": {
+				"KATANAUSDT": {
 					Price:  sdk.MustNewDecFromStr("3.72"),
 					Volume: sdk.MustNewDecFromStr("2396974.02000000"),
 				},
@@ -171,7 +171,7 @@ func (ots *OracleTestSuite) TestPrices() {
 		},
 		provider.ProviderKraken: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDC": {
+				"KATANAUSDC": {
 					Price:  sdk.MustNewDecFromStr("3.70"),
 					Volume: sdk.MustNewDecFromStr("1994674.34000000"),
 				},
@@ -188,7 +188,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.oracle.priceProviders = map[provider.Name]provider.Provider{
 		provider.ProviderBinance: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDT": {
+				"KATANAUSDT": {
 					Price:  sdk.MustNewDecFromStr("3.72"),
 					Volume: sdk.MustNewDecFromStr("2396974.02000000"),
 				},
@@ -196,7 +196,7 @@ func (ots *OracleTestSuite) TestPrices() {
 		},
 		provider.ProviderKraken: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDC": {
+				"KATANAUSDC": {
 					Price:  sdk.MustNewDecFromStr("3.70"),
 					Volume: sdk.MustNewDecFromStr("1994674.34000000"),
 				},
@@ -232,7 +232,7 @@ func (ots *OracleTestSuite) TestPrices() {
 
 	prices = ots.oracle.GetPrices()
 	ots.Require().Len(prices, 4)
-	ots.Require().Equal(sdk.MustNewDecFromStr("3.710916056220858266"), prices["UMEE"])
+	ots.Require().Equal(sdk.MustNewDecFromStr("3.710916056220858266"), prices["KATANA"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("3.717"), prices["XBT"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDC"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDT"])
@@ -241,7 +241,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.oracle.priceProviders = map[provider.Name]provider.Provider{
 		provider.ProviderBinance: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDX": {
+				"KATANAUSDX": {
 					Price:  sdk.MustNewDecFromStr("3.72"),
 					Volume: sdk.MustNewDecFromStr("2396974.02000000"),
 				},
@@ -249,7 +249,7 @@ func (ots *OracleTestSuite) TestPrices() {
 		},
 		provider.ProviderKraken: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDC": {
+				"KATANAUSDC": {
 					Price:  sdk.MustNewDecFromStr("3.70"),
 					Volume: sdk.MustNewDecFromStr("1994674.34000000"),
 				},
@@ -284,7 +284,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.Require().NoError(ots.oracle.SetPrices(context.TODO()))
 	prices = ots.oracle.GetPrices()
 	ots.Require().Len(prices, 4)
-	ots.Require().Equal(sdk.MustNewDecFromStr("3.70"), prices["UMEE"])
+	ots.Require().Equal(sdk.MustNewDecFromStr("3.70"), prices["KATANA"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("3.717"), prices["XBT"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDC"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDT"])
@@ -293,7 +293,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.oracle.priceProviders = map[provider.Name]provider.Provider{
 		provider.ProviderBinance: failingProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDC": {
+				"KATANAUSDC": {
 					Price:  sdk.MustNewDecFromStr("3.72"),
 					Volume: sdk.MustNewDecFromStr("2396974.02000000"),
 				},
@@ -301,7 +301,7 @@ func (ots *OracleTestSuite) TestPrices() {
 		},
 		provider.ProviderKraken: mockProvider{
 			prices: map[string]types.TickerPrice{
-				"UMEEUSDC": {
+				"KATANAUSDC": {
 					Price:  sdk.MustNewDecFromStr("3.71"),
 					Volume: sdk.MustNewDecFromStr("1994674.34000000"),
 				},
@@ -336,7 +336,7 @@ func (ots *OracleTestSuite) TestPrices() {
 	ots.Require().NoError(ots.oracle.SetPrices(context.TODO()))
 	prices = ots.oracle.GetPrices()
 	ots.Require().Len(prices, 4)
-	ots.Require().Equal(sdk.MustNewDecFromStr("3.71"), prices["UMEE"])
+	ots.Require().Equal(sdk.MustNewDecFromStr("3.71"), prices["KATANA"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("3.717"), prices["XBT"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDC"])
 	ots.Require().Equal(sdk.MustNewDecFromStr("1"), prices["USDT"])
@@ -363,17 +363,17 @@ func TestGenerateExchangeRatesString(t *testing.T) {
 		},
 		"single denom": {
 			input: map[string]sdk.Dec{
-				"UMEE": sdk.MustNewDecFromStr("3.72"),
+				"KATANA": sdk.MustNewDecFromStr("3.72"),
 			},
-			expected: "UMEE:3.720000000000000000",
+			expected: "KATANA:3.720000000000000000",
 		},
 		"multi denom": {
 			input: map[string]sdk.Dec{
-				"UMEE": sdk.MustNewDecFromStr("3.72"),
+				"KATANA": sdk.MustNewDecFromStr("3.72"),
 				"ATOM": sdk.MustNewDecFromStr("40.13"),
 				"OSMO": sdk.MustNewDecFromStr("8.69"),
 			},
-			expected: "ATOM:40.130000000000000000,OSMO:8.690000000000000000,UMEE:3.720000000000000000",
+			expected: "ATOM:40.130000000000000000,OSMO:8.690000000000000000,KATANA:3.720000000000000000",
 		},
 	}
 

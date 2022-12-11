@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/umee/price-feeder/config"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
+	"github.com/umee-network/katana/price-feeder/config"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
 )
 
 func TestValidate(t *testing.T) {
@@ -31,7 +31,7 @@ func TestValidate(t *testing.T) {
 			},
 			Keyring: config.Keyring{
 				Backend: "test",
-				Dir:     "/Users/username/.umee",
+				Dir:     "/Users/username/.katana",
 			},
 			RPC: config.RPC{
 				TMRPCEndpoint: "http://localhost:26657",
@@ -157,7 +157,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -175,13 +175,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -196,7 +196,7 @@ enable-hostname = true
 enable-hostname-label = true
 enable-service-label = true
 prometheus-retention = 120
-global-labels = [["chain-id", "umee-local-testnet"]]
+global-labels = [["chain-id", "katana-local-testnet"]]
 `)
 	_, err = tmpFile.Write(content)
 	require.NoError(t, err)
@@ -240,7 +240,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -258,13 +258,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -311,7 +311,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USD"
 providers = [
 	"kraken",
@@ -342,7 +342,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -388,7 +388,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -406,13 +406,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -427,7 +427,7 @@ enable-hostname = true
 enable-hostname-label = true
 enable-service-label = true
 prometheus-retention = 120
-global-labels = [["chain-id", "umee-local-testnet"]]
+global-labels = [["chain-id", "katana-local-testnet"]]
 `)
 	_, err = tmpFile.Write(content)
 	require.NoError(t, err)
@@ -483,7 +483,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -501,13 +501,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -522,7 +522,7 @@ enable-hostname = true
 enable-hostname_label = true
 enable-service_label = true
 prometheus-retention = 120
-global-labels = [["chain-id", "umee-local-testnet"]]
+global-labels = [["chain-id", "katana-local-testnet"]]
 `)
 	_, err = tmpFile.Write(content)
 	require.NoError(t, err)
@@ -555,7 +555,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -573,13 +573,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -594,7 +594,7 @@ enable-hostname = true
 enable-hostname_label = true
 enable-service_label = true
 prometheus-retention = 120
-global-labels = [["chain-id", "umee-local-testnet"]]
+global-labels = [["chain-id", "katana-local-testnet"]]
 `)
 	_, err = tmpFile.Write(content)
 	require.NoError(t, err)
@@ -644,7 +644,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -662,13 +662,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]
@@ -713,7 +713,7 @@ providers = [
 ]
 
 [[currency_pairs]]
-base = "UMEE"
+base = "KATANA"
 quote = "USDT"
 providers = [
 	"kraken",
@@ -731,13 +731,13 @@ providers = [
 ]
 
 [account]
-address = "umee15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
-validator = "umeevalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
-chain_id = "umee-local-testnet"
+address = "katana15nejfgcaanqpw25ru4arvfd0fwy6j8clccvwx4"
+validator = "katanavalcons14rjlkfzp56733j5l5nfk6fphjxymgf8mj04d5p"
+chain_id = "katana-local-testnet"
 
 [keyring]
 backend = "test"
-dir = "/Users/username/.umee"
+dir = "/Users/username/.katana"
 pass = "keyringPassword"
 
 [rpc]

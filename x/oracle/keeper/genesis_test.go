@@ -3,7 +3,7 @@ package keeper_test
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 func (s *IntegrationTestSuite) TestIterateAllHistoricPrices() {
@@ -11,10 +11,10 @@ func (s *IntegrationTestSuite) TestIterateAllHistoricPrices() {
 
 	historicPrices := []types.Price{
 		{BlockNum: 10, ExchangeRateTuple: types.ExchangeRateTuple{
-			Denom: "umee", ExchangeRate: sdk.MustNewDecFromStr("20.45"),
+			Denom: "katana", ExchangeRate: sdk.MustNewDecFromStr("20.45"),
 		}},
 		{BlockNum: 11, ExchangeRateTuple: types.ExchangeRateTuple{
-			Denom: "umee", ExchangeRate: sdk.MustNewDecFromStr("20.44"),
+			Denom: "katana", ExchangeRate: sdk.MustNewDecFromStr("20.44"),
 		}},
 		{BlockNum: 10, ExchangeRateTuple: types.ExchangeRateTuple{
 			Denom: "btc", ExchangeRate: sdk.MustNewDecFromStr("1200.56"),
@@ -56,7 +56,7 @@ FOUND:
 func (s *IntegrationTestSuite) TestIterateAllMedianPrices() {
 	keeper, ctx := s.app.OracleKeeper, s.ctx
 	medians := []types.ExchangeRateTuple{
-		{Denom: "umee", ExchangeRate: sdk.MustNewDecFromStr("20.44")},
+		{Denom: "katana", ExchangeRate: sdk.MustNewDecFromStr("20.44")},
 		{Denom: "atom", ExchangeRate: sdk.MustNewDecFromStr("2.66")},
 		{Denom: "osmo", ExchangeRate: sdk.MustNewDecFromStr("13.64")},
 	}
@@ -90,7 +90,7 @@ FOUND:
 func (s *IntegrationTestSuite) TestIterateAllMedianDeviationPrices() {
 	keeper, ctx := s.app.OracleKeeper, s.ctx
 	medians := []types.ExchangeRateTuple{
-		{Denom: "umee", ExchangeRate: sdk.MustNewDecFromStr("21.44")},
+		{Denom: "katana", ExchangeRate: sdk.MustNewDecFromStr("21.44")},
 		{Denom: "atom", ExchangeRate: sdk.MustNewDecFromStr("3.66")},
 		{Denom: "osmo", ExchangeRate: sdk.MustNewDecFromStr("14.64")},
 	}

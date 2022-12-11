@@ -16,7 +16,7 @@ NOTES:
 
 ## Target price (in USD cent) for x/bank send
 
-| umee price (usd cent) | gas price in uumee | fee (usd cent) |
+| katana price (usd cent) | gas price in ukatana | fee (usd cent) |
 | --------------------: | -----------------: | -------------: |
 |                     2 |                0.2 |         0.0124 |
 |                     2 |                0.1 |         0.0062 |
@@ -35,7 +35,7 @@ In table below we assume the same price scheme as above, but in the code most li
 The prices are indicative. For some transactions (especially oracle) fees can be disabled.
 See fee.go file for details.
 
-| umee price (usd cent) | gas price in uumee | fee (usd cent) |
+| katana price (usd cent) | gas price in ukatana | fee (usd cent) |
 | --------------------: | -----------------: | -------------: |
 |                     2 |                0.2 |         161.28 |
 |                     2 |                0.1 |          80.64 |
@@ -46,7 +46,7 @@ See fee.go file for details.
 
 ## Target price (in USD) for default gas limit
 
-| umee price (usd cent) | gas price in uumee | fee (usd cent) |
+| katana price (usd cent) | gas price in ukatana | fee (usd cent) |
 | --------------------: | -----------------: | -------------: |
 |                     2 |                0.2 |           0.08 |
 |                     2 |                0.1 |           0.04 |

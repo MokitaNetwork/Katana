@@ -10,9 +10,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/umee-network/umee/price-feeder/oracle"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 type IntegrationTestSuite struct {

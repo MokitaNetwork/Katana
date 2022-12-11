@@ -13,7 +13,7 @@ import (
 	gogotypes "github.com/gogo/protobuf/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 var ten = sdk.MustNewDecFromStr("10")

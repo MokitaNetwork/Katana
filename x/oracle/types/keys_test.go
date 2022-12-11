@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 func TestKeyExchangeRate(t *testing.T) {
@@ -108,7 +108,7 @@ func TestKeyAggregateExchangeRateVote(t *testing.T) {
 }
 
 func TestParseDenomAndBlockFromHistoricPriceKey(t *testing.T) {
-	denom := "umee"
+	denom := "katana"
 	blockNum := uint64(4567)
 	key := KeyHistoricPrice(denom, blockNum)
 
@@ -118,7 +118,7 @@ func TestParseDenomAndBlockFromHistoricPriceKey(t *testing.T) {
 }
 
 func TestParseDenomAndBlockFromMedianKey(t *testing.T) {
-	denom := "umee"
+	denom := "katana"
 	blockNum := uint64(4567)
 	key := KeyMedian(denom, blockNum)
 
@@ -128,7 +128,7 @@ func TestParseDenomAndBlockFromMedianKey(t *testing.T) {
 }
 
 func TestParseDenomAndBlockFromMedianDeviationKey(t *testing.T) {
-	denom := "umee"
+	denom := "katana"
 	blockNum := uint64(4567)
 	key := KeyMedianDeviation(denom, blockNum)
 

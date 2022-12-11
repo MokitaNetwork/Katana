@@ -23,15 +23,15 @@ import (
 	tmcfg "github.com/tendermint/tendermint/config"
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/leverage"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/leverage"
 )
 
-// NewRootCmd returns the root command handler for the Umee daemon.
+// NewRootCmd returns the root command handler for the Katana daemon.
 func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
-	encodingConfig := umeeapp.MakeEncodingConfig()
-	moduleManager := umeeapp.ModuleBasics
+	encodingConfig := katanaapp.MakeEncodingConfig()
+	moduleManager := katanaapp.ModuleBasics
 
 	initClientCtx := client.Context{}.
 		WithCodec(encodingConfig.Codec).
@@ -41,13 +41,13 @@ func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
 		WithInput(os.Stdin).
 		WithAccountRetriever(types.AccountRetriever{}).
 		WithBroadcastMode(flags.BroadcastBlock).
-		WithHomeDir(umeeapp.DefaultNodeHome).
+		WithHomeDir(katanaapp.DefaultNodeHome).
 		WithViper(appparams.Name)
 
 	rootCmd := &cobra.Command{
 		Use:   appparams.Name + "d",
-		Short: "Umee application network daemon and client",
-		Long: `A daemon and client for interacting with the Umee network. Umee is a
+		Short: "Katana application network daemon and client",
+		Long: `A daemon and client for interacting with the Katana network. Katana is a
 Universal Capital Facility that can collateralize assets on one blockchain
 towards borrowing assets on another blockchain.`,
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
@@ -146,40 +146,40 @@ func initRootCmd(rootCmd *cobra.Command, a appCreator) {
 		a.moduleManager,
 		a.encCfg.TxConfig,
 		banktypes.GenesisBalancesIterator{},
-		umeeapp.DefaultNodeHome,
+		katanaapp.DefaultNodeHome,
 	)
 	bridgeGenTxCmd.Use = strings.Replace(bridgeGenTxCmd.Use, "gentx", "gentx-gravity", 1)
 
 	gentxModule := a.moduleManager[genutiltypes.ModuleName].(genutil.AppModuleBasic)
-	gentxModule.GenTxValidator = umeeapp.GenTxValidator
+	gentxModule.GenTxValidator = katanaapp.GenTxValidator
 	a.moduleManager[genutiltypes.ModuleName] = gentxModule
 
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(a.moduleManager, umeeapp.DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, umeeapp.DefaultNodeHome, umeeapp.GenTxValidator),
+		genutilcli.InitCmd(a.moduleManager, katanaapp.DefaultNodeHome),
+		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, katanaapp.DefaultNodeHome, katanaapp.GenTxValidator),
 		genutilcli.MigrateGenesisCmd(),
 		genutilcli.GenTxCmd(
 			a.moduleManager,
 			a.encCfg.TxConfig,
 			banktypes.GenesisBalancesIterator{},
-			umeeapp.DefaultNodeHome,
+			katanaapp.DefaultNodeHome,
 		),
 		bridgeGenTxCmd,
 		genutilcli.ValidateGenesisCmd(a.moduleManager),
-		addGenesisAccountCmd(umeeapp.DefaultNodeHome),
+		addGenesisAccountCmd(katanaapp.DefaultNodeHome),
 		tmcli.NewCompletionCmd(rootCmd, true),
 		debugCmd(),
 		config.Cmd(),
 	)
 
-	server.AddCommands(rootCmd, umeeapp.DefaultNodeHome, a.newApp, a.appExport, addModuleInitFlags)
+	server.AddCommands(rootCmd, katanaapp.DefaultNodeHome, a.newApp, a.appExport, addModuleInitFlags)
 
 	// add keybase, auxiliary RPC, query, and tx child commands
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
 		queryCommand(a),
 		txCommand(a),
-		keys.Commands(umeeapp.DefaultNodeHome),
+		keys.Commands(katanaapp.DefaultNodeHome),
 	)
 
 	// add rosetta

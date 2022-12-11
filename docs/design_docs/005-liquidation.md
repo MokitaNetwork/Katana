@@ -11,7 +11,7 @@ Accepted
 
 ## Context
 
-When borrowers on Umee exceed their borrow limit due to interest accrual or asset price fluctuations, their positions become eligible for liquidation.
+When borrowers on Katana exceed their borrow limit due to interest accrual or asset price fluctuations, their positions become eligible for liquidation.
 
 Third party liquidators pay off part of all of the borrower's loan, in exchange for a value of collateral equal to the amount paid off plus an additional bonus (the liquidation incentive).
 

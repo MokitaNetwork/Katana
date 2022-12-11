@@ -11,17 +11,17 @@ Implemented
 
 ## Context
 
-One of the base functions of the Umee universal capital facility is to allow liquidity providers to deposit assets and earn interest on their deposits.
+One of the base functions of the Katana universal capital facility is to allow liquidity providers to deposit assets and earn interest on their deposits.
 
-From section 2.1 of the [Umee Whitepaper](https://www.umee.cc/umee-whitepaper.pdf):
+From section 2.1 of the [Katana Whitepaper](https://www.katana.cc/katana-whitepaper.pdf):
 
-> Upon deposit of assets into the Asset Facilities, users will receive an amount of tokens called uTokens that map 1:1 with the asset deposited. uTokens are initially minted on Umee and can bridge over to Ethereum as ERC20 tokens.
+> Upon deposit of assets into the Asset Facilities, users will receive an amount of tokens called uTokens that map 1:1 with the asset deposited. uTokens are initially minted on Katana and can bridge over to Ethereum as ERC20 tokens.
 >
 > The balance of uTokens grows over time by the underlying interest rate applied to the deposits. uTokens will employ an interest stream mechanism which means that a balance of uTokens will constantly generate income even when split or transferred.
 
 Interest on uTokens must be applied in at least the following scenarios:
 
-- uToken balances held on the Umee chain
+- uToken balances held on the Katana chain
 - uToken balances held on Ethereum as ERC20
 - uToken balances sent to other Cosmos chains via IBC
 - uToken balances transferred or split between wallets, in any of the above situations
@@ -44,9 +44,9 @@ This means that if uTokens are to be sent to other Cosmos blockchains, then the 
 
 "uToken to base asset exchange rate grows over time". This method is inspired by the Compound model, as illustrated in [the example found here](https://compound.finance/docs/ctokens#introduction)
 
-- Requirement: Umee chain maintains `Token:uToken` exchange rate for each token
+- Requirement: Katana chain maintains `Token:uToken` exchange rate for each token
 
-In this implementation, for each token type accepted by the `x/leverage` module, the Umee chain computes an "exchange rate" between the base asset and its associated uToken. The exchange rate starts equal to 1, and increases as interest accrues. Whenever a lender deposits or withdraws base assets for uToken, the current exchange rate is used.
+In this implementation, for each token type accepted by the `x/leverage` module, the Katana chain computes an "exchange rate" between the base asset and its associated uToken. The exchange rate starts equal to 1, and increases as interest accrues. Whenever a lender deposits or withdraws base assets for uToken, the current exchange rate is used.
 
 Example scenario:
 
@@ -102,5 +102,5 @@ Moving to exchange-rate-based implementation of the interest rate solves a good 
 
 ## References
 
-- [Umee Whitepaper](https://www.umee.cc/umee-whitepaper.pdf)
+- [Katana Whitepaper](https://www.katana.cc/katana-whitepaper.pdf)
 - [Cosmos IBC tutorial](https://tutorials.cosmos.network/tutorials/understanding-ibc-denoms/#understand-ibc-denoms-with-gaia)

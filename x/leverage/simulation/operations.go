@@ -11,10 +11,10 @@ import (
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	umeesim "github.com/umee-network/umee/v3/util/sim"
-	"github.com/umee-network/umee/v3/x/leverage/keeper"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	katanasim "github.com/mokitanetwork/katana/util/sim"
+	"github.com/mokitanetwork/katana/x/leverage/keeper"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 // Default simulation operation weights for leverage messages
@@ -443,5 +443,5 @@ func deliver(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, ak simulation.
 	}
 
 	// note: leverage operations are more expensive!
-	return umeesim.GenAndDeliver(bk, o, appparams.DefaultGasLimit*50)
+	return katanasim.GenAndDeliver(bk, o, appparams.DefaultGasLimit*50)
 }

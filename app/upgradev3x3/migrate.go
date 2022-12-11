@@ -9,7 +9,7 @@ import (
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/gogo/protobuf/proto"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 // Implements Proposal Interface

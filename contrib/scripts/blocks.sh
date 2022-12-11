@@ -5,13 +5,13 @@
 CHAIN_ID="${CHAIN_ID:-888}"
 NODE_URL="${NODE_URL:-"tcp://localhost:26657"}"
 BLOCK_TIME="${BLOCK_TIME:-6}"
-UMEED_BIN="${UMEED_BIN:-umeed}"
+KATANAD_BIN="${KATANAD_BIN:-katanad}"
 
 cid="--chain-id $CHAIN_ID"
 nodeUrlFlag="--node $NODE_URL"
 
 get_block_current_height() {
-  QUERY_RESPONSE="$($UMEED_BIN query block $nodeUrlFlag $cid)"
+  QUERY_RESPONSE="$($KATANAD_BIN query block $nodeUrlFlag $cid)"
   CURR_BLOCK_HEIGHT=$(echo $QUERY_RESPONSE | jq -r '.block.header.height')
   echo $CURR_BLOCK_HEIGHT
 }

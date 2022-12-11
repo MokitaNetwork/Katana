@@ -6,14 +6,14 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/cmd/umeed/cmd"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/cmd/katanad/cmd"
 )
 
 func main() {
 	rootCmd, _ := cmd.NewRootCmd()
-	if err := svrcmd.Execute(rootCmd, strings.ToUpper(appparams.Name), umeeapp.DefaultNodeHome); err != nil {
+	if err := svrcmd.Execute(rootCmd, strings.ToUpper(appparams.Name), katanaapp.DefaultNodeHome); err != nil {
 		os.Exit(1)
 	}
 }

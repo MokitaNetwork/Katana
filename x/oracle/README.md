@@ -2,9 +2,9 @@
 
 ## Abstract
 
-The Oracle module provides the Umee blockchain with an up-to-date and accurate price feed of exchange rates of multiple currencies against the USD for the [Leverage](../leverage/README.md) module.
+The Oracle module provides the Katana blockchain with an up-to-date and accurate price feed of exchange rates of multiple currencies against the USD for the [Leverage](../leverage/README.md) module.
 
-As price information is extrinsic to the blockchain, the Umee network relies on validators to periodically vote on current exchange rates, with the protocol tallying up the results once per `VotePeriod` and updating the on-chain exchange rates as the weighted median of the ballot.
+As price information is extrinsic to the blockchain, the Katana network relies on validators to periodically vote on current exchange rates, with the protocol tallying up the results once per `VotePeriod` and updating the on-chain exchange rates as the weighted median of the ballot.
 
 > Since the Oracle service is powered by validators, you may find it interesting to look at the [Staking](https://github.com/cosmos/cosmos-sdk/tree/master/x/staking/spec/README.md) module, which covers the logic for staking and validators.
 
@@ -103,7 +103,7 @@ An `sdk.Dec` that stores an exchange rate against USD, which is used by the [Lev
 
 ### FeederDelegation
 
-An `sdk.AccAddress` (`umee-` account) address for `operator` price feeder rewards.
+An `sdk.AccAddress` (`katana-` account) address for `operator` price feeder rewards.
 
 - FeederDelegation: `0x02 | byte(valAddress length) | byte(valAddress) -> sdk.AccAddress`
 
@@ -183,12 +183,12 @@ At the end of every block, the `Oracle` module checks whether it's the last bloc
 
 ## Messages
 
-See [oracle tx proto](https://github.com/umee-network/umee/blob/main/proto/umee/oracle/v1/tx.proto#L11) for list of supported messages.
+See [oracle tx proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/tx.proto#L11) for list of supported messages.
 
 ## Events
 
-See [oracle events proto](https://github.com/umee-network/umee/blob/main/proto/umee/oracle/v1/events.proto) for list of supported events.
+See [oracle events proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/events.proto) for list of supported events.
 
 ## Params
 
-See [oracle events proto](https://github.com/umee-network/umee/blob/main/proto/umee/oracle/v1/oracle.proto#L11) for list of module parameters.
+See [oracle events proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/oracle.proto#L11) for list of module parameters.

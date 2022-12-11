@@ -21,9 +21,9 @@ var (
 	_ StakingKeeper           = MockStakingKeeper{}
 	_ stakingtypes.ValidatorI = MockValidator{}
 
-	DenomUmee = Denom{
-		BaseDenom:   UmeeDenom,
-		SymbolDenom: UmeeSymbol,
+	DenomKatana = Denom{
+		BaseDenom:   KatanaDenom,
+		SymbolDenom: KatanaSymbol,
 		Exponent:    6,
 	}
 	DenomLuna = Denom{

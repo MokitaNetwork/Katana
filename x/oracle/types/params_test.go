@@ -72,12 +72,12 @@ func TestValidateAcceptList(t *testing.T) {
 	require.ErrorContains(t, err, "oracle parameter AcceptList Denom must have BaseDenom")
 
 	err = validateAcceptList(DenomList{
-		{BaseDenom: DenomUmee.BaseDenom, SymbolDenom: ""},
+		{BaseDenom: DenomKatana.BaseDenom, SymbolDenom: ""},
 	})
 	require.ErrorContains(t, err, "oracle parameter AcceptList Denom must have SymbolDenom")
 
 	err = validateAcceptList(DenomList{
-		{BaseDenom: DenomUmee.BaseDenom, SymbolDenom: DenomUmee.SymbolDenom},
+		{BaseDenom: DenomKatana.BaseDenom, SymbolDenom: DenomKatana.SymbolDenom},
 	})
 	require.Nil(t, err)
 }

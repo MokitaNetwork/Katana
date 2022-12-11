@@ -6,9 +6,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/oracle/keeper"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/oracle/keeper"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 func (s *IntegrationTestSuite) TestQuerier_ActiveExchangeRates() {
@@ -206,15 +206,15 @@ func (s *IntegrationTestSuite) TestQuerier_Medians() {
 	app, ctx := s.app, s.ctx
 
 	atomMedian := sdk.DecCoin{Denom: "atom", Amount: sdk.MustNewDecFromStr("49.99")}
-	umeeMedian := sdk.DecCoin{Denom: "umee", Amount: sdk.MustNewDecFromStr("6541.48")}
+	katanaMedian := sdk.DecCoin{Denom: "katana", Amount: sdk.MustNewDecFromStr("6541.48")}
 
 	app.OracleKeeper.SetMedianStampPeriod(ctx, 1)
 	app.OracleKeeper.SetHistoricMedian(ctx, atomMedian.Denom, uint64(ctx.BlockHeight()-1), atomMedian.Amount)
-	app.OracleKeeper.SetHistoricMedian(ctx, umeeMedian.Denom, uint64(ctx.BlockHeight()-1), umeeMedian.Amount)
+	app.OracleKeeper.SetHistoricMedian(ctx, katanaMedian.Denom, uint64(ctx.BlockHeight()-1), katanaMedian.Amount)
 
 	res, err := s.queryClient.Medians(ctx.Context(), &types.QueryMedians{})
 	s.Require().NoError(err)
-	s.Require().Equal(res.Medians, sdk.NewDecCoins(atomMedian, umeeMedian))
+	s.Require().Equal(res.Medians, sdk.NewDecCoins(atomMedian, katanaMedian))
 
 	res, err = s.queryClient.Medians(ctx.Context(), &types.QueryMedians{Denom: atomMedian.Denom})
 	s.Require().NoError(err)
@@ -225,15 +225,15 @@ func (s *IntegrationTestSuite) TestQuerier_MedianDeviations() {
 	app, ctx := s.app, s.ctx
 
 	atomMedianDeviation := sdk.DecCoin{Denom: "atom", Amount: sdk.MustNewDecFromStr("39.99")}
-	umeeMedianDeviation := sdk.DecCoin{Denom: "umee", Amount: sdk.MustNewDecFromStr("9541.48")}
+	katanaMedianDeviation := sdk.DecCoin{Denom: "katana", Amount: sdk.MustNewDecFromStr("9541.48")}
 
 	app.OracleKeeper.SetMedianStampPeriod(ctx, 1)
 	app.OracleKeeper.SetHistoricMedianDeviation(ctx, atomMedianDeviation.Denom, uint64(ctx.BlockHeight()-1), atomMedianDeviation.Amount)
-	app.OracleKeeper.SetHistoricMedianDeviation(ctx, umeeMedianDeviation.Denom, uint64(ctx.BlockHeight()-1), umeeMedianDeviation.Amount)
+	app.OracleKeeper.SetHistoricMedianDeviation(ctx, katanaMedianDeviation.Denom, uint64(ctx.BlockHeight()-1), katanaMedianDeviation.Amount)
 
 	res, err := s.queryClient.MedianDeviations(ctx.Context(), &types.QueryMedianDeviations{})
 	s.Require().NoError(err)
-	s.Require().Equal(res.MedianDeviations, sdk.NewDecCoins(atomMedianDeviation, umeeMedianDeviation))
+	s.Require().Equal(res.MedianDeviations, sdk.NewDecCoins(atomMedianDeviation, katanaMedianDeviation))
 
 	res, err = s.queryClient.MedianDeviations(ctx.Context(), &types.QueryMedianDeviations{Denom: atomMedianDeviation.Denom})
 	s.Require().NoError(err)

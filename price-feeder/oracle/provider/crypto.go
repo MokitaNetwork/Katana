@@ -12,7 +12,7 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 const (
@@ -377,7 +377,7 @@ func (p *CryptoProvider) setSubscribedPairs(cps ...types.CurrencyPair) {
 }
 
 // GetAvailablePairs returns all pairs to which the provider can subscribe.
-// ex.: map["ATOMUSDT" => {}, "UMEEUSDC" => {}].
+// ex.: map["ATOMUSDT" => {}, "KATANAUSDC" => {}].
 func (p *CryptoProvider) GetAvailablePairs() (map[string]struct{}, error) {
 	resp, err := http.Get(p.endpoints.Rest + cryptoRestPath)
 	if err != nil {

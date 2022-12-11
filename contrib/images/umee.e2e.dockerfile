@@ -3,14 +3,14 @@ FROM golang:1.19-alpine AS base-builder
 ENV PACKAGES make git libc-dev gcc linux-headers ca-certificates build-base
 RUN apk add --no-cache $PACKAGES
 
-# Fetch base umee packages
-FROM base-builder AS umee-base-builder
+# Fetch base katana packages
+FROM base-builder AS katana-base-builder
 ENV PACKAGES curl bash eudev-dev python3
 RUN apk add --no-cache $PACKAGES
 
-# Compile the umeed binary
-FROM umee-base-builder AS umeed-builder
-WORKDIR /src/umee
+# Compile the katanad binary
+FROM katana-base-builder AS katanad-builder
+WORKDIR /src/katana
 COPY . .
 RUN go mod download
 
@@ -34,8 +34,8 @@ RUN cd peggo && git checkout ${PEGGO_VERSION} && make build && cp ./build/peggo 
 
 # Add to a distroless container
 FROM gcr.io/distroless/cc:debug
-COPY --from=umeed-builder /go/bin/* /usr/local/bin/
+COPY --from=katanad-builder /go/bin/* /usr/local/bin/
 COPY --from=peggo-builder /usr/local/bin/peggo /usr/local/bin/
 
 EXPOSE 26656 26657 1317 9090 7171
-ENTRYPOINT ["umeed", "start"]
+ENTRYPOINT ["katanad", "start"]

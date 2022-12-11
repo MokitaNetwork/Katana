@@ -10,26 +10,26 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
+	katanaapp "github.com/mokitanetwork/katana/app"
 )
 
 func SetupTestingApp() (ibctesting.TestingApp, map[string]json.RawMessage) {
 	db := dbm.NewMemDB()
-	encConfig := umeeapp.MakeEncodingConfig()
-	app := umeeapp.New(
+	encConfig := katanaapp.MakeEncodingConfig()
+	app := katanaapp.New(
 		log.NewNopLogger(),
 		db,
 		nil,
 		true,
 		map[int64]bool{},
-		umeeapp.DefaultNodeHome,
+		katanaapp.DefaultNodeHome,
 		5,
 		encConfig,
-		umeeapp.EmptyAppOptions{},
-		umeeapp.GetWasmEnabledProposals(),
-		umeeapp.EmptyWasmOpts,
+		katanaapp.EmptyAppOptions{},
+		katanaapp.GetWasmEnabledProposals(),
+		katanaapp.EmptyWasmOpts,
 	)
-	genesisState := umeeapp.NewDefaultGenesisState(encConfig.Codec)
+	genesisState := katanaapp.NewDefaultGenesisState(encConfig.Codec)
 
 	return app, genesisState
 }

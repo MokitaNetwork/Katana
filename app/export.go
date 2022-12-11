@@ -16,7 +16,7 @@ import (
 
 // ExportAppStateAndValidators exports the state of the application for a genesis
 // file.
-func (app *UmeeApp) ExportAppStateAndValidators(
+func (app *KatanaApp) ExportAppStateAndValidators(
 	forZeroHeight bool,
 	jailAllowedAddrs []string,
 ) (servertypes.ExportedApp, error) {
@@ -46,7 +46,7 @@ func (app *UmeeApp) ExportAppStateAndValidators(
 	}, err
 }
 
-func (app *UmeeApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []string) {
+func (app *KatanaApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []string) {
 	applyAllowedAddrs := false
 
 	// check if there is a allowed address list

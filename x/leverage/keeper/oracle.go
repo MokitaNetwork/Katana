@@ -4,17 +4,17 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	oracletypes "github.com/umee-network/umee/v3/x/oracle/types"
+	oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 var ten = sdk.MustNewDecFromStr("10")
 
 // TokenBasePrice returns the USD value of a base token. Note, the token's denomination
-// must be the base denomination, e.g. uumee. The x/oracle module must know of
+// must be the base denomination, e.g. ukatana. The x/oracle module must know of
 // the base and display/symbol denominations for each exchange pair. E.g. it must
-// know about the UMEE/USD exchange rate along with the uumee base denomination
+// know about the KATANA/USD exchange rate along with the ukatana base denomination
 // and the exponent. When error is nil, price is guaranteed to be positive.
 func (k Keeper) TokenBasePrice(ctx sdk.Context, baseDenom string) (sdk.Dec, error) {
 	t, err := k.GetTokenSettings(ctx, baseDenom)
@@ -38,8 +38,8 @@ func (k Keeper) TokenBasePrice(ctx sdk.Context, baseDenom string) (sdk.Dec, erro
 	return price, nil
 }
 
-// TokenDefaultDenomPrice returns the USD value of a token's symbol denom, e.g. UMEE. Note, the input
-// denom must still be the base denomination, e.g. uumee. When error is nil, price is guaranteed
+// TokenDefaultDenomPrice returns the USD value of a token's symbol denom, e.g. KATANA. Note, the input
+// denom must still be the base denomination, e.g. ukatana. When error is nil, price is guaranteed
 // to be positive. Also returns the token's exponent to reduce redundant registry reads.
 func (k Keeper) TokenDefaultDenomPrice(ctx sdk.Context, baseDenom string) (sdk.Dec, uint32, error) {
 	t, err := k.GetTokenSettings(ctx, baseDenom)

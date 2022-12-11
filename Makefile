@@ -8,8 +8,8 @@ DIST_DIR       ?= $(CURDIR)/dist
 LEDGER_ENABLED ?= true
 TM_VERSION     := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::')
 DOCKER         := $(shell which docker)
-PROJECT_NAME   := umee
-HTTPS_GIT      := https://github.com/umee-network/umee.git
+PROJECT_NAME   := katana
+HTTPS_GIT      := https://github.com/umee-network/katana.git
 
 ###############################################################################
 ##                                  Version                                  ##
@@ -64,8 +64,8 @@ comma := ,
 build_tags += $(BUILD_TAGS)
 build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=umee \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=umeed \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=katana \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=katanad \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
@@ -121,7 +121,7 @@ clean:
 ###############################################################################
 
 docker-build:
-	@docker build -t umeenet/umeed-e2e -f contrib/images/umee.e2e.dockerfile .
+	@docker build -t katananet/katanad-e2e -f contrib/images/katana.e2e.dockerfile .
 
 docker-push-hermes:
 	@cd tests/e2e/docker; docker build -t ghcr.io/umee-network/hermes-e2e:latest -f hermes.Dockerfile .; docker push ghcr.io/umee-network/hermes-e2e:latest

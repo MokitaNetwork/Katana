@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 type mockOracleKeeper struct {
@@ -44,7 +44,7 @@ func (m *mockOracleKeeper) GetExchangeRateBase(ctx sdk.Context, denom string) (s
 
 func (m *mockOracleKeeper) Reset() {
 	m.symbolExchangeRates = map[string]sdk.Dec{
-		"UMEE": sdk.MustNewDecFromStr("4.21"),
+		"KATANA": sdk.MustNewDecFromStr("4.21"),
 		"ATOM": sdk.MustNewDecFromStr("39.38"),
 		"DAI":  sdk.MustNewDecFromStr("1.00"),
 	}
@@ -93,7 +93,7 @@ func (s *IntegrationTestSuite) TestOracle_TokenSymbolPrice() {
 func (s *IntegrationTestSuite) TestOracle_TokenValue() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// 2.4 UMEE * $4.21
+	// 2.4 KATANA * $4.21
 	v, err := app.LeverageKeeper.TokenValue(ctx, coin(appparams.BondDenom, 2_400000))
 	require.NoError(err)
 	require.Equal(sdk.MustNewDecFromStr("10.104"), v)
@@ -106,7 +106,7 @@ func (s *IntegrationTestSuite) TestOracle_TokenValue() {
 func (s *IntegrationTestSuite) TestOracle_TotalTokenValue() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// (2.4 UMEE * $4.21) + (4.7 ATOM * $39.38)
+	// (2.4 KATANA * $4.21) + (4.7 ATOM * $39.38)
 	v, err := app.LeverageKeeper.TotalTokenValue(
 		ctx,
 		sdk.NewCoins(

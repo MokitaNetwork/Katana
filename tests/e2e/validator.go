@@ -25,8 +25,8 @@ import (
 	p2p "github.com/tendermint/tendermint/p2p"
 	"github.com/tendermint/tendermint/privval"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 type validator struct {
@@ -69,7 +69,7 @@ func (v *validator) init() error {
 		return err
 	}
 
-	appState, err := json.MarshalIndent(umeeapp.ModuleBasics.DefaultGenesis(cdc), "", " ")
+	appState, err := json.MarshalIndent(katanaapp.ModuleBasics.DefaultGenesis(cdc), "", " ")
 	if err != nil {
 		return fmt.Errorf("failed to JSON encode app genesis state: %w", err)
 	}

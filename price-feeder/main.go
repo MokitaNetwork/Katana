@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/umee-network/umee/price-feeder/cmd"
+	"github.com/umee-network/katana/price-feeder/cmd"
 )
 
 func main() {

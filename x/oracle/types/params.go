@@ -41,9 +41,9 @@ var (
 	DefaultRewardBand    = sdk.NewDecWithPrec(2, 2)  // 2% (-1, 1)
 	DefaultAcceptList    = DenomList{
 		{
-			BaseDenom:   UmeeDenom,
-			SymbolDenom: UmeeSymbol,
-			Exponent:    UmeeExponent,
+			BaseDenom:   KatanaDenom,
+			SymbolDenom: KatanaSymbol,
+			Exponent:    KatanaExponent,
 		},
 		{
 			BaseDenom:   AtomDenom,

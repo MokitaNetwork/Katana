@@ -9,8 +9,8 @@ import (
 	banktestutil "github.com/cosmos/cosmos-sdk/x/bank/testutil"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/util/coin"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/util/coin"
 )
 
 // GenAndDeliverTxWithRandFees generates a transaction with a random fee and delivers it.

@@ -4,8 +4,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// AccountAddressPrefix defines the Umee network's Bech32 address prefix.
-const AccountAddressPrefix = "umee"
+// AccountAddressPrefix defines the Katana network's Bech32 address prefix.
+const AccountAddressPrefix = "katana"
 
 // Account specific Bech32 prefixes.
 var (
@@ -16,7 +16,7 @@ var (
 	ConsNodePubKeyPrefix   = AccountAddressPrefix + "valconspub"
 )
 
-// SetAddressConfig sets Umee's address configuration.
+// SetAddressConfig sets Katana's address configuration.
 func SetAddressConfig() {
 	config := sdk.GetConfig()
 	config.SetBech32PrefixForAccount(AccountAddressPrefix, AccountPubKeyPrefix)

@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 func TestMockProvider_GetTickerPrices(t *testing.T) {
@@ -17,7 +17,7 @@ func TestMockProvider_GetTickerPrices(t *testing.T) {
 		server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 			require.Equal(t, "/", req.URL.String())
 			resp := `Base,Quote,Price,Volume
-UMEE,USDT,3.04,1827884.77
+KATANA,USDT,3.04,1827884.77
 ATOM,USDC,21.84,1827884.77
 `
 			rw.Write([]byte(resp))
@@ -27,18 +27,18 @@ ATOM,USDC,21.84,1827884.77
 		mp.client = server.Client()
 		mp.baseURL = server.URL
 
-		prices, err := mp.GetTickerPrices(types.CurrencyPair{Base: "UMEE", Quote: "USDT"})
+		prices, err := mp.GetTickerPrices(types.CurrencyPair{Base: "KATANA", Quote: "USDT"})
 		require.NoError(t, err)
 		require.Len(t, prices, 1)
-		require.Equal(t, sdk.MustNewDecFromStr("3.04"), prices["UMEEUSDT"].Price)
-		require.Equal(t, sdk.MustNewDecFromStr("1827884.77"), prices["UMEEUSDT"].Volume)
+		require.Equal(t, sdk.MustNewDecFromStr("3.04"), prices["KATANAUSDT"].Price)
+		require.Equal(t, sdk.MustNewDecFromStr("1827884.77"), prices["KATANAUSDT"].Volume)
 	})
 
 	t.Run("valid_request_multi_ticker", func(t *testing.T) {
 		server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 			require.Equal(t, "/", req.URL.String())
 			resp := `Base,Quote,Price,Volume
-UMEE,USDT,3.04,1827884.77
+KATANA,USDT,3.04,1827884.77
 ATOM,USDC,21.84,1827884.77
 `
 			rw.Write([]byte(resp))
@@ -49,13 +49,13 @@ ATOM,USDC,21.84,1827884.77
 		mp.baseURL = server.URL
 
 		prices, err := mp.GetTickerPrices(
-			types.CurrencyPair{Base: "UMEE", Quote: "USDT"},
+			types.CurrencyPair{Base: "KATANA", Quote: "USDT"},
 			types.CurrencyPair{Base: "ATOM", Quote: "USDC"},
 		)
 		require.NoError(t, err)
 		require.Len(t, prices, 2)
-		require.Equal(t, sdk.MustNewDecFromStr("3.04"), prices["UMEEUSDT"].Price)
-		require.Equal(t, sdk.MustNewDecFromStr("1827884.77"), prices["UMEEUSDT"].Volume)
+		require.Equal(t, sdk.MustNewDecFromStr("3.04"), prices["KATANAUSDT"].Price)
+		require.Equal(t, sdk.MustNewDecFromStr("1827884.77"), prices["KATANAUSDT"].Volume)
 		require.Equal(t, sdk.MustNewDecFromStr("21.84"), prices["ATOMUSDC"].Price)
 		require.Equal(t, sdk.MustNewDecFromStr("1827884.77"), prices["ATOMUSDC"].Volume)
 	})
@@ -70,7 +70,7 @@ ATOM,USDC,21.84,1827884.77
 		mp.client = server.Client()
 		mp.baseURL = server.URL
 
-		prices, err := mp.GetTickerPrices(types.CurrencyPair{Base: "UMEE", Quote: "USDT"})
+		prices, err := mp.GetTickerPrices(types.CurrencyPair{Base: "KATANA", Quote: "USDT"})
 		require.Error(t, err)
 		require.Nil(t, prices)
 	})

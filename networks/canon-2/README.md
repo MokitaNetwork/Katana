@@ -9,27 +9,27 @@ mainnet (1.0 -> 1.1 -> 3.0) however the v3.0 update introduced consensus bug and
 
 ## Syncing
 
-If you start from scratch, start with umeed v3.0.2 and follow the mainnet upgrades outlined in the [Compatibilty Matrix](https://github.com/umee-network/umee#release-compatibility-matrix).
+If you start from scratch, start with katanad v3.0.2 and follow the mainnet upgrades outlined in the [Compatibilty Matrix](https://github.com/umee-network/katana#release-compatibility-matrix).
 
 ### Our validator + archive nodes
 
 ```shell
-api.ruby.canon-2.network.umee.cc
-rpc.ruby.canon-2.network.umee.cc
-grpc.ruby.canon-2.network.umee.cc
+api.ruby.canon-2.network.katana.cc
+rpc.ruby.canon-2.network.katana.cc
+grpc.ruby.canon-2.network.katana.cc
 
-api.emerald.canon-2.network.umee.cc
-rpc.emerald.canon-2.network.umee.cc
-grpc.emerald.canon-2.network.umee.cc
+api.emerald.canon-2.network.katana.cc
+rpc.emerald.canon-2.network.katana.cc
+grpc.emerald.canon-2.network.katana.cc
 
-api.sapphire.canon-2.network.umee.cc
-rpc.sapphire.canon-2.network.umee.cc
-grpc.sapphire.canon-2.network.umee.cc
+api.sapphire.canon-2.network.katana.cc
+rpc.sapphire.canon-2.network.katana.cc
+grpc.sapphire.canon-2.network.katana.cc
 ```
 
 ### To state sync
 
-- init with umeed 3.0.2
+- init with katanad 3.0.2
 - modify config.toml
 - modify app.toml
 - overwrite genesis.json
@@ -47,7 +47,7 @@ version = "v1"
 
 [statesync]
 enable = true
-rpc_servers = "https://rpc.sapphire.canon-2.network.umee.cc:443,https://rpc.emerald.canon-2.network.umee.cc:443"
+rpc_servers = "https://rpc.sapphire.canon-2.network.katana.cc:443,https://rpc.emerald.canon-2.network.katana.cc:443"
 trust_height = 30000
 trust_hash = "67D5E02CCA0508FF464D991C9B2F688A804A6AF821A91461A353C53E90FFD0D3"
 
@@ -58,7 +58,7 @@ seeds = "ab9e8d7227a3199c2832018eec42ade5bf47e71d@35.215.72.45:26656,e89407a37d2
 ### app.toml changes
 
 ```toml
-minimum-gas-prices = "0uumee"
+minimum-gas-prices = "0ukatana"
 
 [state-sync]
 snapshot-interval=1000

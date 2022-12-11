@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/umee-network/umee/v3/x/leverage/fixtures"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/fixtures"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func (s *IntegrationTestSuite) TestQuerier_RegisteredTokens() {
@@ -32,14 +32,14 @@ func (s *IntegrationTestSuite) TestQuerier_MarketSummary() {
 	_, err := s.queryClient.MarketSummary(context.Background(), req)
 	require.ErrorContains(err, "empty denom")
 
-	req = &types.QueryMarketSummary{Denom: "uumee"}
+	req = &types.QueryMarketSummary{Denom: "ukatana"}
 	resp, err := s.queryClient.MarketSummary(context.Background(), req)
 	require.NoError(err)
 
 	oracleSymbolPrice := sdk.MustNewDecFromStr("4.21")
 
 	expected := types.QueryMarketSummaryResponse{
-		SymbolDenom:            "UMEE",
+		SymbolDenom:            "KATANA",
 		Exponent:               6,
 		OraclePrice:            &oracleSymbolPrice,
 		UTokenExchangeRate:     sdk.OneDec(),
@@ -64,20 +64,20 @@ func (s *IntegrationTestSuite) TestQuerier_MarketSummary() {
 func (s *IntegrationTestSuite) TestQuerier_AccountBalances() {
 	ctx, require := s.ctx, s.Require()
 
-	// creates account which has supplied and collateralized 1000 uumee
-	addr := s.newAccount(coin(umeeDenom, 1000))
-	s.supply(addr, coin(umeeDenom, 1000))
-	s.collateralize(addr, coin("u/"+umeeDenom, 1000))
+	// creates account which has supplied and collateralized 1000 ukatana
+	addr := s.newAccount(coin(katanaDenom, 1000))
+	s.supply(addr, coin(katanaDenom, 1000))
+	s.collateralize(addr, coin("u/"+katanaDenom, 1000))
 
 	resp, err := s.queryClient.AccountBalances(ctx.Context(), &types.QueryAccountBalances{Address: addr.String()})
 	require.NoError(err)
 
 	expected := types.QueryAccountBalancesResponse{
 		Supplied: sdk.NewCoins(
-			coin(umeeDenom, 1000),
+			coin(katanaDenom, 1000),
 		),
 		Collateral: sdk.NewCoins(
-			coin("u/"+umeeDenom, 1000),
+			coin("u/"+katanaDenom, 1000),
 		),
 		Borrowed: nil,
 	}
@@ -88,18 +88,18 @@ func (s *IntegrationTestSuite) TestQuerier_AccountBalances() {
 func (s *IntegrationTestSuite) TestQuerier_AccountSummary() {
 	ctx, require := s.ctx, s.Require()
 
-	// creates account which has supplied and collateralized 1000 UMEE
-	addr := s.newAccount(coin(umeeDenom, 1000_000000))
-	s.supply(addr, coin(umeeDenom, 1000_000000))
-	s.collateralize(addr, coin("u/"+umeeDenom, 1000_000000))
+	// creates account which has supplied and collateralized 1000 KATANA
+	addr := s.newAccount(coin(katanaDenom, 1000_000000))
+	s.supply(addr, coin(katanaDenom, 1000_000000))
+	s.collateralize(addr, coin("u/"+katanaDenom, 1000_000000))
 
 	resp, err := s.queryClient.AccountSummary(ctx.Context(), &types.QueryAccountSummary{Address: addr.String()})
 	require.NoError(err)
 
 	expected := types.QueryAccountSummaryResponse{
-		// This result is umee's oracle exchange rate from
+		// This result is katana's oracle exchange rate from
 		// from .Reset() in x/leverage/keeper/oracle_test.go
-		// times the amount of umee, then sometimes times params
+		// times the amount of katana, then sometimes times params
 		// from newToken in x/leverage/keeper/keeper_test.go
 		// (1000) * 4.21 = 4210
 		SuppliedValue: sdk.MustNewDecFromStr("4210"),
@@ -145,35 +145,35 @@ func (s *IntegrationTestSuite) TestQuerier_BadDebts() {
 func (s *IntegrationTestSuite) TestQuerier_MaxWithdraw() {
 	ctx, require := s.ctx, s.Require()
 
-	// creates account which has supplied and collateralized 1000 UMEE
-	addr := s.newAccount(coin(umeeDenom, 1000_000000))
-	s.supply(addr, coin(umeeDenom, 1000_000000))
-	s.collateralize(addr, coin("u/"+umeeDenom, 1000_000000))
+	// creates account which has supplied and collateralized 1000 KATANA
+	addr := s.newAccount(coin(katanaDenom, 1000_000000))
+	s.supply(addr, coin(katanaDenom, 1000_000000))
+	s.collateralize(addr, coin("u/"+katanaDenom, 1000_000000))
 
 	resp, err := s.queryClient.MaxWithdraw(ctx.Context(), &types.QueryMaxWithdraw{
 		Address: addr.String(),
-		Denom:   umeeDenom,
+		Denom:   katanaDenom,
 	})
 	require.NoError(err)
 
 	expected := types.QueryMaxWithdrawResponse{
-		Tokens:  sdk.NewCoin(umeeDenom, sdk.NewInt(1000_000000)),
-		UTokens: sdk.NewCoin("u/"+umeeDenom, sdk.NewInt(1000_000000)),
+		Tokens:  sdk.NewCoin(katanaDenom, sdk.NewInt(1000_000000)),
+		UTokens: sdk.NewCoin("u/"+katanaDenom, sdk.NewInt(1000_000000)),
 	}
 	require.Equal(expected, *resp)
 
-	// borrow 100 UMEE for non-trivial query
-	s.borrow(addr, coin(umeeDenom, 100_000000))
+	// borrow 100 KATANA for non-trivial query
+	s.borrow(addr, coin(katanaDenom, 100_000000))
 
 	resp, err = s.queryClient.MaxWithdraw(ctx.Context(), &types.QueryMaxWithdraw{
 		Address: addr.String(),
-		Denom:   umeeDenom,
+		Denom:   katanaDenom,
 	})
 	require.NoError(err)
 
 	expected = types.QueryMaxWithdrawResponse{
-		Tokens:  sdk.NewCoin(umeeDenom, sdk.NewInt(600_000000)),
-		UTokens: sdk.NewCoin("u/"+umeeDenom, sdk.NewInt(600_000000)),
+		Tokens:  sdk.NewCoin(katanaDenom, sdk.NewInt(600_000000)),
+		UTokens: sdk.NewCoin("u/"+katanaDenom, sdk.NewInt(600_000000)),
 	}
 	require.Equal(expected, *resp)
 }

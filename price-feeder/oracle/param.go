@@ -1,6 +1,6 @@
 package oracle
 
-import oracletypes "github.com/umee-network/umee/v3/x/oracle/types"
+import oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 
 const (
 	// paramsCacheInterval represents the amount of blocks

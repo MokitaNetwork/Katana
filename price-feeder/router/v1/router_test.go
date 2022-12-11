@@ -13,10 +13,10 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/umee-network/umee/price-feeder/config"
-	"github.com/umee-network/umee/price-feeder/oracle"
-	"github.com/umee-network/umee/price-feeder/oracle/provider"
-	v1 "github.com/umee-network/umee/price-feeder/router/v1"
+	"github.com/umee-network/katana/price-feeder/config"
+	"github.com/umee-network/katana/price-feeder/oracle"
+	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	v1 "github.com/umee-network/katana/price-feeder/router/v1"
 )
 
 var (
@@ -24,17 +24,17 @@ var (
 
 	mockPrices = map[string]sdk.Dec{
 		"ATOM": sdk.MustNewDecFromStr("34.84"),
-		"UMEE": sdk.MustNewDecFromStr("4.21"),
+		"KATANA": sdk.MustNewDecFromStr("4.21"),
 	}
 
 	mockComputedPrices = map[provider.Name]map[string]sdk.Dec{
 		provider.ProviderBinance: {
 			"ATOM": sdk.MustNewDecFromStr("28.21000000"),
-			"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+			"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 		},
 		provider.ProviderKraken: {
 			"ATOM": sdk.MustNewDecFromStr("28.268700"),
-			"UMEE": sdk.MustNewDecFromStr("1.13000000"),
+			"KATANA": sdk.MustNewDecFromStr("1.13000000"),
 		},
 	}
 )
@@ -120,7 +120,7 @@ func (rts *RouterTestSuite) TestPrices() {
 	var respBody v1.PricesResponse
 	rts.Require().NoError(json.Unmarshal(response.Body.Bytes(), &respBody))
 	rts.Require().Equal(respBody.Prices["ATOM"], mockPrices["ATOM"])
-	rts.Require().Equal(respBody.Prices["UMEE"], mockPrices["UMEE"])
+	rts.Require().Equal(respBody.Prices["KATANA"], mockPrices["KATANA"])
 	rts.Require().Equal(respBody.Prices["FOO"], sdk.Dec{})
 }
 

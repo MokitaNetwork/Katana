@@ -23,7 +23,7 @@ jobs:
       # the $GITHUB_ENV environment variable.
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/price-feeder/}" >> $GITHUB_ENV
-      # Remove the possible pre-existing same tag for umee related tags instead
+      # Remove the possible pre-existing same tag for katana related tags instead
       # of price-feeder tags, since goreleaser enforces semantic versioning and
       # will error on non compliant tags.
       #

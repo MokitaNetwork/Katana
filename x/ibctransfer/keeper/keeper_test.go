@@ -17,8 +17,8 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	"github.com/umee-network/umee/v3/tests/util"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	"github.com/mokitanetwork/katana/tests/util"
 )
 
 func TestKeeperTestSuite(t *testing.T) {
@@ -75,7 +75,7 @@ func (s *KeeperTestSuite) SetupTest() {
 		}
 
 		// set gravity bridge delegate keys
-		umeApp := app.(*umeeapp.UmeeApp)
+		umeApp := app.(*katanaapp.KatanaApp)
 		for _, val := range chain.Vals.Validators {
 			_, _, ethAddr, err := util.GenerateRandomEthKey()
 			s.Require().NoError(err)
@@ -105,18 +105,18 @@ func (s *KeeperTestSuite) SetupTest() {
 	s.chainA = s.coordinator.GetChain(ibctesting.GetChainID(0))
 	s.chainB = s.coordinator.GetChain(ibctesting.GetChainID(1))
 
-	umeeApp := s.GetUmeeApp(s.chainA)
+	katanaApp := s.GetKatanaApp(s.chainA)
 
-	queryHelper := baseapp.NewQueryServerTestHelper(s.chainA.GetContext(), umeeApp.InterfaceRegistry())
-	ibctransfertypes.RegisterQueryServer(queryHelper, umeeApp.UIBCTransferKeeper)
+	queryHelper := baseapp.NewQueryServerTestHelper(s.chainA.GetContext(), katanaApp.InterfaceRegistry())
+	ibctransfertypes.RegisterQueryServer(queryHelper, katanaApp.UIBCTransferKeeper)
 	s.queryClient = ibctransfertypes.NewQueryClient(queryHelper)
 }
 
-func (s *KeeperTestSuite) GetUmeeApp(c *ibctesting.TestChain) *umeeapp.UmeeApp {
-	umeeApp, ok := c.App.(*umeeapp.UmeeApp)
+func (s *KeeperTestSuite) GetKatanaApp(c *ibctesting.TestChain) *katanaapp.KatanaApp {
+	katanaApp, ok := c.App.(*katanaapp.KatanaApp)
 	s.Require().True(ok)
 
-	return umeeApp
+	return katanaApp
 }
 
 func (s *KeeperTestSuite) TestTrackMetadata() {
@@ -148,7 +148,7 @@ func (s *KeeperTestSuite) TestTrackMetadata() {
 			0,
 		)
 
-		err := s.GetUmeeApp(s.chainA).UIBCTransferKeeper.OnRecvPacket(s.chainA.GetContext(), packet, data)
+		err := s.GetKatanaApp(s.chainA).UIBCTransferKeeper.OnRecvPacket(s.chainA.GetContext(), packet, data)
 		s.Require().NoError(err)
 	})
 
@@ -177,7 +177,7 @@ func (s *KeeperTestSuite) TestTrackMetadata() {
 			0,
 		)
 
-		err := s.GetUmeeApp(s.chainB).UIBCTransferKeeper.OnRecvPacket(s.chainB.GetContext(), packet, data)
+		err := s.GetKatanaApp(s.chainB).UIBCTransferKeeper.OnRecvPacket(s.chainB.GetContext(), packet, data)
 		s.Require().NoError(err)
 	})
 
@@ -217,8 +217,8 @@ func (s *KeeperTestSuite) TestTrackMetadata() {
 		registerDenom := func() {
 			denomTrace := ibctransfertypes.ParseDenomTrace(denom)
 			traceHash := denomTrace.Hash()
-			if !s.GetUmeeApp(s.chainB).UIBCTransferKeeper.HasDenomTrace(s.chainB.GetContext(), traceHash) {
-				s.GetUmeeApp(s.chainB).UIBCTransferKeeper.SetDenomTrace(s.chainB.GetContext(), denomTrace)
+			if !s.GetKatanaApp(s.chainB).UIBCTransferKeeper.HasDenomTrace(s.chainB.GetContext(), traceHash) {
+				s.GetKatanaApp(s.chainB).UIBCTransferKeeper.SetDenomTrace(s.chainB.GetContext(), denomTrace)
 			}
 		}
 
@@ -227,7 +227,7 @@ func (s *KeeperTestSuite) TestTrackMetadata() {
 		amount, err := strconv.Atoi(data.Amount)
 		s.Require().NoError(err)
 
-		err = s.GetUmeeApp(s.chainB).UIBCTransferKeeper.SendTransfer(
+		err = s.GetKatanaApp(s.chainB).UIBCTransferKeeper.SendTransfer(
 			s.chainB.GetContext(),
 			packet.SourcePort,
 			packet.SourceChannel,
@@ -242,9 +242,9 @@ func (s *KeeperTestSuite) TestTrackMetadata() {
 
 	s.coordinator.CommitBlock(s.chainA, s.chainB)
 
-	_, ok := s.GetUmeeApp(s.chainA).BankKeeper.GetDenomMetaData(s.chainA.GetContext(), "ibc/DB6D78EC2E51C8B6AAF6DA64E660911491DC1A67C64DA69ED6945FE6DB552A5C")
+	_, ok := s.GetKatanaApp(s.chainA).BankKeeper.GetDenomMetaData(s.chainA.GetContext(), "ibc/DB6D78EC2E51C8B6AAF6DA64E660911491DC1A67C64DA69ED6945FE6DB552A5C")
 	s.Require().True(ok)
 
-	_, ok = s.GetUmeeApp(s.chainB).BankKeeper.GetDenomMetaData(s.chainB.GetContext(), "ibc/10180B5BF0701A3E34A5F818607D7E57ECD35CD9D673ABCCD174F157DFC06C0F")
+	_, ok = s.GetKatanaApp(s.chainB).BankKeeper.GetDenomMetaData(s.chainB.GetContext(), "ibc/10180B5BF0701A3E34A5F818607D7E57ECD35CD9D673ABCCD174F157DFC06C0F")
 	s.Require().True(ok)
 }

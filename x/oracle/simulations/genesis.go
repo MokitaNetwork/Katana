@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // Simulation parameter constants
@@ -155,7 +155,7 @@ func RandomizedGenState(simState *module.SimulationState) {
 		RewardBand:               rewardBand,
 		RewardDistributionWindow: rewardDistributionWindow,
 		AcceptList: types.DenomList{
-			{SymbolDenom: types.UmeeSymbol, BaseDenom: types.UmeeDenom},
+			{SymbolDenom: types.KatanaSymbol, BaseDenom: types.KatanaDenom},
 		},
 		SlashFraction:       slashFraction,
 		SlashWindow:         slashWindow,

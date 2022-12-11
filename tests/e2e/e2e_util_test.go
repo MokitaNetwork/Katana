@@ -92,12 +92,12 @@ func (s *IntegrationTestSuite) deployERC20Token(baseDenom string) string {
 		"failed to confirm ERC20 deployment transaction",
 	)
 
-	umeeAPIEndpoint := fmt.Sprintf("http://%s", s.valResources[0].GetHostPort("1317/tcp"))
+	katanaAPIEndpoint := fmt.Sprintf("http://%s", s.valResources[0].GetHostPort("1317/tcp"))
 
 	var erc20Addr string
 	s.Require().Eventually(
 		func() bool {
-			addr, cosmosNative, err := queryDenomToERC20(umeeAPIEndpoint, baseDenom)
+			addr, cosmosNative, err := queryDenomToERC20(katanaAPIEndpoint, baseDenom)
 			if err != nil {
 				return false
 			}
@@ -119,7 +119,7 @@ func (s *IntegrationTestSuite) deployERC20Token(baseDenom string) string {
 	return erc20Addr
 }
 
-func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, umeeFee, gravityFee string) {
+func (s *IntegrationTestSuite) sendFromKatanaToEth(valIdx int, ethDest, amount, katanaFee, gravityFee string) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
@@ -127,8 +127,8 @@ func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, um
 	s.Require().NoError(err)
 
 	s.T().Logf(
-		"sending tokens from Umee to Ethereum; from: %s, to: %s, amount: %s, umeeFee: %s, gravityFee: %s",
-		valAddr, ethDest, amount, umeeFee, gravityFee,
+		"sending tokens from Katana to Ethereum; from: %s, to: %s, amount: %s, katanaFee: %s, gravityFee: %s",
+		valAddr, ethDest, amount, katanaFee, gravityFee,
 	)
 
 	exec, err := s.dkrPool.Client.CreateExec(docker.CreateExecOptions{
@@ -138,7 +138,7 @@ func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, um
 		Container:    s.valResources[valIdx].Container.ID,
 		User:         "root",
 		Cmd: []string{
-			"umeed",
+			"katanad",
 			"tx",
 			"gravity",
 			"send-to-eth",
@@ -147,7 +147,7 @@ func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, um
 			gravityFee,
 			fmt.Sprintf("--%s=%s", flags.FlagFrom, s.chain.validators[valIdx].keyInfo.Name),
 			fmt.Sprintf("--%s=%s", flags.FlagChainID, s.chain.id),
-			fmt.Sprintf("--%s=%s", flags.FlagFees, umeeFee),
+			fmt.Sprintf("--%s=%s", flags.FlagFees, katanaFee),
 			"--keyring-backend=test",
 			"--broadcast-mode=sync",
 			"--output=json",
@@ -177,7 +177,7 @@ func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, um
 
 	s.Require().Eventuallyf(
 		func() bool {
-			return queryUmeeTx(endpoint, txHash) == nil
+			return queryKatanaTx(endpoint, txHash) == nil
 		},
 		2*time.Minute,
 		5*time.Second,
@@ -186,34 +186,34 @@ func (s *IntegrationTestSuite) sendFromUmeeToEth(valIdx int, ethDest, amount, um
 	)
 }
 
-func (s *IntegrationTestSuite) sendFromUmeeToEthCheck(
-	umeeValIdxSender,
+func (s *IntegrationTestSuite) sendFromKatanaToEthCheck(
+	katanaValIdxSender,
 	orchestratorIdxReceiver int,
 	ethTokenAddr string,
-	amount, umeeFee, gravityFee sdk.Coin,
+	amount, katanaFee, gravityFee sdk.Coin,
 ) {
 	if !strings.EqualFold(amount.Denom, gravityFee.Denom) {
 		s.T().Error("Amount and gravityFee should be the same denom", amount, gravityFee)
 	}
 
 	// if all the coins are on the same denom
-	allSameDenom := strings.EqualFold(amount.Denom, umeeFee.Denom) && strings.EqualFold(amount.Denom, gravityFee.Denom)
-	var umeeFeeBalanceBeforeSend sdk.Coin
+	allSameDenom := strings.EqualFold(amount.Denom, katanaFee.Denom) && strings.EqualFold(amount.Denom, gravityFee.Denom)
+	var katanaFeeBalanceBeforeSend sdk.Coin
 	if !allSameDenom {
-		umeeFeeBalanceBeforeSend, _ = s.queryUmeeBalance(umeeValIdxSender, umeeFee.Denom)
+		katanaFeeBalanceBeforeSend, _ = s.queryKatanaBalance(katanaValIdxSender, katanaFee.Denom)
 	}
 
-	umeeAmountBalanceBeforeSend, ethBalanceBeforeSend, _, ethAddr := s.queryUmeeEthBalance(umeeValIdxSender, orchestratorIdxReceiver, amount.Denom, ethTokenAddr) // 3300000000
+	katanaAmountBalanceBeforeSend, ethBalanceBeforeSend, _, ethAddr := s.queryKatanaEthBalance(katanaValIdxSender, orchestratorIdxReceiver, amount.Denom, ethTokenAddr) // 3300000000
 
-	s.sendFromUmeeToEth(umeeValIdxSender, ethAddr, amount.String(), umeeFee.String(), gravityFee.String())
-	umeeAmountBalanceAfterSend, ethBalanceAfterSend, _, _ := s.queryUmeeEthBalance(umeeValIdxSender, orchestratorIdxReceiver, amount.Denom, ethTokenAddr) // 3299999693
+	s.sendFromKatanaToEth(katanaValIdxSender, ethAddr, amount.String(), katanaFee.String(), gravityFee.String())
+	katanaAmountBalanceAfterSend, ethBalanceAfterSend, _, _ := s.queryKatanaEthBalance(katanaValIdxSender, orchestratorIdxReceiver, amount.Denom, ethTokenAddr) // 3299999693
 
 	if allSameDenom {
-		s.Require().Equal(umeeAmountBalanceBeforeSend.Sub(amount).Sub(umeeFee).Sub(gravityFee).Amount.Int64(), umeeAmountBalanceAfterSend.Amount.Int64())
-	} else { // the umeeFee and amount have different denom
-		s.Require().Equal(umeeAmountBalanceBeforeSend.Sub(amount).Sub(gravityFee).Amount.Int64(), umeeAmountBalanceAfterSend.Amount.Int64())
-		umeeFeeBalanceAfterSend, _ := s.queryUmeeBalance(umeeValIdxSender, umeeFee.Denom)
-		s.Require().Equal(umeeFeeBalanceBeforeSend.Sub(umeeFee).Amount.Int64(), umeeFeeBalanceAfterSend.Amount.Int64())
+		s.Require().Equal(katanaAmountBalanceBeforeSend.Sub(amount).Sub(katanaFee).Sub(gravityFee).Amount.Int64(), katanaAmountBalanceAfterSend.Amount.Int64())
+	} else { // the katanaFee and amount have different denom
+		s.Require().Equal(katanaAmountBalanceBeforeSend.Sub(amount).Sub(gravityFee).Amount.Int64(), katanaAmountBalanceAfterSend.Amount.Int64())
+		katanaFeeBalanceAfterSend, _ := s.queryKatanaBalance(katanaValIdxSender, katanaFee.Denom)
+		s.Require().Equal(katanaFeeBalanceBeforeSend.Sub(katanaFee).Amount.Int64(), katanaFeeBalanceAfterSend.Amount.Int64())
 	}
 
 	// require the Ethereum recipient balance increased
@@ -242,48 +242,48 @@ func (s *IntegrationTestSuite) sendFromUmeeToEthCheck(
 	)
 }
 
-func (s *IntegrationTestSuite) sendFromEthToUmeeCheck(
+func (s *IntegrationTestSuite) sendFromEthToKatanaCheck(
 	orchestratorIdxSender,
-	umeeValIdxReceiver int,
+	katanaValIdxReceiver int,
 	ethTokenAddr,
-	umeeTokenDenom string,
+	katanaTokenDenom string,
 	amount uint64,
 ) {
-	umeeBalanceBeforeSend, ethBalanceBeforeSend, umeeAddr, _ := s.queryUmeeEthBalance(umeeValIdxReceiver, orchestratorIdxSender, umeeTokenDenom, ethTokenAddr)
-	s.sendFromEthToUmee(orchestratorIdxSender, ethTokenAddr, umeeAddr, fmt.Sprintf("%d", amount))
-	umeeBalanceAfterSend, ethBalanceAfterSend, _, _ := s.queryUmeeEthBalance(umeeValIdxReceiver, orchestratorIdxSender, umeeTokenDenom, ethTokenAddr)
+	katanaBalanceBeforeSend, ethBalanceBeforeSend, katanaAddr, _ := s.queryKatanaEthBalance(katanaValIdxReceiver, orchestratorIdxSender, katanaTokenDenom, ethTokenAddr)
+	s.sendFromEthToKatana(orchestratorIdxSender, ethTokenAddr, katanaAddr, fmt.Sprintf("%d", amount))
+	katanaBalanceAfterSend, ethBalanceAfterSend, _, _ := s.queryKatanaEthBalance(katanaValIdxReceiver, orchestratorIdxSender, katanaTokenDenom, ethTokenAddr)
 
 	s.Require().Equal(ethBalanceBeforeSend-int64(amount), ethBalanceAfterSend)
 
-	umeeEndpoint := fmt.Sprintf("http://%s", s.valResources[umeeValIdxReceiver].GetHostPort("1317/tcp"))
+	katanaEndpoint := fmt.Sprintf("http://%s", s.valResources[katanaValIdxReceiver].GetHostPort("1317/tcp"))
 	// require the original sender's (validator) balance increased
 	// peggo needs time to read the event and cross the tx
-	umeeLatestBalance := umeeBalanceAfterSend.Amount
+	katanaLatestBalance := katanaBalanceAfterSend.Amount
 	s.Require().Eventuallyf(
 		func() bool {
-			b, err := queryUmeeDenomBalance(umeeEndpoint, umeeAddr, umeeTokenDenom)
+			b, err := queryKatanaDenomBalance(katanaEndpoint, katanaAddr, katanaTokenDenom)
 			if err != nil {
-				s.T().Logf("Error at sendFromEthToUmeeCheck.queryUmeeDenomBalance %+v", err)
+				s.T().Logf("Error at sendFromEthToKatanaCheck.queryKatanaDenomBalance %+v", err)
 				return false
 			}
 
-			umeeLatestBalance = b.Amount
+			katanaLatestBalance = b.Amount
 
-			return umeeBalanceBeforeSend.Amount.AddRaw(int64(amount)).Equal(umeeLatestBalance)
+			return katanaBalanceBeforeSend.Amount.AddRaw(int64(amount)).Equal(katanaLatestBalance)
 		},
 		2*time.Minute,
 		5*time.Second,
-		"unexpected balance: %d", umeeLatestBalance.Int64(),
+		"unexpected balance: %d", katanaLatestBalance.Int64(),
 	)
 }
 
-func (s *IntegrationTestSuite) sendFromEthToUmee(valIdx int, tokenAddr, toUmeeAddr, amount string) {
+func (s *IntegrationTestSuite) sendFromEthToKatana(valIdx int, tokenAddr, toKatanaAddr, amount string) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
 	s.T().Logf(
-		"sending tokens from Ethereum to Umee; from: %s, to: %s, amount: %s, contract: %s",
-		s.chain.orchestrators[valIdx].ethereumKey.address, toUmeeAddr, amount, tokenAddr,
+		"sending tokens from Ethereum to Katana; from: %s, to: %s, amount: %s, contract: %s",
+		s.chain.orchestrators[valIdx].ethereumKey.address, toKatanaAddr, amount, tokenAddr,
 	)
 
 	exec, err := s.dkrPool.Client.CreateExec(docker.CreateExecOptions{
@@ -299,7 +299,7 @@ func (s *IntegrationTestSuite) sendFromEthToUmee(valIdx int, tokenAddr, toUmeeAd
 			"send-to-cosmos",
 			s.gravityContractAddr,
 			tokenAddr,
-			toUmeeAddr,
+			toKatanaAddr,
 			amount,
 			"--eth-rpc",
 			fmt.Sprintf("http://%s:8545", s.ethResource.Container.Name[1:]),
@@ -441,7 +441,7 @@ func (s *IntegrationTestSuite) sendIBC(srcChainID, dstChainID, recipient string,
 	s.T().Log("successfully sent IBC tokens")
 }
 
-func queryUmeeTx(endpoint, txHash string) error {
+func queryKatanaTx(endpoint, txHash string) error {
 	resp, err := http.Get(fmt.Sprintf("%s/cosmos/tx/v1beta1/txs/%s", endpoint, txHash))
 	if err != nil {
 		return fmt.Errorf("failed to execute HTTP request: %w", err)
@@ -466,7 +466,7 @@ func queryUmeeTx(endpoint, txHash string) error {
 	return nil
 }
 
-func queryUmeeAllBalances(endpoint, addr string) (sdk.Coins, error) {
+func queryKatanaAllBalances(endpoint, addr string) (sdk.Coins, error) {
 	resp, err := http.Get(fmt.Sprintf("%s/cosmos/bank/v1beta1/balances/%s", endpoint, addr))
 	if err != nil {
 		return nil, fmt.Errorf("failed to execute HTTP request: %w", err)
@@ -487,7 +487,7 @@ func queryUmeeAllBalances(endpoint, addr string) (sdk.Coins, error) {
 	return balancesResp.Balances, nil
 }
 
-func queryUmeeDenomBalance(endpoint, addr, denom string) (sdk.Coin, error) {
+func queryKatanaDenomBalance(endpoint, addr, denom string) (sdk.Coin, error) {
 	var zeroCoin sdk.Coin
 
 	path := fmt.Sprintf(
@@ -573,32 +573,32 @@ func queryEthTokenBalance(ctx context.Context, c *ethclient.Client, contractAddr
 	return balance, nil
 }
 
-func (s *IntegrationTestSuite) queryUmeeBalance(
-	umeeValIdx int,
-	umeeTokenDenom string,
-) (umeeBalance sdk.Coin, umeeAddr string) {
-	umeeEndpoint := fmt.Sprintf("http://%s", s.valResources[umeeValIdx].GetHostPort("1317/tcp"))
-	umeeAddress, err := s.chain.validators[umeeValIdx].keyInfo.GetAddress()
+func (s *IntegrationTestSuite) queryKatanaBalance(
+	katanaValIdx int,
+	katanaTokenDenom string,
+) (katanaBalance sdk.Coin, katanaAddr string) {
+	katanaEndpoint := fmt.Sprintf("http://%s", s.valResources[katanaValIdx].GetHostPort("1317/tcp"))
+	katanaAddress, err := s.chain.validators[katanaValIdx].keyInfo.GetAddress()
 	s.Require().NoError(err)
-	umeeAddr = umeeAddress.String()
+	katanaAddr = katanaAddress.String()
 
-	umeeBalance, err = queryUmeeDenomBalance(umeeEndpoint, umeeAddr, umeeTokenDenom)
+	katanaBalance, err = queryKatanaDenomBalance(katanaEndpoint, katanaAddr, katanaTokenDenom)
 	s.Require().NoError(err)
 	s.T().Logf(
-		"Umee Balance of tokens validator; index: %d, addr: %s, amount: %s, denom: %s",
-		umeeValIdx, umeeAddr, umeeBalance.String(), umeeTokenDenom,
+		"Katana Balance of tokens validator; index: %d, addr: %s, amount: %s, denom: %s",
+		katanaValIdx, katanaAddr, katanaBalance.String(), katanaTokenDenom,
 	)
 
-	return umeeBalance, umeeAddr
+	return katanaBalance, katanaAddr
 }
 
-func (s *IntegrationTestSuite) queryUmeeEthBalance(
-	umeeValIdx,
+func (s *IntegrationTestSuite) queryKatanaEthBalance(
+	katanaValIdx,
 	orchestratorIdx int,
-	umeeTokenDenom,
+	katanaTokenDenom,
 	ethTokenAddr string,
-) (umeeBalance sdk.Coin, ethBalance int64, umeeAddr, ethAddr string) {
-	umeeBalance, umeeAddr = s.queryUmeeBalance(umeeValIdx, umeeTokenDenom)
+) (katanaBalance sdk.Coin, ethBalance int64, katanaAddr, ethAddr string) {
+	katanaBalance, katanaAddr = s.queryKatanaBalance(katanaValIdx, katanaTokenDenom)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
@@ -608,8 +608,8 @@ func (s *IntegrationTestSuite) queryUmeeEthBalance(
 	s.Require().NoError(err)
 	s.T().Logf(
 		"ETh Balance of tokens; index: %d, addr: %s, amount: %d, denom: %s, erc20Addr: %s",
-		orchestratorIdx, ethAddr, ethBalance, umeeTokenDenom, ethTokenAddr,
+		orchestratorIdx, ethAddr, ethBalance, katanaTokenDenom, ethTokenAddr,
 	)
 
-	return umeeBalance, ethBalance, umeeAddr, ethAddr
+	return katanaBalance, ethBalance, katanaAddr, ethAddr
 }

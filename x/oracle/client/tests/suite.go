@@ -12,9 +12,9 @@ import (
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/oracle/client/cli"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/oracle/client/cli"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 type IntegrationTestSuite struct {
@@ -209,7 +209,7 @@ func (s *IntegrationTestSuite) TestQueryExchangeRate() {
 		{
 			name: "valid denom",
 			args: []string{
-				"UMEE",
+				"KATANA",
 				fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 			},
 			expectErr: false,

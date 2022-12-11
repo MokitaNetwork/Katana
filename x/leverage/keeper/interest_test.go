@@ -3,21 +3,21 @@ package keeper_test
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 func (s *IntegrationTestSuite) TestAccrueZeroInterest() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// creates account which has supplied and collateralized 1000 UMEE
-	addr := s.newAccount(coin(umeeDenom, 1000_000000))
-	s.supply(addr, coin(umeeDenom, 1000_000000))
-	s.collateralize(addr, coin("u/"+umeeDenom, 1000_000000))
+	// creates account which has supplied and collateralized 1000 KATANA
+	addr := s.newAccount(coin(katanaDenom, 1000_000000))
+	s.supply(addr, coin(katanaDenom, 1000_000000))
+	s.collateralize(addr, coin("u/"+katanaDenom, 1000_000000))
 
-	// user borrows 40 umee
+	// user borrows 40 katana
 	s.borrow(addr, coin(appparams.BondDenom, 40_000000))
 
-	// verify user's loan amount (40 umee)
+	// verify user's loan amount (40 katana)
 	loanBalance := app.LeverageKeeper.GetBorrow(ctx, addr, appparams.BondDenom)
 	require.Equal(coin(appparams.BondDenom, 40_000000), loanBalance)
 
@@ -26,7 +26,7 @@ func (s *IntegrationTestSuite) TestAccrueZeroInterest() {
 	err := app.LeverageKeeper.AccrueAllInterest(ctx)
 	require.NoError(err)
 
-	// verify user's loan amount (40 umee)
+	// verify user's loan amount (40 katana)
 	loanBalance = app.LeverageKeeper.GetBorrow(ctx, addr, appparams.BondDenom)
 	require.Equal(coin(appparams.BondDenom, 40_000000), loanBalance)
 
@@ -45,37 +45,37 @@ func (s *IntegrationTestSuite) TestAccrueZeroInterest() {
 func (s *IntegrationTestSuite) TestDynamicInterest() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// creates account which has supplied and collateralized 1000 UMEE
-	addr := s.newAccount(coin(umeeDenom, 1000_000000))
-	s.supply(addr, coin(umeeDenom, 1000_000000))
-	s.collateralize(addr, coin("u/"+umeeDenom, 1000_000000))
+	// creates account which has supplied and collateralized 1000 KATANA
+	addr := s.newAccount(coin(katanaDenom, 1000_000000))
+	s.supply(addr, coin(katanaDenom, 1000_000000))
+	s.collateralize(addr, coin("u/"+katanaDenom, 1000_000000))
 
 	// Base interest rate (0% utilization)
 	rate := app.LeverageKeeper.DeriveBorrowAPY(ctx, appparams.BondDenom)
 	require.Equal(sdk.MustNewDecFromStr("0.02"), rate)
 
-	// user borrows 200 umee, utilization 200/1000
+	// user borrows 200 katana, utilization 200/1000
 	s.borrow(addr, coin(appparams.BondDenom, 200_000000))
 
 	// Between base interest and kink (20% utilization)
 	rate = app.LeverageKeeper.DeriveBorrowAPY(ctx, appparams.BondDenom)
 	require.Equal(sdk.MustNewDecFromStr("0.07"), rate)
 
-	// user borrows 600 more umee (ignores collateral), utilization 800/1000
+	// user borrows 600 more katana (ignores collateral), utilization 800/1000
 	s.forceBorrow(addr, coin(appparams.BondDenom, 600_000000))
 
 	// Kink interest rate (80% utilization)
 	rate = app.LeverageKeeper.DeriveBorrowAPY(ctx, appparams.BondDenom)
 	require.Equal(sdk.MustNewDecFromStr("0.22"), rate)
 
-	// user borrows 100 more umee (ignores collateral), utilization 900/1000
+	// user borrows 100 more katana (ignores collateral), utilization 900/1000
 	s.forceBorrow(addr, coin(appparams.BondDenom, 100_000000))
 
 	// Between kink interest and max (90% utilization)
 	rate = app.LeverageKeeper.DeriveBorrowAPY(ctx, appparams.BondDenom)
 	require.Equal(sdk.MustNewDecFromStr("0.87"), rate)
 
-	// user borrows 100 more umee (ignores collateral), utilization 1000/1000
+	// user borrows 100 more katana (ignores collateral), utilization 1000/1000
 	s.forceBorrow(addr, coin(appparams.BondDenom, 100_000000))
 
 	// Max interest rate (100% utilization)

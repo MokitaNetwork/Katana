@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // GetTxCmd returns the CLI transaction commands for the x/oracle module.
@@ -77,7 +77,7 @@ func GetCmdAggregateExchangeRatePrevote() *cobra.Command {
 		Short: "Submit an exchange rate prevote with a hash",
 		Long: fmt.Sprintf(`Submit an exchange rate prevote with a hash as a hex string
 			representation of a byte array.
-			Ex: umeed tx oracle exchange-rate-prevote %s --from alice`,
+			Ex: katanad tx oracle exchange-rate-prevote %s --from alice`,
 			"19c30cf9ea8aa0e0b03904162cadec0f2024a76d"),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -126,7 +126,7 @@ func GetCmdAggregateExchangeRateVote() *cobra.Command {
 		Short: "Submit an exchange rate vote with the salt and exchange rate string",
 		Long: fmt.Sprintf(`Submit an exchange rate vote with the salt of the previous hash, and the
 			exchange rate string previously used in the hash.
-			Ex: umeed tx oracle exchange-rate-vote %s %s --from alice`,
+			Ex: katanad tx oracle exchange-rate-vote %s %s --from alice`,
 			"0cf33fb528b388660c3a42c3f3250e983395290b75fef255050fb5bc48a6025f",
 			"foo:1.0,bar:1232.123",
 		),

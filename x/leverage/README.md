@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document specifies the `x/leverage` module of the Umee chain.
+This document specifies the `x/leverage` module of the Katana chain.
 
 The leverage module allows users to supply and borrow assets, and implements various features to support this, such as a token accept-list, a dynamic interest rate module, incentivized liquidation of undercollateralized debt, and automatic reserve-based repayment of bad debt.
 
@@ -49,7 +49,7 @@ Once added to the token registry, assets cannot be removed. In the rare case whe
 
 Every base asset has an associated _uToken_ denomination.
 
-uTokens do not have parameters like the `Token` struct does, and they are always represented in account balances with a denom of `UTokenPrefix + token.BaseDenom`. For example, the base asset `uumee` is associated with the uToken denomination `u/uumee`.
+uTokens do not have parameters like the `Token` struct does, and they are always represented in account balances with a denom of `UTokenPrefix + token.BaseDenom`. For example, the base asset `ukatana` is associated with the uToken denomination `u/ukatana`.
 
 ### Supplying and Borrowing
 
@@ -96,7 +96,7 @@ A portion of accrued interest on all borrows (determined per-token by the parame
 
 Rather than being stored in a separate account, the `ReserveAmount` of any given token is stored in the module's state, after which point the module respects the reserved amount by treating part of the balance of the `leverage` module account as off-limits.
 
-For example, if the module contains `1000 uumee` and `100 uumee` are reserved, then only `900 uumee` are available for Borrow and Withdraw transactions. If `40 uumee` of reserves are then used to pay off a bad debt, the module account will have `960 uumee` with `60 uumee` reserved, keeping the available balance at `900 uumee`.
+For example, if the module contains `1000 ukatana` and `100 ukatana` are reserved, then only `900 ukatana` are available for Borrow and Withdraw transactions. If `40 ukatana` of reserves are then used to pay off a bad debt, the module account will have `960 ukatana` with `60 ukatana` reserved, keeping the available balance at `900 ukatana`.
 
 ### Oracle Rewards
 
@@ -178,7 +178,7 @@ A user's liquidation threshold is the sum of the contributions from each denomin
 
 #### Borrow APY
 
-Umee uses a dynamic interest rate model. The borrow APY for each borrowed token denomination changes based on that token Supply Utilization.
+Katana uses a dynamic interest rate model. The borrow APY for each borrowed token denomination changes based on that token Supply Utilization.
 
 The `Token` struct stored in state for a given denomination defines three points on the `Utilization vs Borrow APY` graph:
 
@@ -260,24 +260,24 @@ Similarly, `AdjustedTotalBorrowed` is never set independently during regular ope
 
 ## Queries
 
-See [leverage query proto](https://github.com/umee-network/umee/blob/main/proto/umee/leverage/v1/query.proto) for list of supported queries.
+See [leverage query proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/query.proto) for list of supported queries.
 
 Additionally, the query `liquidation-targets` is only enabled if the node is started with a flag:
 
 ```bash
 # Enabled
-umeed start --enable-liquidator-query
+katanad start --enable-liquidator-query
 
 # Enabled
-umeed start -l
+katanad start -l
 
 # Disabled
-umeed start
+katanad start
 ```
 
 ## Messages
 
-See [leverage tx proto](https://github.com/umee-network/umee/blob/main/proto/umee/leverage/v1/tx.proto#L11) for list of supported messages.
+See [leverage tx proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/tx.proto#L11) for list of supported messages.
 
 ## Update Registry Proposal
 
@@ -285,16 +285,16 @@ See [leverage tx proto](https://github.com/umee-network/umee/blob/main/proto/ume
 
 ### CLI
 ```bash
-umeed tx gov submit-proposal [path-to-proposal-json] [flags]
+katanad tx gov submit-proposal [path-to-proposal-json] [flags]
 ```
 
 Example:
 
 ```bash
-umeed tx gov submit-proposal /path/to/proposal.json --from umee1..
+katanad tx gov submit-proposal /path/to/proposal.json --from katana1..
 
 // Note `authority` will be gov module account address in proposal.json
-umeed q auth module-accounts -o json | jq '.accounts[] | select(.name=="gov") | .base_account.address'
+katanad q auth module-accounts -o json | jq '.accounts[] | select(.name=="gov") | .base_account.address'
 ```
 
 where `proposal.json` contains:
@@ -303,13 +303,13 @@ where `proposal.json` contains:
 {
     "messages": [
         {
-            "@type": "/umee.leverage.v1.MsgGovUpdateRegistry",
-            "authority": "umee10d07y265gmmuvt4z0w9aw880jnsr700jg5w6jp",
+            "@type": "/katana.leverage.v1.MsgGovUpdateRegistry",
+            "authority": "katana10d07y265gmmuvt4z0w9aw880jnsr700jg5w6jp",
             "title": "Update the Leverage Token Registry",
-            "description": "Update the uumee token in the leverage registry.",
+            "description": "Update the ukatana token in the leverage registry.",
             "add_tokens": [
                 {
-                    "base_denom": "uumee",
+                    "base_denom": "ukatana",
                     "reserve_factor": "0.100000000000000000",
                     "collateral_weight": "0.050000000000000000",
                     "liquidation_threshold": "0.050000000000000000",
@@ -318,7 +318,7 @@ where `proposal.json` contains:
                     "max_borrow_rate": "1.500000000000000000",
                     "kink_utilization": "0.200000000000000000",
                     "liquidation_incentive": "0.100000000000000000",
-                    "symbol_denom": "UMEE",
+                    "symbol_denom": "KATANA",
                     "exponent": 6,
                     "enable_msg_supply": true,
                     "enable_msg_borrow": true,
@@ -354,17 +354,17 @@ where `proposal.json` contains:
         }
     ],
     "metadata": "AQ==",
-    "deposit": "100uumee"
+    "deposit": "100ukatana"
 }
 ```
 
 ## Events
 
-See [leverage events proto](https://github.com/umee-network/umee/blob/main/proto/umee/leverage/v1/events.proto) for list of supported events.
+See [leverage events proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/events.proto) for list of supported events.
 
 ## Params
 
-See [leverage module proto](https://github.com/umee-network/umee/blob/main/proto/umee/leverage/v1/leverage.proto) for list of supported module params.
+See [leverage module proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/leverage.proto) for list of supported module params.
 
 ## End Block
 

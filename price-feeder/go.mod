@@ -1,4 +1,4 @@
-module github.com/umee-network/umee/price-feeder
+module github.com/umee-network/katana/price-feeder
 
 go 1.19
 
@@ -17,7 +17,7 @@ require (
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.8.1
 	github.com/tendermint/tendermint v0.34.23
-	github.com/umee-network/umee/v3 v3.2.0
+	github.com/mokitanetwork/katana v3.2.0
 	golang.org/x/sync v0.1.0
 	google.golang.org/grpc v1.51.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -305,12 +305,12 @@ require (
 
 replace (
 	github.com/CosmWasm/wasmd => github.com/notional-labs/wasmd v0.29.0-sdk46
-	github.com/Gravity-Bridge/Gravity-Bridge/module => github.com/umee-network/Gravity-Bridge/module v1.5.3-umee-3
+	github.com/Gravity-Bridge/Gravity-Bridge/module => github.com/umee-network/Gravity-Bridge/module v1.5.3-katana-3
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
-	github.com/cosmos/cosmos-sdk => github.com/umee-network/cosmos-sdk v0.46.6-umee
+	github.com/cosmos/cosmos-sdk => github.com/umee-network/cosmos-sdk v0.46.6-katana
 	// dgrijalva/jwt-go is deprecated and doesn't receive security updates.
 	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/osmosis-labs/bech32-ibc => github.com/umee-network/bech32-ibc v0.3.1
-	github.com/umee-network/umee/v3 => ../
+	github.com/mokitanetwork/katana => ../
 )

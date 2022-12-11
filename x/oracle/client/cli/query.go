@@ -9,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	"github.com/umee-network/umee/v3/util/cli"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/util/cli"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // GetQueryCmd returns the CLI query commands for the x/oracle module.
@@ -70,11 +70,11 @@ func GetCmdQueryAggregateVote() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query outstanding oracle aggregate vote.
 
-$ umeed query oracle aggregate-votes
+$ katanad query oracle aggregate-votes
 
 Or, you can filter with voter address
 
-$ umeed query oracle aggregate-votes umeevaloper...
+$ katanad query oracle aggregate-votes katanavaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -112,11 +112,11 @@ func GetCmdQueryAggregatePrevote() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query outstanding oracle aggregate prevotes.
 
-$ umeed query oracle aggregate-prevotes
+$ katanad query oracle aggregate-prevotes
 
 Or, can filter with voter address
 
-$ umeed query oracle aggregate-prevotes umeevaloper...
+$ katanad query oracle aggregate-prevotes katanavaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -154,7 +154,7 @@ func GetCmdQueryExchangeRates() *cobra.Command {
 Query the current exchange rates of assets based on USD.
 You can find the current list of active denoms by running
 
-$ umeed query oracle exchange-rates
+$ katanad query oracle exchange-rates
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -181,7 +181,7 @@ func GetCmdQueryExchangeRate() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query the current exchange rates of an asset based on USD.
 
-$ umeed query oracle exchange-rate ATOM
+$ katanad query oracle exchange-rate ATOM
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)

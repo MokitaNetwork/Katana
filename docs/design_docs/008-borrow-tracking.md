@@ -10,7 +10,7 @@ Proposed
 
 ## Context
 
-One of the more computationally expensive operations in Umee is "iterate over all borrows". It is currently necessary on several occasions:
+One of the more computationally expensive operations in Katana is "iterate over all borrows". It is currently necessary on several occasions:
 
 - When calculating supply utilization (requires total borrowed tokens)
 - When accruing interest (dynamic interest requires supply utilization, and all borrows must be modified)
@@ -72,27 +72,27 @@ This decision mainly updates existing features, rather than adding new ones. The
 
 The following example scenario should help clarify the meaning of the `AdjustedBorrow` and `InterestScalar`:
 
-> Assume a fresh system, containing a token denom `uumee` which has never been borrowed or accrued interest before.
+> Assume a fresh system, containing a token denom `ukatana` which has never been borrowed or accrued interest before.
 >
-> By definition, `TotalAdjustedBorrowed("uumee") = 0.0` and `InterestScalar("uumee") = 1.0`
+> By definition, `TotalAdjustedBorrowed("ukatana") = 0.0` and `InterestScalar("ukatana") = 1.0`
 >
-> User `Alice` borrows `1000 uumee`. This information is stored in state as `AdjustedBorrow(alice,"uumee") = 1000.000`, because adjusted borrow amount is real borrow amount divided by interest scalar. As a result, `TotalAdjustedBorrow("uumee") = 1000.000`. Interest scalar is unchanged by borrowing.
+> User `Alice` borrows `1000 ukatana`. This information is stored in state as `AdjustedBorrow(alice,"ukatana") = 1000.000`, because adjusted borrow amount is real borrow amount divided by interest scalar. As a result, `TotalAdjustedBorrow("ukatana") = 1000.000`. Interest scalar is unchanged by borrowing.
 >
-> User `Bob` also borrows `2000 uumee`, which is stored as `AdjustedBorrow(bob,"uumee") = 2000.000`. As a result, `TotalAdjustedBorrow("uumee") = 3000.000`. Interest scalar is unchanged.
+> User `Bob` also borrows `2000 ukatana`, which is stored as `AdjustedBorrow(bob,"ukatana") = 2000.000`. As a result, `TotalAdjustedBorrow("ukatana") = 3000.000`. Interest scalar is unchanged.
 >
-> Suppose that the interest rate for `uumee` borrows works out to be `0.0003% per block`. On the next EndBlock, `InterestScalar("uumee") *= 1.000003`. Both `AdjustedBorrow` values and `TotalAdjustedBorrow` are unchanged.
+> Suppose that the interest rate for `ukatana` borrows works out to be `0.0003% per block`. On the next EndBlock, `InterestScalar("ukatana") *= 1.000003`. Both `AdjustedBorrow` values and `TotalAdjustedBorrow` are unchanged.
 >
-> Fast forward without any additional borrow or repay activity, to where `InterestScalar("uumee") = 1.5`. Due to interest accrued, Alice's real borrowed amount is `1500 uumee`, and Bob's is `3000 uumee`. Total borrowed across the system is thus `4500 uumee`. This has been accomplished by changing InterestScalar, so `AdjustedBorrow` and `TotalAdjustedBorrow` values are unchanged.
+> Fast forward without any additional borrow or repay activity, to where `InterestScalar("ukatana") = 1.5`. Due to interest accrued, Alice's real borrowed amount is `1500 ukatana`, and Bob's is `3000 ukatana`. Total borrowed across the system is thus `4500 ukatana`. This has been accomplished by changing InterestScalar, so `AdjustedBorrow` and `TotalAdjustedBorrow` values are unchanged.
 >
-> For example, `AdjustedBorrow(alice,"uumee") == 1000.000`, so to get alice's real borrowed amount, `GetBorrow(alice,"uumee") = 1000.000 * 1.5 = 1500uumee`.
+> For example, `AdjustedBorrow(alice,"ukatana") == 1000.000`, so to get alice's real borrowed amount, `GetBorrow(alice,"ukatana") = 1000.000 * 1.5 = 1500ukatana`.
 >
-> Now Alice wished to borrow an additional `500 uumee`, so whe will owe a total of 2000. Her adjusted borrow is increased by the newly borrowed amount divided by InterestScalar: `AdjustedBorrow(alice,"uumee") = 1000.000 + (500 / 1.5) = 1333.333`.
+> Now Alice wished to borrow an additional `500 ukatana`, so whe will owe a total of 2000. Her adjusted borrow is increased by the newly borrowed amount divided by InterestScalar: `AdjustedBorrow(alice,"ukatana") = 1000.000 + (500 / 1.5) = 1333.333`.
 >
-> In addition, `TotalAdustedBorrow("uumee") = 3000.000 + (500 / 1.5) = 3333.333` reflects the increase. Note that the total `uumee` borrowed across the system is now `3333.333 * 1.5 = 4500 + 500 = 5000`.
+> In addition, `TotalAdustedBorrow("ukatana") = 3000.000 + (500 / 1.5) = 3333.333` reflects the increase. Note that the total `ukatana` borrowed across the system is now `3333.333 * 1.5 = 4500 + 500 = 5000`.
 >
-> Finally, Bob will attempt to repay 1000 of his `3000 uumee` owed. Note that `AdjustedBorrow(bob,"uumee") = 2000.000` before the transaction.
+> Finally, Bob will attempt to repay 1000 of his `3000 ukatana` owed. Note that `AdjustedBorrow(bob,"ukatana") = 2000.000` before the transaction.
 >
-> After Bob makes his repayment, `AdjustedBorrow(bob,"uumee") = 2000.000 - (1000 / 1.5) = 1333.333` and `TotalAdjustedBorrow("uumee") = 3333.333 - (1000 / 1.5) = 2666.666`. The same amount is subtracted from both quantities.
+> After Bob makes his repayment, `AdjustedBorrow(bob,"ukatana") = 2000.000 - (1000 / 1.5) = 1333.333` and `TotalAdjustedBorrow("ukatana") = 3333.333 - (1000 / 1.5) = 2666.666`. The same amount is subtracted from both quantities.
 
 The scenerio above illustrates how borrowing, repayment, and interest accrual work with `InterestScalar`. Accruing interest and calculating total borrowed amounts of a token denom do not require iterating over all borrows, as long as `AdjustedBorrow` is used and `TotalAdjustedBorrow` is kept up to date on borrow and repay.
 

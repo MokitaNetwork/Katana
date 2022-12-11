@@ -19,8 +19,8 @@ import (
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 	dbm "github.com/tendermint/tm-db"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 func init() {
@@ -64,18 +64,18 @@ func TestFullAppSimulation(t *testing.T) {
 		}
 	}
 
-	app := umeeapp.New(
+	app := katanaapp.New(
 		logger,
 		db,
 		nil,
 		true,
 		map[int64]bool{},
-		umeeapp.DefaultNodeHome,
+		katanaapp.DefaultNodeHome,
 		simapp.FlagPeriodValue,
-		umeeapp.MakeEncodingConfig(),
-		umeeapp.EmptyAppOptions{},
-		umeeapp.GetWasmEnabledProposals(),
-		umeeapp.EmptyWasmOpts,
+		katanaapp.MakeEncodingConfig(),
+		katanaapp.EmptyAppOptions{},
+		katanaapp.GetWasmEnabledProposals(),
+		katanaapp.EmptyWasmOpts,
 		fauxMerkleModeOpt,
 	)
 	require.Equal(t, appparams.Name, app.Name())
@@ -137,18 +137,18 @@ func TestAppStateDeterminism(t *testing.T) {
 			}
 
 			db := dbm.NewMemDB()
-			app := umeeapp.New(
+			app := katanaapp.New(
 				logger,
 				db,
 				nil,
 				true,
 				map[int64]bool{},
-				umeeapp.DefaultNodeHome,
+				katanaapp.DefaultNodeHome,
 				simapp.FlagPeriodValue,
-				umeeapp.MakeEncodingConfig(),
-				umeeapp.EmptyAppOptions{},
-				umeeapp.GetWasmEnabledProposals(),
-				umeeapp.EmptyWasmOpts,
+				katanaapp.MakeEncodingConfig(),
+				katanaapp.EmptyAppOptions{},
+				katanaapp.GetWasmEnabledProposals(),
+				katanaapp.EmptyWasmOpts,
 				interBlockCacheOpt(),
 			)
 
@@ -214,18 +214,18 @@ func BenchmarkFullAppSimulation(b *testing.B) {
 		}
 	}
 
-	app := umeeapp.New(
+	app := katanaapp.New(
 		logger,
 		db,
 		nil,
 		true,
 		map[int64]bool{},
-		umeeapp.DefaultNodeHome,
+		katanaapp.DefaultNodeHome,
 		simapp.FlagPeriodValue,
-		umeeapp.MakeEncodingConfig(),
-		umeeapp.EmptyAppOptions{},
-		umeeapp.GetWasmEnabledProposals(),
-		umeeapp.EmptyWasmOpts,
+		katanaapp.MakeEncodingConfig(),
+		katanaapp.EmptyAppOptions{},
+		katanaapp.GetWasmEnabledProposals(),
+		katanaapp.EmptyWasmOpts,
 		interBlockCacheOpt(),
 	)
 

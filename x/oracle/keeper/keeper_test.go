@@ -19,10 +19,10 @@ import (
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/oracle/keeper"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/oracle/keeper"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 const (
@@ -34,7 +34,7 @@ type IntegrationTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *umeeapp.UmeeApp
+	app         *katanaapp.KatanaApp
 	queryClient types.QueryClient
 	msgServer   types.MsgServer
 }
@@ -46,7 +46,7 @@ const (
 func (s *IntegrationTestSuite) SetupTest() {
 	require := s.Require()
 	isCheckTx := false
-	app := umeeapp.Setup(s.T())
+	app := katanaapp.Setup(s.T())
 	ctx := app.BaseApp.NewContext(isCheckTx, tmproto.Header{
 		ChainID: fmt.Sprintf("test-chain-%s", tmrand.Str(4)),
 		Height:  9,
@@ -98,7 +98,7 @@ var (
 func NewTestMsgCreateValidator(address sdk.ValAddress, pubKey cryptotypes.PubKey, amt sdk.Int) *stakingtypes.MsgCreateValidator {
 	commission := stakingtypes.NewCommissionRates(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec())
 	msg, _ := stakingtypes.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(types.UmeeDenom, amt),
+		address, pubKey, sdk.NewCoin(types.KatanaDenom, amt),
 		stakingtypes.Description{}, commission, sdk.OneInt(),
 	)
 

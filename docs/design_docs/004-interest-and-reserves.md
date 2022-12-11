@@ -12,8 +12,8 @@ Accepted
 
 ## Context
 
-Borrow positions on Umee accrue interest over time.
-When interest accrues, the sum of all assets owed by all users increases for each borrowed token denomination. The amount of that increase serves to benefit suppliers (by increasing the token:uToken exchange rate), and also to increase the amount of base assets the Umee system holds in reserve.
+Borrow positions on Katana accrue interest over time.
+When interest accrues, the sum of all assets owed by all users increases for each borrowed token denomination. The amount of that increase serves to benefit suppliers (by increasing the token:uToken exchange rate), and also to increase the amount of base assets the Katana system holds in reserve.
 
 The mechanism by which interest is calculated, and then split between incentivizing suppliers as per [design doc 001](./001-interest-stream.md) and reserves as defined in this design doc, will follow.
 

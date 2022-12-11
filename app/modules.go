@@ -21,7 +21,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	appparams "github.com/umee-network/umee/v3/app/params"
+	appparams "github.com/mokitanetwork/katana/app/params"
 )
 
 // BankModule defines a custom wrapper around the x/bank module's AppModuleBasic
@@ -30,10 +30,10 @@ type BankModule struct {
 	bank.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/bank module genesis state.
+// DefaultGenesis returns custom Katana x/bank module genesis state.
 func (BankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
-	umeeMetadata := banktypes.Metadata{
-		Description: "The native staking token of the Umee network.",
+	katanaMetadata := banktypes.Metadata{
+		Description: "The native staking token of the Katana network.",
 		Base:        appparams.BondDenom,
 		Name:        appparams.DisplayDenom,
 		Display:     appparams.DisplayDenom,
@@ -43,7 +43,7 @@ func (BankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 				Denom:    appparams.BondDenom,
 				Exponent: 0,
 				Aliases: []string{
-					"microumee",
+					"microkatana",
 				},
 			},
 			{
@@ -55,7 +55,7 @@ func (BankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	}
 
 	genState := banktypes.DefaultGenesisState()
-	genState.DenomMetadata = append(genState.DenomMetadata, umeeMetadata)
+	genState.DenomMetadata = append(genState.DenomMetadata, katanaMetadata)
 
 	return cdc.MustMarshalJSON(genState)
 }
@@ -66,7 +66,7 @@ type StakingModule struct {
 	staking.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/staking module genesis state.
+// DefaultGenesis returns custom Katana x/staking module genesis state.
 func (StakingModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	p := stakingtypes.DefaultParams()
 	p.BondDenom = appparams.BondDenom
@@ -81,7 +81,7 @@ type CrisisModule struct {
 	crisis.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/crisis module genesis state.
+// DefaultGenesis returns custom Katana x/crisis module genesis state.
 func (CrisisModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	return cdc.MustMarshalJSON(&crisistypes.GenesisState{
 		ConstantFee: sdk.NewCoin(appparams.BondDenom, sdk.NewInt(1000)),
@@ -94,7 +94,7 @@ type MintModule struct {
 	mint.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/mint module genesis state.
+// DefaultGenesis returns custom Katana x/mint module genesis state.
 func (MintModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genState := minttypes.DefaultGenesisState()
 	genState.Params.MintDenom = appparams.BondDenom
@@ -108,7 +108,7 @@ type GovModule struct {
 	gov.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/gov module genesis state.
+// DefaultGenesis returns custom Katana x/gov module genesis state.
 func (GovModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	minDeposit := sdk.NewCoins(sdk.NewCoin(appparams.BondDenom, govv1.DefaultMinDepositTokens))
 	genState := govv1.DefaultGenesisState()
@@ -123,7 +123,7 @@ type SlashingModule struct {
 	slashing.AppModuleBasic
 }
 
-// DefaultGenesis returns custom Umee x/slashing module genesis state.
+// DefaultGenesis returns custom Katana x/slashing module genesis state.
 func (SlashingModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genState := slashingtypes.DefaultGenesisState()
 	genState.Params.SignedBlocksWindow = 10000

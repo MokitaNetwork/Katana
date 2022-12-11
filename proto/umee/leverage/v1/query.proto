@@ -1,13 +1,13 @@
 syntax = "proto3";
-package umee.leverage.v1;
+package katana.leverage.v1;
 
 import "google/api/annotations.proto";
-import "umee/leverage/v1/genesis.proto";
-import "umee/leverage/v1/leverage.proto";
+import "katana/leverage/v1/genesis.proto";
+import "katana/leverage/v1/leverage.proto";
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/umee-network/umee/v3/x/leverage/types";
+option go_package = "github.com/mokitanetwork/katana/x/leverage/types";
 
 option (gogoproto.goproto_getters_all) = false;
 
@@ -15,49 +15,49 @@ option (gogoproto.goproto_getters_all) = false;
 service Query {
   // Params queries the parameters of the x/leverage module.
   rpc Params(QueryParams) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/params";
+    option (google.api.http).get = "/katana/leverage/v1/params";
   }
 
   // RegisteredTokens queries for all the registered tokens.
   rpc RegisteredTokens(QueryRegisteredTokens)
       returns (QueryRegisteredTokensResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/registered_tokens";
+    option (google.api.http).get = "/katana/leverage/v1/registered_tokens";
   }
 
   // MarketSummary queries a base asset's current borrowing and supplying conditions.
   rpc MarketSummary(QueryMarketSummary)
       returns (QueryMarketSummaryResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/market_summary";
+    option (google.api.http).get = "/katana/leverage/v1/market_summary";
   }
 
   // AccountBalances queries an account's current supply, collateral, and borrow positions.
   rpc AccountBalances(QueryAccountBalances)
       returns (QueryAccountBalancesResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/account_balances";
+    option (google.api.http).get = "/katana/leverage/v1/account_balances";
   }
 
   // AccountSummary queries USD values representing an account's total positions and borrowing limits. It requires oracle prices to return successfully.
   rpc AccountSummary(QueryAccountSummary)
       returns (QueryAccountSummaryResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/account_summary";
+    option (google.api.http).get = "/katana/leverage/v1/account_summary";
   }
 
   // LiquidationTargets queries a list of all borrower account addresses eligible for liquidation.
   rpc LiquidationTargets(QueryLiquidationTargets)
       returns (QueryLiquidationTargetsResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/liquidation_targets";
+    option (google.api.http).get = "/katana/leverage/v1/liquidation_targets";
   }
 
   // BadDebts queries a list of borrow positions that have been marked for bad debt repayment.
   rpc BadDebts(QueryBadDebts)
       returns (QueryBadDebtsResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/bad_debts";
+    option (google.api.http).get = "/katana/leverage/v1/bad_debts";
   }
 
   // MaxWithdraw queries the maximum amount of a given token an address can withdraw.
   rpc MaxWithdraw(QueryMaxWithdraw)
       returns (QueryMaxWithdrawResponse) {
-    option (google.api.http).get = "/umee/leverage/v1/max_withdraw";
+    option (google.api.http).get = "/katana/leverage/v1/max_withdraw";
   }
 }
 
@@ -88,16 +88,16 @@ message QueryMarketSummary {
 
 // QueryMarketSummaryResponse defines the response structure for the MarketSummary gRPC service handler.
 message QueryMarketSummaryResponse {
-  // Symbol Denom is the human-readable representation of a token denom, for example "UMEE" or "ATOM".
+  // Symbol Denom is the human-readable representation of a token denom, for example "KATANA" or "ATOM".
   string symbol_denom = 1;
-  // Exponent is the power of ten required to get from base denom to symbol denom. For example, an exponent of 6 means 10^6 uumee = 1 UMEE.
+  // Exponent is the power of ten required to get from base denom to symbol denom. For example, an exponent of 6 means 10^6 ukatana = 1 KATANA.
   uint32 exponent = 2;
   // Oracle Price is the current USD value of a token. Oracle price is nil when the oracle is down.
   string oracle_price = 3 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
     (gogoproto.nullable)   = true
   ];
-  // uToken Exchange Rate is the amount of base tokens received when withdrawing 1 uToken. For example, a uToken exchange rate of 1.5 means a supplier receives 3 uumee for every 2 u/uumee they wish to withdraw. The same applies in reverse: supplying 3 uumee would award 2 u/uumee at that time.
+  // uToken Exchange Rate is the amount of base tokens received when withdrawing 1 uToken. For example, a uToken exchange rate of 1.5 means a supplier receives 3 ukatana for every 2 u/ukatana they wish to withdraw. The same applies in reverse: supplying 3 ukatana would award 2 u/ukatana at that time.
   string uToken_exchange_rate = 4 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
     (gogoproto.nullable)   = false,
@@ -125,7 +125,7 @@ message QueryMarketSummaryResponse {
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false
   ];
-  // Collateral is the total amount of uTokens collateralized by all borrowers. Collateral is denominated in uTokenso, so both uToken exchange rate and exponent must also be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee and uToken exhange rate is 1.2, then 5 UMEE have been collateralized.
+  // Collateral is the total amount of uTokens collateralized by all borrowers. Collateral is denominated in uTokenso, so both uToken exchange rate and exponent must also be applied to convert to symbol denom. For example, if collateral is 4000000 u/ukatana and uToken exhange rate is 1.2, then 5 KATANA have been collateralized.
   string collateral = 9 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false
@@ -140,17 +140,17 @@ message QueryMarketSummaryResponse {
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false
   ];
-  // Maximum Borrow is the amount of a token that is available for borrowing, including that which has already been borrowed out. This amount is less than total supply due to safety limits. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if borrowed is 3000000 uumee and maximum borrow is 4000000 uumee, then 1 UMEE is currently available for borrowing.
+  // Maximum Borrow is the amount of a token that is available for borrowing, including that which has already been borrowed out. This amount is less than total supply due to safety limits. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if borrowed is 3000000 ukatana and maximum borrow is 4000000 ukatana, then 1 KATANA is currently available for borrowing.
   string maximum_borrow = 12 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false
   ];
-  // Maximum Collateral is the amount of a token that can be collateralized, including that which is already collateral. This amount is less than total supply due to safety limits. It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee, uToken exhange rate is 1.2, and maximum borrow is 7000000 uumee, then a maximum of 2 additional UMEE is permitted to be collateralized.
+  // Maximum Collateral is the amount of a token that can be collateralized, including that which is already collateral. This amount is less than total supply due to safety limits. It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. For example, if collateral is 4000000 u/ukatana, uToken exhange rate is 1.2, and maximum borrow is 7000000 ukatana, then a maximum of 2 additional KATANA is permitted to be collateralized.
   string maximum_collateral = 13 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false
   ];
-  // Mimimum Liquidity is the minimum amount of liquidity in the module required by safety limits, based on the current collateral. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if liquidity is 9000000 uumee and minimum liquidity is 8000000 uumee, then a maximum of 1 additional UMEE is currently available for borrowing or withdrawal.
+  // Mimimum Liquidity is the minimum amount of liquidity in the module required by safety limits, based on the current collateral. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if liquidity is 9000000 ukatana and minimum liquidity is 8000000 ukatana, then a maximum of 1 additional KATANA is currently available for borrowing or withdrawal.
   string minimum_liquidity = 14 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable)   = false

@@ -89,7 +89,7 @@ func (t testTransaction) Run(s *IntegrationTestSuite) {
 		fmt.Sprintf("--%s=true", flags.FlagSkipConfirmation),
 		fmt.Sprintf("--%s=%s", flags.FlagBroadcastMode, flags.BroadcastBlock),
 		fmt.Sprintf("--%s=%s", flags.FlagGas, "10000000"),
-		fmt.Sprintf("--%s=%s", flags.FlagFees, "1000000uumee"),
+		fmt.Sprintf("--%s=%s", flags.FlagFees, "1000000ukatana"),
 	}
 
 	out, err := clitestutil.ExecTestCLICmd(clientCtx, t.command, append(t.args, txFlags...))

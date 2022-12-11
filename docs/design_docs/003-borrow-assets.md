@@ -14,11 +14,11 @@ Accepted
 
 ## Context
 
-One of the base functions of the Umee universal capital facility is to allow users to borrow allowed asset types, using their own uTokens (obtained normally, by depositing assets) as a collateral.
+One of the base functions of the Katana universal capital facility is to allow users to borrow allowed asset types, using their own uTokens (obtained normally, by depositing assets) as a collateral.
 
 ## Decision
 
-The Cosmos `x/bank` module and the existing `umee/x/leverage` deposit features are prerequisites for these new capabilities.
+The Cosmos `x/bank` module and the existing `katana/x/leverage` deposit features are prerequisites for these new capabilities.
 
 The flow of events is as follows:
 
@@ -32,7 +32,7 @@ Additionally, the following events occur at `EndBlock`:
 
 - Fees are added to the open borrow positions based on token-specific interest rate.
 
-The `umee/x/leverage` module stores each open borrow position.
+The `katana/x/leverage` module stores each open borrow position.
 If the same user account opens multiple borrow positions in the same token, the second position simply increases the amount of the first.
 
 Additionally, rather than segregating each borrow position with a specific collateral deposit (uToken coins) we aggregate them. The sum of all account's collateral uTokens related is used to calculate the account's borrow limit.
@@ -49,7 +49,7 @@ Note also that as a consequence of uToken interest, the asset value of uToken co
 
 ## Detailed Design
 
-For the purposes of borrowing and repaying assets, as well as marking uTokens as collateral, the `umee/x/leverage` module does not mint or burn tokens.
+For the purposes of borrowing and repaying assets, as well as marking uTokens as collateral, the `katana/x/leverage` module does not mint or burn tokens.
 It stores borrower open positions and collateral settings, and uses the `x/bank` module to perform all necessary balance checks and token transfers.
 User collateral (uTokens) are deposited in `x/leverage` module and withdrawn back to the user `x/bank` account balance when the user disables uTokens as a collateral.
 
@@ -93,7 +93,7 @@ Both CLI and gRPC must be supported for the above messages.
 
 Borrow positions are stored using a mechanism discussed in design doc 008
 
-Using the `sdk.Coins` built-in type, which combines multiple {Denom,Amount} pairs as a single object, the `umee/x/leverage` module stores collateral settings and positions as follows:
+Using the `sdk.Coins` built-in type, which combines multiple {Denom,Amount} pairs as a single object, the `katana/x/leverage` module stores collateral settings and positions as follows:
 
 ```go
 

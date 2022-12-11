@@ -11,7 +11,7 @@ Proposed
 
 ## Context
 
-Umee manages the health of individual borrowers using borrow limits, collateral weights, and liquidation thresholds, but it currently lacks parameters that manages the health of token markets as a whole.
+Katana manages the health of individual borrowers using borrow limits, collateral weights, and liquidation thresholds, but it currently lacks parameters that manages the health of token markets as a whole.
 
 Several new parameters and alternatives are being proposed.
 

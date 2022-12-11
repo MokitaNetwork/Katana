@@ -28,15 +28,15 @@ func init() {
 // concrete types on the provided LegacyAmino codec. These types are used for
 // Amino JSON serialization.
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgSupply{}, "umee/leverage/MsgSupply", nil)
-	cdc.RegisterConcrete(&MsgWithdraw{}, "umee/leverage/MsgWithdraw", nil)
-	cdc.RegisterConcrete(&MsgCollateralize{}, "umee/leverage/MsgCollateralize", nil)
-	cdc.RegisterConcrete(&MsgDecollateralize{}, "umee/leverage/MsgDecollateralize", nil)
-	cdc.RegisterConcrete(&MsgBorrow{}, "umee/leverage/MsgBorrow", nil)
-	cdc.RegisterConcrete(&MsgRepay{}, "umee/leverage/MsgRepay", nil)
-	cdc.RegisterConcrete(&MsgLiquidate{}, "umee/leverage/MsgLiquidate", nil)
-	cdc.RegisterConcrete(&MsgGovUpdateRegistry{}, "umee/leverage/MsgGovUpdateRegistry", nil)
-	cdc.RegisterConcrete(&MsgSupplyCollateral{}, "umee/leverage/MsgSupplyCollateral", nil)
+	cdc.RegisterConcrete(&MsgSupply{}, "katana/leverage/MsgSupply", nil)
+	cdc.RegisterConcrete(&MsgWithdraw{}, "katana/leverage/MsgWithdraw", nil)
+	cdc.RegisterConcrete(&MsgCollateralize{}, "katana/leverage/MsgCollateralize", nil)
+	cdc.RegisterConcrete(&MsgDecollateralize{}, "katana/leverage/MsgDecollateralize", nil)
+	cdc.RegisterConcrete(&MsgBorrow{}, "katana/leverage/MsgBorrow", nil)
+	cdc.RegisterConcrete(&MsgRepay{}, "katana/leverage/MsgRepay", nil)
+	cdc.RegisterConcrete(&MsgLiquidate{}, "katana/leverage/MsgLiquidate", nil)
+	cdc.RegisterConcrete(&MsgGovUpdateRegistry{}, "katana/leverage/MsgGovUpdateRegistry", nil)
+	cdc.RegisterConcrete(&MsgSupplyCollateral{}, "katana/leverage/MsgSupplyCollateral", nil)
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {

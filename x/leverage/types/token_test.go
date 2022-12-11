@@ -6,16 +6,16 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func TestToTokenDenom(t *testing.T) {
 	// Turns uToken denoms into base tokens
-	require.Equal(t, "uumee", types.ToTokenDenom("u/uumee"))
+	require.Equal(t, "ukatana", types.ToTokenDenom("u/ukatana"))
 	require.Equal(t, "ibc/abcd", types.ToTokenDenom("u/ibc/abcd"))
 
 	// Empty return for base tokens
-	require.Equal(t, "", types.ToTokenDenom("uumee"))
+	require.Equal(t, "", types.ToTokenDenom("ukatana"))
 	require.Equal(t, "", types.ToTokenDenom("ibc/abcd"))
 
 	// Empty return on repreated prefix
@@ -28,11 +28,11 @@ func TestToTokenDenom(t *testing.T) {
 
 func TestToUTokenDenom(t *testing.T) {
 	// Turns base token denoms into base uTokens
-	require.Equal(t, "u/uumee", types.ToUTokenDenom("uumee"))
+	require.Equal(t, "u/ukatana", types.ToUTokenDenom("ukatana"))
 	require.Equal(t, "u/ibc/abcd", types.ToUTokenDenom("ibc/abcd"))
 
 	// Empty return for uTokens
-	require.Equal(t, "", types.ToUTokenDenom("u/uumee"))
+	require.Equal(t, "", types.ToUTokenDenom("u/ukatana"))
 	require.Equal(t, "", types.ToUTokenDenom("u/ibc/abcd"))
 
 	// Edge cases
@@ -41,8 +41,8 @@ func TestToUTokenDenom(t *testing.T) {
 
 func validToken() types.Token {
 	return types.Token{
-		BaseDenom:              "uumee",
-		SymbolDenom:            "umee",
+		BaseDenom:              "ukatana",
+		SymbolDenom:            "katana",
 		Exponent:               6,
 		ReserveFactor:          sdk.MustNewDecFromStr("0.25"),
 		CollateralWeight:       sdk.MustNewDecFromStr("0.5"),
@@ -75,7 +75,7 @@ func TestUpdateRegistryProposal_String(t *testing.T) {
 title: test
 description: test
 addtokens:
-    - base_denom: uumee
+    - base_denom: ukatana
       reserve_factor: "40.000000000000000000"
       collateral_weight: "0.500000000000000000"
       liquidation_threshold: "0.500000000000000000"
@@ -84,7 +84,7 @@ addtokens:
       max_borrow_rate: "1.000000000000000000"
       kink_utilization: "0.750000000000000000"
       liquidation_incentive: "0.050000000000000000"
-      symbol_denom: umee
+      symbol_denom: katana
       exponent: 6
       enable_msg_supply: true
       enable_msg_borrow: true
@@ -104,7 +104,7 @@ func TestToken_Validate(t *testing.T) {
 	invalidBaseToken.SymbolDenom = ""
 
 	invalidUToken := validToken()
-	invalidUToken.BaseDenom = "u/uumee"
+	invalidUToken.BaseDenom = "u/ukatana"
 	invalidUToken.SymbolDenom = ""
 
 	invalidReserveFactor := validToken()

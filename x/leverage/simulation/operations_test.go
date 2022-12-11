@@ -12,33 +12,33 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/leverage"
-	"github.com/umee-network/umee/v3/x/leverage/fixtures"
-	"github.com/umee-network/umee/v3/x/leverage/simulation"
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/leverage"
+	"github.com/mokitanetwork/katana/x/leverage/fixtures"
+	"github.com/mokitanetwork/katana/x/leverage/simulation"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 // SimTestSuite wraps the test suite for running the simulations
 type SimTestSuite struct {
 	suite.Suite
 
-	app *umeeapp.UmeeApp
+	app *katanaapp.KatanaApp
 	ctx sdk.Context
 }
 
-// SetupTest creates a new umee base app
+// SetupTest creates a new katana base app
 func (s *SimTestSuite) SetupTest() {
 	checkTx := false
-	app := umeeapp.Setup(s.T())
+	app := katanaapp.Setup(s.T())
 	ctx := app.NewContext(checkTx, tmproto.Header{})
 
 	leverage.InitGenesis(ctx, app.LeverageKeeper, *types.DefaultGenesis())
 
-	// Use default umee token for sim tests
-	s.Require().NoError(app.LeverageKeeper.SetTokenSettings(ctx, fixtures.Token("uumee", "UMEE", 6)))
-	app.OracleKeeper.SetExchangeRate(ctx, "UMEE", sdk.MustNewDecFromStr("100.0"))
+	// Use default katana token for sim tests
+	s.Require().NoError(app.LeverageKeeper.SetTokenSettings(ctx, fixtures.Token("ukatana", "KATANA", 6)))
+	app.OracleKeeper.SetExchangeRate(ctx, "KATANA", sdk.MustNewDecFromStr("100.0"))
 
 	s.app = app
 	s.ctx = ctx
@@ -126,8 +126,8 @@ func (s *SimTestSuite) TestSimulateMsgSupply() {
 
 	var msg types.MsgSupply
 	s.unmarshal(&operationMsg, &msg)
-	s.Require().Equal("umee1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Supplier)
-	s.Require().Equal("23872177uumee", msg.Asset.String())
+	s.Require().Equal("katana1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Supplier)
+	s.Require().Equal("23872177ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 
@@ -149,8 +149,8 @@ func (s *SimTestSuite) TestSimulateMsgWithdraw() {
 	var msg types.MsgWithdraw
 	s.unmarshal(&operationMsg, &msg)
 	s.Require().True(operationMsg.OK)
-	s.Require().Equal("umee1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Supplier)
-	s.Require().Equal("560969u/uumee", msg.Asset.String())
+	s.Require().Equal("katana1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Supplier)
+	s.Require().Equal("560969u/ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 
@@ -174,8 +174,8 @@ func (s *SimTestSuite) TestSimulateMsgBorrow() {
 
 	var msg types.MsgBorrow
 	s.unmarshal(&operationMsg, &msg)
-	s.Require().Equal("umee1qnclgkcxtuledc8xhle4lqly2q0z96uqkks60s", msg.Borrower)
-	s.Require().Equal("675395uumee", msg.Asset.String())
+	s.Require().Equal("katana1qnclgkcxtuledc8xhle4lqly2q0z96uqkks60s", msg.Borrower)
+	s.Require().Equal("675395ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 
@@ -196,8 +196,8 @@ func (s *SimTestSuite) TestSimulateMsgCollateralize() {
 
 	var msg types.MsgCollateralize
 	s.unmarshal(&operationMsg, &msg)
-	s.Require().Equal("umee1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
-	s.Require().Equal("560969u/uumee", msg.Asset.String())
+	s.Require().Equal("katana1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
+	s.Require().Equal("560969u/ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 
@@ -219,8 +219,8 @@ func (s *SimTestSuite) TestSimulateMsgDecollateralize() {
 
 	var msg types.MsgDecollateralize
 	s.unmarshal(&operationMsg, &msg)
-	s.Require().Equal("umee1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
-	s.Require().Equal("560969u/uumee", msg.Asset.String())
+	s.Require().Equal("katana1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
+	s.Require().Equal("560969u/ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 
@@ -244,8 +244,8 @@ func (s *SimTestSuite) TestSimulateMsgRepay() {
 
 	var msg types.MsgRepay
 	s.unmarshal(&operationMsg, &msg)
-	s.Require().Equal("umee1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
-	s.Require().Equal("560969uumee", msg.Asset.String())
+	s.Require().Equal("katana1ghekyjucln7y67ntx7cf27m9dpuxxemn8w6h33", msg.Borrower)
+	s.Require().Equal("560969ukatana", msg.Asset.String())
 	s.Require().Len(futureOperations, 0)
 }
 

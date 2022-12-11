@@ -15,13 +15,13 @@ const (
 	coinGeckoRestURL            = "https://api.coingecko.com/api/v3/coins"
 	coinGeckoListEndpoint       = "list"
 	coinGeckoTickersEndpoint    = "tickers"
-	osmosisV2RestURL            = "https://api.osmo-api.network.umee.cc"
+	osmosisV2RestURL            = "https://api.osmo-api.network.katana.cc"
 	osmosisV2AssetPairsEndpoint = "assetpairs"
 	trackingPeriod              = time.Hour * 24
 )
 
 type (
-	// CurrencyProviderTracker queries the CoinGecko API and UMEE's osmosis-api for all
+	// CurrencyProviderTracker queries the CoinGecko API and KATANA's osmosis-api for all
 	// the exchanges that support the currency pairs set in the price feeder config. It
 	// will poll the APIs every 24 hours to log any new exchanges that were added for a
 	// given currency.

@@ -14,11 +14,11 @@ import (
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	appparams "github.com/umee-network/umee/v3/app/params"
-	"github.com/umee-network/umee/v3/x/oracle/keeper"
-	"github.com/umee-network/umee/v3/x/oracle"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	appparams "github.com/mokitanetwork/katana/app/params"
+	"github.com/mokitanetwork/katana/x/oracle/keeper"
+	"github.com/mokitanetwork/katana/x/oracle"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 const (
@@ -30,7 +30,7 @@ type IntegrationTestSuite struct {
 	suite.Suite
 
 	ctx sdk.Context
-	app *umeeapp.UmeeApp
+	app *katanaapp.KatanaApp
 }
 
 const (
@@ -80,7 +80,7 @@ func clearHistoricMedianDeviations(
 func (s *IntegrationTestSuite) SetupTest() {
 	require := s.Require()
 	isCheckTx := false
-	app := umeeapp.Setup(s.T())
+	app := katanaapp.Setup(s.T())
 	ctx := app.BaseApp.NewContext(isCheckTx, tmproto.Header{
 		ChainID: fmt.Sprintf("test-chain-%s", tmrand.Str(4)),
 	})

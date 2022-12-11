@@ -16,7 +16,7 @@ Highlights:
 - `QueryLiquidationTargets` RPC is now available when the node is run with `--enable-liquidator-query`. The LIQUIDATOR build flag has been removed. NOTE: this query should not be enabled for nodes with public API. The query involves intensive computation and can impact node stability when used by an attacker.
 - Introduced experimental features, available when build with `experimental` flag. This flag must not be used on mainnet.
 
-Please see the [CHANGELOG](https://github.com/umee-network/umee/blob/v3.2.0/CHANGELOG.md) for an exhaustive list of changes.
+Please see the [CHANGELOG](https://github.com/umee-network/katana/blob/v3.2.0/CHANGELOG.md) for an exhaustive list of changes.
 
 ### Gravity Bridge
 
@@ -25,7 +25,7 @@ Validators must run Peggo and must process claims to not be slashed.
 
 ### Github Release
 
-New experimental features which are part of the linked binary changed the build process. Umeed doesn't support static CGO build (with `CGO_ENABLED=1`). Github Actions only support build using Linux on amd64, we can not make a cross platform build using Github Actions. So our Github release only contains source code archive and amd64 Linux binary.
+New experimental features which are part of the linked binary changed the build process. Katanad doesn't support static CGO build (with `CGO_ENABLED=1`). Github Actions only support build using Linux on amd64, we can not make a cross platform build using Github Actions. So our Github release only contains source code archive and amd64 Linux binary.
 
 Moreover to run the provided binary, you need to have `libwasmvm.x86_64.so v1.1.1` in your system lib directory.
 
@@ -46,10 +46,10 @@ $ wget https://raw.githubusercontent.com/CosmWasm/wasmvm/v1.1.1/internal/api/lib
 - Swap binaries.
 - Restart the chain.
 
-You can use Cosmovisor → see [instructions](https://github.com/umee-network/umee/#cosmovisor).
+You can use Cosmovisor → see [instructions](https://github.com/umee-network/katana/#cosmovisor).
 - If you use Cosmovisor, and you didn't build binary from source in the validator machine, you have to download the respective `libwasmvm` into your machine.  
 ```bash
 $ wget https://raw.githubusercontent.com/CosmWasm/wasmvm/v1.1.1/internal/api/libwasmvm.$(uname -m).so -O /lib/libwasmvm.$(uname -m).so
 ```
 
-NOTE: As described in the previous section, you need to have `libwasmvm.x86_64.so` correctly linked to the binary. BEFORE the upgrade, make sure the binary is working. You can test it by running `./umeed-v3.2.0 --version`.
+NOTE: As described in the previous section, you need to have `libwasmvm.x86_64.so` correctly linked to the binary. BEFORE the upgrade, make sure the binary is working. You can test it by running `./katanad-v3.2.0 --version`.

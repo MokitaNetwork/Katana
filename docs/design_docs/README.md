@@ -1,6 +1,6 @@
 # Design Documents
 
-This is a location to record all high-level design decisions in the Umee
+This is a location to record all high-level design decisions in the Katana
 project.
 
 A design document should provide:

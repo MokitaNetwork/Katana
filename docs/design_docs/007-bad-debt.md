@@ -11,7 +11,7 @@ Proposed
 
 ## Context
 
-Debt positions on Umee always start out over-collateralized, but if sufficient interest accrues or asset prices fluctuate too quickly, some borrowers may reach a state where the total value of their collateral is less than the value of their borrowed assets.
+Debt positions on Katana always start out over-collateralized, but if sufficient interest accrues or asset prices fluctuate too quickly, some borrowers may reach a state where the total value of their collateral is less than the value of their borrowed assets.
 
 Such debt (now under-collateralized) may become over-collateralized on its own if asset prices rebound in the right direction, but it is also eligible for liquidation in its current state.
 When fully liquidated, accounts whose `BorrowedValue` is greater than `CollateralValue` (adjusted for liquidation incentive) will result in an account with nonzero total borrows but zero collateral, thus no incentive for repayment.
@@ -79,7 +79,7 @@ There are two edge cases that would allow bad debt to slip past detection or aut
 
 - Nonzero collateral: If liquidators do not reduce borrower collateral to zero, even leaving a miniscule amount, bad debt will not be detected at the end of `LiquidateBorrow`.
 
-This could be solved by any Liquidator - but if undercollateralized borrowers are being left for long periods without being completely liquidated, then a bot could be set up to finish them, even if that bot is controlled by Umee.
+This could be solved by any Liquidator - but if undercollateralized borrowers are being left for long periods without being completely liquidated, then a bot could be set up to finish them, even if that bot is controlled by Katana.
 
 - Reserve exhaustion: If reserves are insufficient to fully repay bad debt at the moment `RepayBadDebt` is called, the remaining debt will be attempted every `InterestEpoch` until successful.
 

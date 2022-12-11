@@ -6,9 +6,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/umee-network/umee/v3/util"
-	"github.com/umee-network/umee/v3/util/decmath"
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/util"
+	"github.com/mokitanetwork/katana/util/decmath"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 )
 
 // HistoricMedians returns a list of a given denom's last numStamps medians.

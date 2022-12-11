@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/umee-network/umee/v3/x/leverage/types"
+	"github.com/mokitanetwork/katana/x/leverage/types"
 )
 
 func (s *IntegrationTestSuite) TestSupply() {
@@ -18,8 +18,8 @@ func (s *IntegrationTestSuite) TestSupply() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a supplier with 100 UMEE and 100 ATOM
-	supplier := s.newAccount(coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
+	// create and fund a supplier with 100 KATANA and 100 ATOM
+	supplier := s.newAccount(coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
 
 	// create and modify a borrower to force the uToken exchange rate of ATOM from 1 to 1.5
 	borrower := s.newAccount(coin(atomDenom, 100_000000))
@@ -29,7 +29,7 @@ func (s *IntegrationTestSuite) TestSupply() {
 	s.tk.SetBorrow(ctx, borrower, coin(atomDenom, 60_000000))
 
 	// create a supplier that will exceed token's default MaxSupply
-	whale := s.newAccount(coin(umeeDenom, 1_000_000_000000))
+	whale := s.newAccount(coin(katanaDenom, 1_000_000_000000))
 
 	tcs := []testCase{
 		{
@@ -42,36 +42,36 @@ func (s *IntegrationTestSuite) TestSupply() {
 		{
 			"uToken",
 			supplier,
-			coin("u/"+umeeDenom, 80_000000),
+			coin("u/"+katanaDenom, 80_000000),
 			sdk.Coin{},
 			types.ErrUToken,
 		},
 		{
 			"no balance",
 			borrower,
-			coin(umeeDenom, 20_000000),
+			coin(katanaDenom, 20_000000),
 			sdk.Coin{},
 			sdkerrors.ErrInsufficientFunds,
 		},
 		{
 			"insufficient balance",
 			supplier,
-			coin(umeeDenom, 120_000000),
+			coin(katanaDenom, 120_000000),
 			sdk.Coin{},
 			sdkerrors.ErrInsufficientFunds,
 		},
 		{
 			"valid supply",
 			supplier,
-			coin(umeeDenom, 80_000000),
-			coin("u/"+umeeDenom, 80_000000),
+			coin(katanaDenom, 80_000000),
+			coin("u/"+katanaDenom, 80_000000),
 			nil,
 		},
 		{
 			"additional supply",
 			supplier,
-			coin(umeeDenom, 20_000000),
-			coin("u/"+umeeDenom, 20_000000),
+			coin(katanaDenom, 20_000000),
+			coin("u/"+katanaDenom, 20_000000),
 			nil,
 		},
 		{
@@ -84,7 +84,7 @@ func (s *IntegrationTestSuite) TestSupply() {
 		{
 			"max supply",
 			whale,
-			coin(umeeDenom, 1_000_000_000000),
+			coin(katanaDenom, 1_000_000_000000),
 			sdk.Coin{},
 			types.ErrMaxSupply,
 		},
@@ -146,11 +146,11 @@ func (s *IntegrationTestSuite) TestWithdraw() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a supplier with 100 UMEE and 100 ATOM, then supply 100 UMEE and 50 ATOM
-	// also collateralize 75 of supplied UMEE
-	supplier := s.newAccount(coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
-	s.supply(supplier, coin(umeeDenom, 100_000000))
-	s.collateralize(supplier, coin("u/"+umeeDenom, 75_000000))
+	// create and fund a supplier with 100 KATANA and 100 ATOM, then supply 100 KATANA and 50 ATOM
+	// also collateralize 75 of supplied KATANA
+	supplier := s.newAccount(coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
+	s.supply(supplier, coin(katanaDenom, 100_000000))
+	s.collateralize(supplier, coin("u/"+katanaDenom, 75_000000))
 	s.supply(supplier, coin(atomDenom, 50_000000))
 
 	// create and modify a borrower to force the uToken exchange rate of ATOM from 1 to 1.2
@@ -160,9 +160,9 @@ func (s *IntegrationTestSuite) TestWithdraw() {
 	s.borrow(borrower, coin(atomDenom, 10_000000))
 	s.tk.SetBorrow(ctx, borrower, coin(atomDenom, 40_000000))
 
-	// create an additional UMEE supplier
-	other := s.newAccount(coin(umeeDenom, 100_000000))
-	s.supply(other, coin(umeeDenom, 100_000000))
+	// create an additional KATANA supplier
+	other := s.newAccount(coin(katanaDenom, 100_000000))
+	s.supply(other, coin(katanaDenom, 100_000000))
 
 	tcs := []testCase{
 		{
@@ -177,7 +177,7 @@ func (s *IntegrationTestSuite) TestWithdraw() {
 		{
 			"base token",
 			supplier,
-			coin(umeeDenom, 80_000000),
+			coin(katanaDenom, 80_000000),
 			nil,
 			nil,
 			sdk.Coin{},
@@ -186,7 +186,7 @@ func (s *IntegrationTestSuite) TestWithdraw() {
 		{
 			"insufficient uTokens",
 			supplier,
-			coin("u/"+umeeDenom, 120_000000),
+			coin("u/"+katanaDenom, 120_000000),
 			nil,
 			nil,
 			sdk.Coin{},
@@ -195,28 +195,28 @@ func (s *IntegrationTestSuite) TestWithdraw() {
 		{
 			"withdraw from balance",
 			supplier,
-			coin("u/"+umeeDenom, 10_000000),
-			sdk.NewCoins(coin("u/"+umeeDenom, 10_000000)),
+			coin("u/"+katanaDenom, 10_000000),
+			sdk.NewCoins(coin("u/"+katanaDenom, 10_000000)),
 			nil,
-			coin(umeeDenom, 10_000000),
+			coin(katanaDenom, 10_000000),
 			nil,
 		},
 		{
 			"some from collateral",
 			supplier,
-			coin("u/"+umeeDenom, 80_000000),
-			sdk.NewCoins(coin("u/"+umeeDenom, 15_000000)),
-			sdk.NewCoins(coin("u/"+umeeDenom, 65_000000)),
-			coin(umeeDenom, 80_000000),
+			coin("u/"+katanaDenom, 80_000000),
+			sdk.NewCoins(coin("u/"+katanaDenom, 15_000000)),
+			sdk.NewCoins(coin("u/"+katanaDenom, 65_000000)),
+			coin(katanaDenom, 80_000000),
 			nil,
 		},
 		{
 			"only from collateral",
 			supplier,
-			coin("u/"+umeeDenom, 10_000000),
+			coin("u/"+katanaDenom, 10_000000),
 			nil,
-			sdk.NewCoins(coin("u/"+umeeDenom, 10_000000)),
-			coin(umeeDenom, 10_000000),
+			sdk.NewCoins(coin("u/"+katanaDenom, 10_000000)),
+			coin(katanaDenom, 10_000000),
 			nil,
 		},
 		{
@@ -294,19 +294,19 @@ func (s *IntegrationTestSuite) TestCollateralize() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a supplier with 200 UMEE, then supply 100 UMEE
-	supplier := s.newAccount(coin(umeeDenom, 200_000000))
-	s.supply(supplier, coin(umeeDenom, 100_000000))
+	// create and fund a supplier with 200 KATANA, then supply 100 KATANA
+	supplier := s.newAccount(coin(katanaDenom, 200_000000))
+	s.supply(supplier, coin(katanaDenom, 100_000000))
 
 	// create and fund another supplier
-	otherSupplier := s.newAccount(coin(umeeDenom, 200_000000), coin(atomDenom, 200_000000))
-	s.supply(otherSupplier, coin(umeeDenom, 200_000000), coin(atomDenom, 200_000000))
+	otherSupplier := s.newAccount(coin(katanaDenom, 200_000000), coin(atomDenom, 200_000000))
+	s.supply(otherSupplier, coin(katanaDenom, 200_000000), coin(atomDenom, 200_000000))
 
 	tcs := []testCase{
 		{
 			"base token",
 			supplier,
-			coin(umeeDenom, 80_000000),
+			coin(katanaDenom, 80_000000),
 			types.ErrNotUToken,
 		},
 		{
@@ -324,19 +324,19 @@ func (s *IntegrationTestSuite) TestCollateralize() {
 		{
 			"valid collateralize",
 			supplier,
-			coin("u/"+umeeDenom, 80_000000),
+			coin("u/"+katanaDenom, 80_000000),
 			nil,
 		},
 		{
 			"additional collateralize",
 			supplier,
-			coin("u/"+umeeDenom, 10_000000),
+			coin("u/"+katanaDenom, 10_000000),
 			nil,
 		},
 		{
 			"insufficient balance",
 			supplier,
-			coin("u/"+umeeDenom, 40_000000),
+			coin("u/"+katanaDenom, 40_000000),
 			sdkerrors.ErrInsufficientFunds,
 		},
 	}
@@ -393,10 +393,10 @@ func (s *IntegrationTestSuite) TestDecollateralize() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a supplier with 200 UMEE, then supply and collateralize 100 UMEE
-	supplier := s.newAccount(coin(umeeDenom, 200_000000))
-	s.supply(supplier, coin(umeeDenom, 100_000000))
-	s.collateralize(supplier, coin("u/"+umeeDenom, 100_000000))
+	// create and fund a supplier with 200 KATANA, then supply and collateralize 100 KATANA
+	supplier := s.newAccount(coin(katanaDenom, 200_000000))
+	s.supply(supplier, coin(katanaDenom, 100_000000))
+	s.collateralize(supplier, coin("u/"+katanaDenom, 100_000000))
 
 	// create a borrower which supplies, collateralizes, then borrows ATOM
 	borrower := s.newAccount(coin(atomDenom, 100_000000))
@@ -408,7 +408,7 @@ func (s *IntegrationTestSuite) TestDecollateralize() {
 		{
 			"base token",
 			supplier,
-			coin(umeeDenom, 80_000000),
+			coin(katanaDenom, 80_000000),
 			types.ErrNotUToken,
 		},
 		{
@@ -420,19 +420,19 @@ func (s *IntegrationTestSuite) TestDecollateralize() {
 		{
 			"valid decollateralize",
 			supplier,
-			coin("u/"+umeeDenom, 80_000000),
+			coin("u/"+katanaDenom, 80_000000),
 			nil,
 		},
 		{
 			"additional decollateralize",
 			supplier,
-			coin("u/"+umeeDenom, 10_000000),
+			coin("u/"+katanaDenom, 10_000000),
 			nil,
 		},
 		{
 			"insufficient collateral",
 			supplier,
-			coin("u/"+umeeDenom, 40_000000),
+			coin("u/"+katanaDenom, 40_000000),
 			types.ErrInsufficientCollateral,
 		},
 		{
@@ -495,9 +495,9 @@ func (s *IntegrationTestSuite) TestBorrow() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a supplier which supplies UMEE and ATOM
-	supplier := s.newAccount(coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
-	s.supply(supplier, coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
+	// create and fund a supplier which supplies KATANA and ATOM
+	supplier := s.newAccount(coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
+	s.supply(supplier, coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
 
 	// create a borrower which supplies and collateralizes 100 ATOM
 	borrower := s.newAccount(coin(atomDenom, 100_000000))
@@ -508,7 +508,7 @@ func (s *IntegrationTestSuite) TestBorrow() {
 		{
 			"uToken",
 			borrower,
-			coin("u/"+umeeDenom, 100_000000),
+			coin("u/"+katanaDenom, 100_000000),
 			types.ErrUToken,
 		},
 		{
@@ -520,25 +520,25 @@ func (s *IntegrationTestSuite) TestBorrow() {
 		{
 			"lending pool insufficient",
 			borrower,
-			coin(umeeDenom, 200_000000),
+			coin(katanaDenom, 200_000000),
 			types.ErrLendingPoolInsufficient,
 		},
 		{
 			"valid borrow",
 			borrower,
-			coin(umeeDenom, 70_000000),
+			coin(katanaDenom, 70_000000),
 			nil,
 		},
 		{
 			"additional borrow",
 			borrower,
-			coin(umeeDenom, 20_000000),
+			coin(katanaDenom, 20_000000),
 			nil,
 		},
 		{
 			"max supply utilization",
 			borrower,
-			coin(umeeDenom, 10_000000),
+			coin(katanaDenom, 10_000000),
 			types.ErrMaxSupplyUtilization,
 		},
 		{
@@ -612,24 +612,24 @@ func (s *IntegrationTestSuite) TestRepay() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a borrower which supplies and collateralizes UMEE, then borrows 10 UMEE
-	borrower := s.newAccount(coin(umeeDenom, 200_000000))
-	s.supply(borrower, coin(umeeDenom, 150_000000))
-	s.collateralize(borrower, coin("u/"+umeeDenom, 120_000000))
-	s.borrow(borrower, coin(umeeDenom, 10_000000))
+	// create and fund a borrower which supplies and collateralizes KATANA, then borrows 10 KATANA
+	borrower := s.newAccount(coin(katanaDenom, 200_000000))
+	s.supply(borrower, coin(katanaDenom, 150_000000))
+	s.collateralize(borrower, coin("u/"+katanaDenom, 120_000000))
+	s.borrow(borrower, coin(katanaDenom, 10_000000))
 
 	// create and fund a borrower which engages in a supply->borrow->supply loop
-	looper := s.newAccount(coin(umeeDenom, 50_000000))
-	s.supply(looper, coin(umeeDenom, 50_000000))
-	s.collateralize(looper, coin("u/"+umeeDenom, 50_000000))
-	s.borrow(looper, coin(umeeDenom, 5_000000))
-	s.supply(looper, coin(umeeDenom, 5_000000))
+	looper := s.newAccount(coin(katanaDenom, 50_000000))
+	s.supply(looper, coin(katanaDenom, 50_000000))
+	s.collateralize(looper, coin("u/"+katanaDenom, 50_000000))
+	s.borrow(looper, coin(katanaDenom, 5_000000))
+	s.supply(looper, coin(katanaDenom, 5_000000))
 
 	tcs := []testCase{
 		{
 			"uToken",
 			borrower,
-			coin("u/"+umeeDenom, 100_000000),
+			coin("u/"+katanaDenom, 100_000000),
 			sdk.Coin{},
 			types.ErrUToken,
 		},
@@ -650,28 +650,28 @@ func (s *IntegrationTestSuite) TestRepay() {
 		{
 			"valid repay",
 			borrower,
-			coin(umeeDenom, 1_000000),
-			coin(umeeDenom, 1_000000),
+			coin(katanaDenom, 1_000000),
+			coin(katanaDenom, 1_000000),
 			nil,
 		},
 		{
 			"additional repay",
 			borrower,
-			coin(umeeDenom, 3_000000),
-			coin(umeeDenom, 3_000000),
+			coin(katanaDenom, 3_000000),
+			coin(katanaDenom, 3_000000),
 			nil,
 		},
 		{
 			"overpay",
 			borrower,
-			coin(umeeDenom, 30_000000),
-			coin(umeeDenom, 6_000000),
+			coin(katanaDenom, 30_000000),
+			coin(katanaDenom, 6_000000),
 			nil,
 		},
 		{
 			"insufficient balance",
 			looper,
-			coin(umeeDenom, 1_000000),
+			coin(katanaDenom, 1_000000),
 			sdk.Coin{},
 			sdkerrors.ErrInsufficientFunds,
 		},
@@ -733,18 +733,18 @@ func (s *IntegrationTestSuite) TestLiquidate() {
 
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// create and fund a liquidator which supplies plenty of UMEE and ATOM to the module
-	supplier := s.newAccount(coin(umeeDenom, 1000_000000), coin(atomDenom, 1000_000000))
-	s.supply(supplier, coin(umeeDenom, 1000_000000), coin(atomDenom, 1000_000000))
+	// create and fund a liquidator which supplies plenty of KATANA and ATOM to the module
+	supplier := s.newAccount(coin(katanaDenom, 1000_000000), coin(atomDenom, 1000_000000))
+	s.supply(supplier, coin(katanaDenom, 1000_000000), coin(atomDenom, 1000_000000))
 
-	// create and fund a liquidator which has 1000 UMEE and 1000 ATOM
-	liquidator := s.newAccount(coin(umeeDenom, 1000_000000), coin(atomDenom, 1000_000000))
+	// create and fund a liquidator which has 1000 KATANA and 1000 ATOM
+	liquidator := s.newAccount(coin(katanaDenom, 1000_000000), coin(atomDenom, 1000_000000))
 
 	// create a healthy borrower
-	healthyBorrower := s.newAccount(coin(umeeDenom, 100_000000))
-	s.supply(healthyBorrower, coin(umeeDenom, 100_000000))
-	s.collateralize(healthyBorrower, coin("u/"+umeeDenom, 100_000000))
-	s.borrow(healthyBorrower, coin(umeeDenom, 10_000000))
+	healthyBorrower := s.newAccount(coin(katanaDenom, 100_000000))
+	s.supply(healthyBorrower, coin(katanaDenom, 100_000000))
+	s.collateralize(healthyBorrower, coin("u/"+katanaDenom, 100_000000))
+	s.borrow(healthyBorrower, coin(katanaDenom, 10_000000))
 
 	// create a borrower which supplies and collateralizes 1000 ATOM
 	atomBorrower := s.newAccount(coin(atomDenom, 1000_000000))
@@ -753,26 +753,26 @@ func (s *IntegrationTestSuite) TestLiquidate() {
 	// artificially borrow 500 ATOM - this can be liquidated without bad debt
 	s.forceBorrow(atomBorrower, coin(atomDenom, 500_000000))
 
-	// create a borrower which collateralizes 110 UMEE
-	umeeBorrower := s.newAccount(coin(umeeDenom, 300_000000))
-	s.supply(umeeBorrower, coin(umeeDenom, 200_000000))
-	s.collateralize(umeeBorrower, coin("u/"+umeeDenom, 110_000000))
-	// artificially borrow 200 UMEE - this will create a bad debt when liquidated
-	s.forceBorrow(umeeBorrower, coin(umeeDenom, 200_000000))
+	// create a borrower which collateralizes 110 KATANA
+	katanaBorrower := s.newAccount(coin(katanaDenom, 300_000000))
+	s.supply(katanaBorrower, coin(katanaDenom, 200_000000))
+	s.collateralize(katanaBorrower, coin("u/"+katanaDenom, 110_000000))
+	// artificially borrow 200 KATANA - this will create a bad debt when liquidated
+	s.forceBorrow(katanaBorrower, coin(katanaDenom, 200_000000))
 
 	// creates a complex borrower with multiple denoms active
-	complexBorrower := s.newAccount(coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
-	s.supply(complexBorrower, coin(umeeDenom, 100_000000), coin(atomDenom, 100_000000))
-	s.collateralize(complexBorrower, coin("u/"+umeeDenom, 100_000000), coin("u/"+atomDenom, 100_000000))
+	complexBorrower := s.newAccount(coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
+	s.supply(complexBorrower, coin(katanaDenom, 100_000000), coin(atomDenom, 100_000000))
+	s.collateralize(complexBorrower, coin("u/"+katanaDenom, 100_000000), coin("u/"+atomDenom, 100_000000))
 	// artificially borrow multiple denoms
-	s.forceBorrow(complexBorrower, coin(atomDenom, 30_000000), coin(umeeDenom, 30_000000))
+	s.forceBorrow(complexBorrower, coin(atomDenom, 30_000000), coin(katanaDenom, 30_000000))
 
-	// creates a realistic borrower with 400 UMEE collateral which will have a close factor < 1
-	closeBorrower := s.newAccount(coin(umeeDenom, 400_000000))
-	s.supply(closeBorrower, coin(umeeDenom, 400_000000))
-	s.collateralize(closeBorrower, coin("u/"+umeeDenom, 400_000000))
+	// creates a realistic borrower with 400 KATANA collateral which will have a close factor < 1
+	closeBorrower := s.newAccount(coin(katanaDenom, 400_000000))
+	s.supply(closeBorrower, coin(katanaDenom, 400_000000))
+	s.collateralize(closeBorrower, coin("u/"+katanaDenom, 400_000000))
 	// artificially borrow just barely above liquidation threshold to simulate interest accruing
-	s.forceBorrow(closeBorrower, coin(umeeDenom, 102_000000))
+	s.forceBorrow(closeBorrower, coin(katanaDenom, 102_000000))
 
 	tcs := []testCase{
 		{
@@ -789,7 +789,7 @@ func (s *IntegrationTestSuite) TestLiquidate() {
 		{
 			"not borrowed denom",
 			liquidator,
-			umeeBorrower,
+			katanaBorrower,
 			coin(atomDenom, 1_000000),
 			atomDenom,
 			sdk.Coin{},
@@ -831,23 +831,23 @@ func (s *IntegrationTestSuite) TestLiquidate() {
 			nil,
 		},
 		{
-			"bad debt u/umee liquidation",
+			"bad debt u/katana liquidation",
 			liquidator,
-			umeeBorrower,
-			coin(umeeDenom, 200_000000),
-			"u/" + umeeDenom,
-			coin(umeeDenom, 100_000000),
-			coin("u/"+umeeDenom, 110_000000),
-			coin("u/"+umeeDenom, 110_000000),
+			katanaBorrower,
+			coin(katanaDenom, 200_000000),
+			"u/" + katanaDenom,
+			coin(katanaDenom, 100_000000),
+			coin("u/"+katanaDenom, 110_000000),
+			coin("u/"+katanaDenom, 110_000000),
 			nil,
 		},
 		{
 			"complex borrower",
 			liquidator,
 			complexBorrower,
-			coin(umeeDenom, 200_000000),
+			coin(katanaDenom, 200_000000),
 			"u/" + atomDenom,
-			coin(umeeDenom, 30_000000),
+			coin(katanaDenom, 30_000000),
 			coin("u/"+atomDenom, 3_527932),
 			coin("u/"+atomDenom, 3_527932),
 			nil,
@@ -856,11 +856,11 @@ func (s *IntegrationTestSuite) TestLiquidate() {
 			"close factor < 1",
 			liquidator,
 			closeBorrower,
-			coin(umeeDenom, 200_000000),
-			"u/" + umeeDenom,
-			coin(umeeDenom, 7_752000),
-			coin("u/"+umeeDenom, 8_527200),
-			coin("u/"+umeeDenom, 8_527200),
+			coin(katanaDenom, 200_000000),
+			"u/" + katanaDenom,
+			coin(katanaDenom, 7_752000),
+			coin("u/"+katanaDenom, 8_527200),
+			coin("u/"+katanaDenom, 8_527200),
 			nil,
 		},
 	}
@@ -967,13 +967,13 @@ func (s *IntegrationTestSuite) TestMaxCollateralShare() {
 	s.registerToken(atom)
 
 	// Mock oracle prices:
-	// UMEE $4.21
+	// KATANA $4.21
 	// ATOM $39.38
 
-	// create a supplier to collateralize 100 UMEE, worth $421.00
-	umeeSupplier := s.newAccount(coin(umeeDenom, 100_000000))
-	s.supply(umeeSupplier, coin(umeeDenom, 100_000000))
-	s.collateralize(umeeSupplier, coin("u/"+umeeDenom, 100_000000))
+	// create a supplier to collateralize 100 KATANA, worth $421.00
+	katanaSupplier := s.newAccount(coin(katanaDenom, 100_000000))
+	s.supply(katanaSupplier, coin(katanaDenom, 100_000000))
+	s.collateralize(katanaSupplier, coin("u/"+katanaDenom, 100_000000))
 
 	// create an ATOM supplier
 	atomSupplier := s.newAccount(coin(atomDenom, 100_000000))
@@ -992,57 +992,57 @@ func (s *IntegrationTestSuite) TestMaxCollateralShare() {
 func (s *IntegrationTestSuite) TestMinCollateralLiquidity() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// update initial UMEE to have a limited MinCollateralLiquidity
-	umee, err := app.LeverageKeeper.GetTokenSettings(ctx, umeeDenom)
+	// update initial KATANA to have a limited MinCollateralLiquidity
+	katana, err := app.LeverageKeeper.GetTokenSettings(ctx, katanaDenom)
 	require.NoError(err)
-	umee.MinCollateralLiquidity = sdk.MustNewDecFromStr("0.5")
-	s.registerToken(umee)
+	katana.MinCollateralLiquidity = sdk.MustNewDecFromStr("0.5")
+	s.registerToken(katana)
 
-	// create a supplier to collateralize 100 UMEE
-	umeeSupplier := s.newAccount(coin(umeeDenom, 100_000000))
-	s.supply(umeeSupplier, coin(umeeDenom, 100_000000))
-	s.collateralize(umeeSupplier, coin("u/"+umeeDenom, 100_000000))
+	// create a supplier to collateralize 100 KATANA
+	katanaSupplier := s.newAccount(coin(katanaDenom, 100_000000))
+	s.supply(katanaSupplier, coin(katanaDenom, 100_000000))
+	s.collateralize(katanaSupplier, coin("u/"+katanaDenom, 100_000000))
 
-	// create an ATOM supplier and borrow 49 UMEE
+	// create an ATOM supplier and borrow 49 KATANA
 	atomSupplier := s.newAccount(coin(atomDenom, 100_000000))
 	s.supply(atomSupplier, coin(atomDenom, 100_000000))
 	s.collateralize(atomSupplier, coin("u/"+atomDenom, 100_000000))
-	s.borrow(atomSupplier, coin(umeeDenom, 49_000000))
+	s.borrow(atomSupplier, coin(katanaDenom, 49_000000))
 
-	// collateral liquidity (liquidity / collateral) of UMEE is 51/100
+	// collateral liquidity (liquidity / collateral) of KATANA is 51/100
 
 	// withdrawal would reduce collateral liquidity to 41/90
-	_, err = app.LeverageKeeper.Withdraw(ctx, umeeSupplier, coin("u/"+umeeDenom, 10_000000))
+	_, err = app.LeverageKeeper.Withdraw(ctx, katanaSupplier, coin("u/"+katanaDenom, 10_000000))
 	require.ErrorIs(err, types.ErrMinCollateralLiquidity, "withdraw")
 
 	// borrow would reduce collateral liquidity to 41/100
-	err = app.LeverageKeeper.Borrow(ctx, umeeSupplier, coin(umeeDenom, 10_000000))
+	err = app.LeverageKeeper.Borrow(ctx, katanaSupplier, coin(katanaDenom, 10_000000))
 	require.ErrorIs(err, types.ErrMinCollateralLiquidity, "borrow")
 }
 
 func (s *IntegrationTestSuite) TestMinCollateralLiquidity_Collateralize() {
 	app, ctx, require := s.app, s.ctx, s.Require()
 
-	// update initial UMEE to have a limited MinCollateralLiquidity
-	umee, err := app.LeverageKeeper.GetTokenSettings(ctx, umeeDenom)
+	// update initial KATANA to have a limited MinCollateralLiquidity
+	katana, err := app.LeverageKeeper.GetTokenSettings(ctx, katanaDenom)
 	require.NoError(err)
-	umee.MinCollateralLiquidity = sdk.MustNewDecFromStr("0.5")
-	s.registerToken(umee)
+	katana.MinCollateralLiquidity = sdk.MustNewDecFromStr("0.5")
+	s.registerToken(katana)
 
-	// create a supplier to supply 200 UMEE, and collateralize 100 UMEE
-	umeeSupplier := s.newAccount(coin(umeeDenom, 200))
-	s.supply(umeeSupplier, coin(umeeDenom, 200))
-	s.collateralize(umeeSupplier, coin("u/"+umeeDenom, 100))
+	// create a supplier to supply 200 KATANA, and collateralize 100 KATANA
+	katanaSupplier := s.newAccount(coin(katanaDenom, 200))
+	s.supply(katanaSupplier, coin(katanaDenom, 200))
+	s.collateralize(katanaSupplier, coin("u/"+katanaDenom, 100))
 
-	// create an ATOM supplier and borrow 149 UMEE
+	// create an ATOM supplier and borrow 149 KATANA
 	atomSupplier := s.newAccount(coin(atomDenom, 100))
 	s.supply(atomSupplier, coin(atomDenom, 100))
 	s.collateralize(atomSupplier, coin("u/"+atomDenom, 100))
-	s.borrow(atomSupplier, coin(umeeDenom, 149))
+	s.borrow(atomSupplier, coin(katanaDenom, 149))
 
-	// collateral liquidity (liquidity / collateral) of UMEE is 51/100
+	// collateral liquidity (liquidity / collateral) of KATANA is 51/100
 
 	// collateralize would reduce collateral liquidity to 51/200
-	err = app.LeverageKeeper.Collateralize(ctx, umeeSupplier, coin("u/"+umeeDenom, 100))
+	err = app.LeverageKeeper.Collateralize(ctx, katanaSupplier, coin("u/"+katanaDenom, 100))
 	require.ErrorIs(err, types.ErrMinCollateralLiquidity, "collateralize")
 }

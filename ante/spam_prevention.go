@@ -6,10 +6,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	oracletypes "github.com/umee-network/umee/v3/x/oracle/types"
+	oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 )
 
-// SpamPreventionDecorator defines a custom Umee AnteHandler decorator that is
+// SpamPreventionDecorator defines a custom Katana AnteHandler decorator that is
 // responsible for preventing oracle message spam. Specifically, it prohibits
 // oracle feeders from submitting multiple oracle messages in a single block.
 type SpamPreventionDecorator struct {

@@ -12,20 +12,20 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"
-	"github.com/umee-network/umee/price-feeder/oracle/types"
+	"github.com/umee-network/katana/price-feeder/oracle/types"
 )
 
 const (
-	osmosisV2WSHost   = "api.osmo-api.network.umee.cc"
+	osmosisV2WSHost   = "api.osmo-api.network.katana.cc"
 	osmosisV2WSPath   = "ws"
-	osmosisV2RestHost = "https://api.osmo-api.network.umee.cc"
+	osmosisV2RestHost = "https://api.osmo-api.network.katana.cc"
 	osmosisV2RestPath = "/assetpairs"
 )
 
 var _ Provider = (*OsmosisV2Provider)(nil)
 
 type (
-	// OsmosisV2Provider defines an Oracle provider implemented by UMEE's
+	// OsmosisV2Provider defines an Oracle provider implemented by KATANA's
 	// Osmosis API.
 	//
 	// REF: https://github.com/umee-network/osmosis-api
@@ -325,7 +325,7 @@ func (p *OsmosisV2Provider) setSubscribedPairs(cps ...types.CurrencyPair) {
 }
 
 // GetAvailablePairs returns all pairs to which the provider can subscribe.
-// ex.: map["ATOMUSDT" => {}, "UMEEUSDC" => {}].
+// ex.: map["ATOMUSDT" => {}, "KATANAUSDC" => {}].
 func (p *OsmosisV2Provider) GetAvailablePairs() (map[string]struct{}, error) {
 	resp, err := http.Get(p.endpoints.Rest + osmosisV2RestPath)
 	if err != nil {

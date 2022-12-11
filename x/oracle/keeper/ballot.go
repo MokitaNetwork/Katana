@@ -3,7 +3,7 @@ package keeper
 import (
 	"sort"
 
-	"github.com/umee-network/umee/v3/x/oracle/types"
+	"github.com/mokitanetwork/katana/x/oracle/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

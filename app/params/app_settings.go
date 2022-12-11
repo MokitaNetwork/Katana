@@ -7,14 +7,14 @@ import (
 )
 
 const (
-	// Name defines the application name of the Umee network.
-	Name = "umee"
+	// Name defines the application name of the Katana network.
+	Name = "katana"
 
 	// BondDenom defines the native staking token denomination.
-	BondDenom = "uumee"
+	BondDenom = "ukatana"
 
-	// DisplayDenom defines the name, symbol, and display value of the umee token.
-	DisplayDenom = "UMEE"
+	// DisplayDenom defines the name, symbol, and display value of the katana token.
+	DisplayDenom = "KATANA"
 
 	// DefaultGasLimit - set to the same value as cosmos-sdk flags.DefaultGasLimit
 	// this value is currently only used in tests.
@@ -29,7 +29,7 @@ var (
 )
 
 func init() {
-	// XXX: If other upstream or external application's depend on any of Umee's
+	// XXX: If other upstream or external application's depend on any of Katana's
 	// CLI or command functionality, then this would require us to move the
 	// SetAddressConfig call to somewhere external such as the root command
 	// constructor and anywhere else we contract the app.

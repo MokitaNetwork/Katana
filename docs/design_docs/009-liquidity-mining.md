@@ -10,9 +10,9 @@ Proposed
 
 ## Abstract
 
-Umee wishes to add support for liquidity mining incentives; i.e. additional rewards on top of the normal `x/leverage` APY for supplying base assets.
+Katana wishes to add support for liquidity mining incentives; i.e. additional rewards on top of the normal `x/leverage` APY for supplying base assets.
 
-For example, a user might "lock" some of their `u/ATOM` collateral held in the leverage module for 14 days, earning an additional 12% APY of the collateral's value, received as `UMEE` tokens.
+For example, a user might "lock" some of their `u/ATOM` collateral held in the leverage module for 14 days, earning an additional 12% APY of the collateral's value, received as `KATANA` tokens.
 
 Locked tokens will be unavailable for `x/leverage` withdrawal until unlocked, but will still be able to be liquidated. There will be 3 locking tiers, differing in unlocking duration.
 
@@ -258,7 +258,7 @@ It allows for external and overlapping incentive programs, but does not provide 
 
 - Locking funds encourages stability and provides our primary defense against bank runs.
 - No iteration.
-- Allows external (non-`UMEE`-denominated) incentive programs to further engourage liquidity.
+- Allows external (non-`KATANA`-denominated) incentive programs to further engourage liquidity.
 
 ### Negative
 

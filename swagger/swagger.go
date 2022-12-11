@@ -14,5 +14,5 @@ var Docs embed.FS
 // RegisterSwaggerAPI registers swagger route with API Server
 func RegisterSwaggerAPI(rtr *mux.Router) {
 	rtr.Handle("/swagger.yaml", http.FileServer(http.FS(Docs)))
-	rtr.HandleFunc("/swagger/", openapiconsole.Handler("umee", "/swagger.yaml"))
+	rtr.HandleFunc("/swagger/", openapiconsole.Handler("katana", "/swagger.yaml"))
 }

@@ -23,8 +23,8 @@ import (
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	umeeapp "github.com/umee-network/umee/v3/app"
-	"github.com/umee-network/umee/v3/tests/util"
+	katanaapp "github.com/mokitanetwork/katana/app"
+	"github.com/mokitanetwork/katana/tests/util"
 )
 
 // appStateFn returns the initial application state using a genesis file or
@@ -191,7 +191,7 @@ func appStateRandomizedFn(
 	appParams simtypes.AppParams,
 ) (json.RawMessage, []simtypes.Account) {
 	numAccs := int64(len(accs))
-	genesisState := umeeapp.NewDefaultGenesisState(cdc)
+	genesisState := katanaapp.NewDefaultGenesisState(cdc)
 
 	// Generate a random amount of initial stake coins and a random initial
 	// number of bonded accounts.
@@ -263,7 +263,7 @@ func appStateFromGenesisFileFn(
 		panic(err)
 	}
 
-	var appState umeeapp.GenesisState
+	var appState katanaapp.GenesisState
 	if err := json.Unmarshal(genesis.AppState, &appState); err != nil {
 		panic(err)
 	}

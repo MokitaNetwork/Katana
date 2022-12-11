@@ -59,7 +59,7 @@ func GetWasmEnabledProposals() []wasm.ProposalType {
 	return proposals
 }
 
-func (app *UmeeApp) registerCustomExtensions() {
+func (app *KatanaApp) registerCustomExtensions() {
 	if manager := app.SnapshotManager(); manager != nil {
 		err := manager.RegisterExtensions(
 			wasmkeeper.NewWasmSnapshotter(app.CommitMultiStore(), &app.WasmKeeper),
@@ -70,7 +70,7 @@ func (app *UmeeApp) registerCustomExtensions() {
 	}
 }
 
-func (app *UmeeApp) customKeepers(
+func (app *KatanaApp) customKeepers(
 	bApp *baseapp.BaseApp, keys map[string]*storetypes.KVStoreKey, appCodec codec.Codec,
 	govRouter govv1beta1.Router, homePath string, appOpts servertypes.AppOptions,
 	wasmOpts []wasm.Option,
@@ -107,6 +107,6 @@ func (app *UmeeApp) customKeepers(
 	)
 }
 
-func (app *UmeeApp) initializeCustomScopedKeepers() {
+func (app *KatanaApp) initializeCustomScopedKeepers() {
 	app.ScopedWasmKeeper = app.CapabilityKeeper.ScopeToModule(wasm.ModuleName)
 }
