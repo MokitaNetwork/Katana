@@ -18,11 +18,11 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/umee-network/katana/price-feeder/config"
-	"github.com/umee-network/katana/price-feeder/oracle/client"
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
-	"github.com/umee-network/katana/price-feeder/oracle/types"
-	pfsync "github.com/umee-network/katana/price-feeder/pkg/sync"
+	"github.com/mokitanetwork/katana/price-feeder/config"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/client"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/types"
+	pfsync "github.com/mokitanetwork/katana/price-feeder/pkg/sync"
 	oracletypes "github.com/mokitanetwork/katana/x/oracle/types"
 )
 

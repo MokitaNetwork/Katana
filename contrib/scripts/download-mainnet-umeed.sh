@@ -34,20 +34,20 @@ download_mainnet_binary(){
 
 mac_mainnet() {
   if [[ "$architecture" == "arm64" ]];then
-    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/umee-network/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-darwin-arm64.tar.gz"}
+    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/mokitanetwork/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-darwin-arm64.tar.gz"}
     KATANAD_BIN_MAINNET=${KATANAD_BIN_MAINNET:-"$CWD/katanad-releases/katanad-${MAINNET_VERSION}-darwin-arm64/katanad"}
   else
-    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/umee-network/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-darwin-amd64.tar.gz"}
+    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/mokitanetwork/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-darwin-amd64.tar.gz"}
     KATANAD_BIN_MAINNET=${KATANAD_BIN_MAINNET:-"$CWD/katanad-releases/katanad-${MAINNET_VERSION}-darwin-amd64/katanad"}
   fi
 }
 
 linux_mainnet(){
   if [[ "$architecture" == "arm64" ]];then
-    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/umee-network/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-linux-arm64.tar.gz"}
+    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/mokitanetwork/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-linux-arm64.tar.gz"}
     KATANAD_BIN_MAINNET=${KATANAD_BIN_MAINNET:-"$CWD/katanad-releases/katanad-${MAINNET_VERSION}-linux-arm64/katanad"}
   else
-    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/umee-network/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-linux-amd64.tar.gz"}
+    KATANAD_BIN_MAINNET_URL_TARBALL=${KATANAD_BIN_MAINNET_URL_TARBALL:-"https://github.com/mokitanetwork/katana/releases/download/${MAINNET_VERSION}/katanad-${MAINNET_VERSION}-linux-amd64.tar.gz"}
     KATANAD_BIN_MAINNET=${KATANAD_BIN_MAINNET:-"$CWD/katanad-releases/katanad-${MAINNET_VERSION}-linux-amd64/katanad"}
   fi
 }

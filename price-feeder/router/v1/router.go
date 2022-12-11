@@ -10,9 +10,9 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rs/zerolog"
 
-	"github.com/umee-network/katana/price-feeder/config"
-	"github.com/umee-network/katana/price-feeder/pkg/httputil"
-	"github.com/umee-network/katana/price-feeder/router/middleware"
+	"github.com/mokitanetwork/katana/price-feeder/config"
+	"github.com/mokitanetwork/katana/price-feeder/pkg/httputil"
+	"github.com/mokitanetwork/katana/price-feeder/router/middleware"
 )
 
 const (

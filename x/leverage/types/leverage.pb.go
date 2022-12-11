@@ -25,7 +25,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the leverage module.
-// See https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+// See https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 // for more details.
 type Params struct {
 	// Complete Liquidation Threshold determines how far between
@@ -103,7 +103,7 @@ var xxx_messageInfo_Params proto.InternalMessageInfo
 
 // Token defines a token, along with its metadata and parameters, in the Katana
 // capital facility that can be supplied and borrowed.
-// See https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+// See https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 // for more details.
 type Token struct {
 	// Base Denom is the denomination of the underlying base token.

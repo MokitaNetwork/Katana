@@ -6,9 +6,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rs/zerolog"
-	"github.com/umee-network/katana/price-feeder/config"
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
-	"github.com/umee-network/katana/price-feeder/oracle/types"
+	"github.com/mokitanetwork/katana/price-feeder/config"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/types"
 )
 
 // getUSDBasedProviders retrieves which providers for an asset have a USD-based pair,
@@ -37,7 +37,7 @@ func getUSDBasedProviders(
 // to USD by other price feeds. It will also filter out any candles not
 // within the deviation threshold set by the config.
 //
-// Ref: https://github.com/umee-network/katana/blob/4348c3e433df8c37dd98a690e96fc275de609bc1/price-feeder/oracle/filter.go#L41
+// Ref: https://github.com/mokitanetwork/katana/blob/4348c3e433df8c37dd98a690e96fc275de609bc1/price-feeder/oracle/filter.go#L41
 func ConvertCandlesToUSD(
 	logger zerolog.Logger,
 	candles provider.AggregatedProviderCandles,
@@ -91,7 +91,7 @@ func ConvertCandlesToUSD(
 				}
 
 				// TODO: we should revise ComputeTVWAP to avoid return empty slices
-				// Ref: https://github.com/umee-network/katana/issues/1261
+				// Ref: https://github.com/mokitanetwork/katana/issues/1261
 				tvwap, err := ComputeTVWAP(filteredCandles)
 				if err != nil {
 					return nil, err
@@ -132,7 +132,7 @@ func ConvertCandlesToUSD(
 // using the conversion rates of other tickers. It will also filter out any tickers
 // not within the deviation threshold set by the config.
 //
-// Ref: https://github.com/umee-network/katana/blob/4348c3e433df8c37dd98a690e96fc275de609bc1/price-feeder/oracle/filter.go#L41
+// Ref: https://github.com/mokitanetwork/katana/blob/4348c3e433df8c37dd98a690e96fc275de609bc1/price-feeder/oracle/filter.go#L41
 func ConvertTickersToUSD(
 	logger zerolog.Logger,
 	tickers provider.AggregatedProviderPrices,

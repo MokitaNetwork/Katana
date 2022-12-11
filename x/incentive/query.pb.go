@@ -890,25 +890,25 @@ func (m *QueryIncentiveProgramResponse) GetProgram() IncentiveProgram {
 }
 
 func init() {
-	proto.RegisterType((*TotalBond)(nil), "katananetwork.katana.incentive.v1.TotalBond")
-	proto.RegisterType((*QueryParams)(nil), "katananetwork.katana.incentive.v1.QueryParams")
-	proto.RegisterType((*QueryParamsResponse)(nil), "katananetwork.katana.incentive.v1.QueryParamsResponse")
-	proto.RegisterType((*QueryPendingRewards)(nil), "katananetwork.katana.incentive.v1.QueryPendingRewards")
-	proto.RegisterType((*QueryPendingRewardsResponse)(nil), "katananetwork.katana.incentive.v1.QueryPendingRewardsResponse")
-	proto.RegisterType((*QueryBonded)(nil), "katananetwork.katana.incentive.v1.QueryBonded")
-	proto.RegisterType((*QueryBondedResponse)(nil), "katananetwork.katana.incentive.v1.QueryBondedResponse")
-	proto.RegisterType((*QueryUnbondings)(nil), "katananetwork.katana.incentive.v1.QueryUnbondings")
-	proto.RegisterType((*QueryUnbondingsResponse)(nil), "katananetwork.katana.incentive.v1.QueryUnbondingsResponse")
-	proto.RegisterType((*QueryTotalBonded)(nil), "katananetwork.katana.incentive.v1.QueryTotalBonded")
-	proto.RegisterType((*QueryTotalBondedResponse)(nil), "katananetwork.katana.incentive.v1.QueryTotalBondedResponse")
-	proto.RegisterType((*QueryUpcomingIncentivePrograms)(nil), "katananetwork.katana.incentive.v1.QueryUpcomingIncentivePrograms")
-	proto.RegisterType((*QueryUpcomingIncentiveProgramsResponse)(nil), "katananetwork.katana.incentive.v1.QueryUpcomingIncentiveProgramsResponse")
-	proto.RegisterType((*QueryOngoingIncentivePrograms)(nil), "katananetwork.katana.incentive.v1.QueryOngoingIncentivePrograms")
-	proto.RegisterType((*QueryOngoingIncentiveProgramsResponse)(nil), "katananetwork.katana.incentive.v1.QueryOngoingIncentiveProgramsResponse")
-	proto.RegisterType((*QueryCompletedIncentivePrograms)(nil), "katananetwork.katana.incentive.v1.QueryCompletedIncentivePrograms")
-	proto.RegisterType((*QueryCompletedIncentiveProgramsResponse)(nil), "katananetwork.katana.incentive.v1.QueryCompletedIncentiveProgramsResponse")
-	proto.RegisterType((*QueryIncentiveProgram)(nil), "katananetwork.katana.incentive.v1.QueryIncentiveProgram")
-	proto.RegisterType((*QueryIncentiveProgramResponse)(nil), "katananetwork.katana.incentive.v1.QueryIncentiveProgramResponse")
+	proto.RegisterType((*TotalBond)(nil), "mokitanetwork.katana.incentive.v1.TotalBond")
+	proto.RegisterType((*QueryParams)(nil), "mokitanetwork.katana.incentive.v1.QueryParams")
+	proto.RegisterType((*QueryParamsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryParamsResponse")
+	proto.RegisterType((*QueryPendingRewards)(nil), "mokitanetwork.katana.incentive.v1.QueryPendingRewards")
+	proto.RegisterType((*QueryPendingRewardsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryPendingRewardsResponse")
+	proto.RegisterType((*QueryBonded)(nil), "mokitanetwork.katana.incentive.v1.QueryBonded")
+	proto.RegisterType((*QueryBondedResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryBondedResponse")
+	proto.RegisterType((*QueryUnbondings)(nil), "mokitanetwork.katana.incentive.v1.QueryUnbondings")
+	proto.RegisterType((*QueryUnbondingsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryUnbondingsResponse")
+	proto.RegisterType((*QueryTotalBonded)(nil), "mokitanetwork.katana.incentive.v1.QueryTotalBonded")
+	proto.RegisterType((*QueryTotalBondedResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryTotalBondedResponse")
+	proto.RegisterType((*QueryUpcomingIncentivePrograms)(nil), "mokitanetwork.katana.incentive.v1.QueryUpcomingIncentivePrograms")
+	proto.RegisterType((*QueryUpcomingIncentiveProgramsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryUpcomingIncentiveProgramsResponse")
+	proto.RegisterType((*QueryOngoingIncentivePrograms)(nil), "mokitanetwork.katana.incentive.v1.QueryOngoingIncentivePrograms")
+	proto.RegisterType((*QueryOngoingIncentiveProgramsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryOngoingIncentiveProgramsResponse")
+	proto.RegisterType((*QueryCompletedIncentivePrograms)(nil), "mokitanetwork.katana.incentive.v1.QueryCompletedIncentivePrograms")
+	proto.RegisterType((*QueryCompletedIncentiveProgramsResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryCompletedIncentiveProgramsResponse")
+	proto.RegisterType((*QueryIncentiveProgram)(nil), "mokitanetwork.katana.incentive.v1.QueryIncentiveProgram")
+	proto.RegisterType((*QueryIncentiveProgramResponse)(nil), "mokitanetwork.katana.incentive.v1.QueryIncentiveProgramResponse")
 }
 
 func init() { proto.RegisterFile("katana/incentive/v1/query.proto", fileDescriptor_98af6650734ce845) }
@@ -1023,7 +1023,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParams, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1032,7 +1032,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParams, opts ...grpc.
 
 func (c *queryClient) PendingRewards(ctx context.Context, in *QueryPendingRewards, opts ...grpc.CallOption) (*QueryPendingRewardsResponse, error) {
 	out := new(QueryPendingRewardsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/PendingRewards", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/PendingRewards", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1041,7 +1041,7 @@ func (c *queryClient) PendingRewards(ctx context.Context, in *QueryPendingReward
 
 func (c *queryClient) Bonded(ctx context.Context, in *QueryBonded, opts ...grpc.CallOption) (*QueryBondedResponse, error) {
 	out := new(QueryBondedResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/Bonded", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/Bonded", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1050,7 +1050,7 @@ func (c *queryClient) Bonded(ctx context.Context, in *QueryBonded, opts ...grpc.
 
 func (c *queryClient) Unbondings(ctx context.Context, in *QueryUnbondings, opts ...grpc.CallOption) (*QueryUnbondingsResponse, error) {
 	out := new(QueryUnbondingsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/Unbondings", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/Unbondings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1059,7 +1059,7 @@ func (c *queryClient) Unbondings(ctx context.Context, in *QueryUnbondings, opts 
 
 func (c *queryClient) TotalBonded(ctx context.Context, in *QueryTotalBonded, opts ...grpc.CallOption) (*QueryTotalBondedResponse, error) {
 	out := new(QueryTotalBondedResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/TotalBonded", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/TotalBonded", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1068,7 +1068,7 @@ func (c *queryClient) TotalBonded(ctx context.Context, in *QueryTotalBonded, opt
 
 func (c *queryClient) CompletedIncentivePrograms(ctx context.Context, in *QueryCompletedIncentivePrograms, opts ...grpc.CallOption) (*QueryCompletedIncentiveProgramsResponse, error) {
 	out := new(QueryCompletedIncentiveProgramsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/CompletedIncentivePrograms", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/CompletedIncentivePrograms", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1077,7 +1077,7 @@ func (c *queryClient) CompletedIncentivePrograms(ctx context.Context, in *QueryC
 
 func (c *queryClient) OngoingIncentivePrograms(ctx context.Context, in *QueryOngoingIncentivePrograms, opts ...grpc.CallOption) (*QueryOngoingIncentiveProgramsResponse, error) {
 	out := new(QueryOngoingIncentiveProgramsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/OngoingIncentivePrograms", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/OngoingIncentivePrograms", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1086,7 +1086,7 @@ func (c *queryClient) OngoingIncentivePrograms(ctx context.Context, in *QueryOng
 
 func (c *queryClient) UpcomingIncentivePrograms(ctx context.Context, in *QueryUpcomingIncentivePrograms, opts ...grpc.CallOption) (*QueryUpcomingIncentiveProgramsResponse, error) {
 	out := new(QueryUpcomingIncentiveProgramsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/UpcomingIncentivePrograms", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/UpcomingIncentivePrograms", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1095,7 +1095,7 @@ func (c *queryClient) UpcomingIncentivePrograms(ctx context.Context, in *QueryUp
 
 func (c *queryClient) IncentiveProgram(ctx context.Context, in *QueryIncentiveProgram, opts ...grpc.CallOption) (*QueryIncentiveProgramResponse, error) {
 	out := new(QueryIncentiveProgramResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Query/IncentiveProgram", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Query/IncentiveProgram", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1173,7 +1173,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/Params",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParams))
@@ -1191,7 +1191,7 @@ func _Query_PendingRewards_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/PendingRewards",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/PendingRewards",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PendingRewards(ctx, req.(*QueryPendingRewards))
@@ -1209,7 +1209,7 @@ func _Query_Bonded_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/Bonded",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/Bonded",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Bonded(ctx, req.(*QueryBonded))
@@ -1227,7 +1227,7 @@ func _Query_Unbondings_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/Unbondings",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/Unbondings",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Unbondings(ctx, req.(*QueryUnbondings))
@@ -1245,7 +1245,7 @@ func _Query_TotalBonded_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/TotalBonded",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/TotalBonded",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).TotalBonded(ctx, req.(*QueryTotalBonded))
@@ -1263,7 +1263,7 @@ func _Query_CompletedIncentivePrograms_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/CompletedIncentivePrograms",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/CompletedIncentivePrograms",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).CompletedIncentivePrograms(ctx, req.(*QueryCompletedIncentivePrograms))
@@ -1281,7 +1281,7 @@ func _Query_OngoingIncentivePrograms_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/OngoingIncentivePrograms",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/OngoingIncentivePrograms",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).OngoingIncentivePrograms(ctx, req.(*QueryOngoingIncentivePrograms))
@@ -1299,7 +1299,7 @@ func _Query_UpcomingIncentivePrograms_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/UpcomingIncentivePrograms",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/UpcomingIncentivePrograms",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).UpcomingIncentivePrograms(ctx, req.(*QueryUpcomingIncentivePrograms))
@@ -1317,7 +1317,7 @@ func _Query_IncentiveProgram_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Query/IncentiveProgram",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Query/IncentiveProgram",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).IncentiveProgram(ctx, req.(*QueryIncentiveProgram))
@@ -1326,7 +1326,7 @@ func _Query_IncentiveProgram_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "katananetwork.katana.incentive.v1.Query",
+	ServiceName: "mokitanetwork.katana.incentive.v1.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -183,12 +183,12 @@ At the end of every block, the `Oracle` module checks whether it's the last bloc
 
 ## Messages
 
-See [oracle tx proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/tx.proto#L11) for list of supported messages.
+See [oracle tx proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/oracle/v1/tx.proto#L11) for list of supported messages.
 
 ## Events
 
-See [oracle events proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/events.proto) for list of supported events.
+See [oracle events proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/oracle/v1/events.proto) for list of supported events.
 
 ## Params
 
-See [oracle events proto](https://github.com/umee-network/katana/blob/main/proto/katana/oracle/v1/oracle.proto#L11) for list of module parameters.
+See [oracle events proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/oracle/v1/oracle.proto#L11) for list of module parameters.

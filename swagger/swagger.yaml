@@ -654,7 +654,7 @@ paths:
                   Params defines the parameters for the leverage module.
 
                   See
-                  https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+                  https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
                   for more details.
             description: >-
@@ -913,7 +913,7 @@ paths:
                     capital facility that can be supplied and borrowed.
 
                     See
-                    https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+                    https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
                     for more details.
             description: >-
@@ -1834,7 +1834,7 @@ definitions:
       Params defines the parameters for the leverage module.
 
       See
-      https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+      https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
       for more details.
   katana.leverage.v1.QueryAccountBalancesResponse:
@@ -2221,7 +2221,7 @@ definitions:
           Params defines the parameters for the leverage module.
 
           See
-          https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+          https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
           for more details.
     description: |-
@@ -2427,7 +2427,7 @@ definitions:
             capital facility that can be supplied and borrowed.
 
             See
-            https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+            https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
             for more details.
     description: |-
@@ -2611,7 +2611,7 @@ definitions:
       capital facility that can be supplied and borrowed.
 
       See
-      https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+      https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 
       for more details.
   cosmos.base.v1beta1.DecCoin:

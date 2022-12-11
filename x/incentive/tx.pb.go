@@ -587,18 +587,18 @@ func (m *MsgGovCreateProgramResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgGovCreateProgramResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgClaim)(nil), "katananetwork.katana.incentive.v1.MsgClaim")
-	proto.RegisterType((*MsgClaimResponse)(nil), "katananetwork.katana.incentive.v1.MsgClaimResponse")
-	proto.RegisterType((*MsgBond)(nil), "katananetwork.katana.incentive.v1.MsgBond")
-	proto.RegisterType((*MsgBondResponse)(nil), "katananetwork.katana.incentive.v1.MsgBondResponse")
-	proto.RegisterType((*MsgBeginUnbonding)(nil), "katananetwork.katana.incentive.v1.MsgBeginUnbonding")
-	proto.RegisterType((*MsgBeginUnbondingResponse)(nil), "katananetwork.katana.incentive.v1.MsgBeginUnbondingResponse")
-	proto.RegisterType((*MsgSponsor)(nil), "katananetwork.katana.incentive.v1.MsgSponsor")
-	proto.RegisterType((*MsgSponsorResponse)(nil), "katananetwork.katana.incentive.v1.MsgSponsorResponse")
-	proto.RegisterType((*MsgGovSetParams)(nil), "katananetwork.katana.incentive.v1.MsgGovSetParams")
-	proto.RegisterType((*MsgGovSetParamsResponse)(nil), "katananetwork.katana.incentive.v1.MsgGovSetParamsResponse")
-	proto.RegisterType((*MsgGovCreateProgram)(nil), "katananetwork.katana.incentive.v1.MsgGovCreateProgram")
-	proto.RegisterType((*MsgGovCreateProgramResponse)(nil), "katananetwork.katana.incentive.v1.MsgGovCreateProgramResponse")
+	proto.RegisterType((*MsgClaim)(nil), "mokitanetwork.katana.incentive.v1.MsgClaim")
+	proto.RegisterType((*MsgClaimResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgClaimResponse")
+	proto.RegisterType((*MsgBond)(nil), "mokitanetwork.katana.incentive.v1.MsgBond")
+	proto.RegisterType((*MsgBondResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgBondResponse")
+	proto.RegisterType((*MsgBeginUnbonding)(nil), "mokitanetwork.katana.incentive.v1.MsgBeginUnbonding")
+	proto.RegisterType((*MsgBeginUnbondingResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgBeginUnbondingResponse")
+	proto.RegisterType((*MsgSponsor)(nil), "mokitanetwork.katana.incentive.v1.MsgSponsor")
+	proto.RegisterType((*MsgSponsorResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgSponsorResponse")
+	proto.RegisterType((*MsgGovSetParams)(nil), "mokitanetwork.katana.incentive.v1.MsgGovSetParams")
+	proto.RegisterType((*MsgGovSetParamsResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgGovSetParamsResponse")
+	proto.RegisterType((*MsgGovCreateProgram)(nil), "mokitanetwork.katana.incentive.v1.MsgGovCreateProgram")
+	proto.RegisterType((*MsgGovCreateProgramResponse)(nil), "mokitanetwork.katana.incentive.v1.MsgGovCreateProgramResponse")
 }
 
 func init() { proto.RegisterFile("katana/incentive/v1/tx.proto", fileDescriptor_d04c68bb9e1f6306) }
@@ -761,7 +761,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) Claim(ctx context.Context, in *MsgClaim, opts ...grpc.CallOption) (*MsgClaimResponse, error) {
 	out := new(MsgClaimResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/Claim", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/Claim", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -770,7 +770,7 @@ func (c *msgClient) Claim(ctx context.Context, in *MsgClaim, opts ...grpc.CallOp
 
 func (c *msgClient) Bond(ctx context.Context, in *MsgBond, opts ...grpc.CallOption) (*MsgBondResponse, error) {
 	out := new(MsgBondResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/Bond", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/Bond", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -779,7 +779,7 @@ func (c *msgClient) Bond(ctx context.Context, in *MsgBond, opts ...grpc.CallOpti
 
 func (c *msgClient) BeginUnbonding(ctx context.Context, in *MsgBeginUnbonding, opts ...grpc.CallOption) (*MsgBeginUnbondingResponse, error) {
 	out := new(MsgBeginUnbondingResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/BeginUnbonding", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/BeginUnbonding", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -788,7 +788,7 @@ func (c *msgClient) BeginUnbonding(ctx context.Context, in *MsgBeginUnbonding, o
 
 func (c *msgClient) Sponsor(ctx context.Context, in *MsgSponsor, opts ...grpc.CallOption) (*MsgSponsorResponse, error) {
 	out := new(MsgSponsorResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/Sponsor", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/Sponsor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -797,7 +797,7 @@ func (c *msgClient) Sponsor(ctx context.Context, in *MsgSponsor, opts ...grpc.Ca
 
 func (c *msgClient) GovSetParams(ctx context.Context, in *MsgGovSetParams, opts ...grpc.CallOption) (*MsgGovSetParamsResponse, error) {
 	out := new(MsgGovSetParamsResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/GovSetParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/GovSetParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -806,7 +806,7 @@ func (c *msgClient) GovSetParams(ctx context.Context, in *MsgGovSetParams, opts 
 
 func (c *msgClient) GovCreateProgram(ctx context.Context, in *MsgGovCreateProgram, opts ...grpc.CallOption) (*MsgGovCreateProgramResponse, error) {
 	out := new(MsgGovCreateProgramResponse)
-	err := c.cc.Invoke(ctx, "/katananetwork.katana.incentive.v1.Msg/GovCreateProgram", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/mokitanetwork.katana.incentive.v1.Msg/GovCreateProgram", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -867,7 +867,7 @@ func _Msg_Claim_Handler(srv interface{}, ctx context.Context, dec func(interface
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/Claim",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/Claim",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).Claim(ctx, req.(*MsgClaim))
@@ -885,7 +885,7 @@ func _Msg_Bond_Handler(srv interface{}, ctx context.Context, dec func(interface{
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/Bond",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/Bond",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).Bond(ctx, req.(*MsgBond))
@@ -903,7 +903,7 @@ func _Msg_BeginUnbonding_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/BeginUnbonding",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/BeginUnbonding",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).BeginUnbonding(ctx, req.(*MsgBeginUnbonding))
@@ -921,7 +921,7 @@ func _Msg_Sponsor_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/Sponsor",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/Sponsor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).Sponsor(ctx, req.(*MsgSponsor))
@@ -939,7 +939,7 @@ func _Msg_GovSetParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/GovSetParams",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/GovSetParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).GovSetParams(ctx, req.(*MsgGovSetParams))
@@ -957,7 +957,7 @@ func _Msg_GovCreateProgram_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/katananetwork.katana.incentive.v1.Msg/GovCreateProgram",
+		FullMethod: "/mokitanetwork.katana.incentive.v1.Msg/GovCreateProgram",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).GovCreateProgram(ctx, req.(*MsgGovCreateProgram))
@@ -966,7 +966,7 @@ func _Msg_GovCreateProgram_Handler(srv interface{}, ctx context.Context, dec fun
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "katananetwork.katana.incentive.v1.Msg",
+	ServiceName: "mokitanetwork.katana.incentive.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

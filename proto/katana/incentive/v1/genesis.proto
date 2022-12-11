@@ -1,5 +1,5 @@
 syntax = "proto3";
-package katananetwork.katana.incentive.v1;
+package mokitanetwork.katana.incentive.v1;
 
 option go_package = "github.com/mokitanetwork/katana/x/incentive";
 

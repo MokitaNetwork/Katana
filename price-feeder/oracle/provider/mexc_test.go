@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/katana/price-feeder/oracle/types"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/types"
 )
 
 func TestMexcProvider_GetTickerPrices(t *testing.T) {

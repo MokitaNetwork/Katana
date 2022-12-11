@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
-	"github.com/umee-network/katana/price-feeder/config"
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	"github.com/mokitanetwork/katana/price-feeder/config"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
 )
 
 func TestValidate(t *testing.T) {

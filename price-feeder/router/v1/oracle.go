@@ -4,7 +4,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/umee-network/katana/price-feeder/oracle"
+	"github.com/mokitanetwork/katana/price-feeder/oracle"
 )
 
 // Oracle defines the Oracle interface contract that the v1 router depends on.

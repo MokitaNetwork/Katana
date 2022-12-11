@@ -13,10 +13,10 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/umee-network/katana/price-feeder/config"
-	"github.com/umee-network/katana/price-feeder/oracle"
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
-	v1 "github.com/umee-network/katana/price-feeder/router/v1"
+	"github.com/mokitanetwork/katana/price-feeder/config"
+	"github.com/mokitanetwork/katana/price-feeder/oracle"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
+	v1 "github.com/mokitanetwork/katana/price-feeder/router/v1"
 )
 
 var (

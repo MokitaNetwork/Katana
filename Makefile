@@ -9,7 +9,7 @@ LEDGER_ENABLED ?= true
 TM_VERSION     := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::')
 DOCKER         := $(shell which docker)
 PROJECT_NAME   := katana
-HTTPS_GIT      := https://github.com/umee-network/katana.git
+HTTPS_GIT      := https://github.com/mokitanetwork/katana.git
 
 ###############################################################################
 ##                                  Version                                  ##

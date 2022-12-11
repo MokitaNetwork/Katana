@@ -125,7 +125,7 @@ func getTxPriority( /*fees, gasAmount*/ isOracleOrGravity bool, msgs []sdk.Msg) 
 	var priority int64
 	/* TODO: IBC tx prioritization is not stable and we will implement a more general
 	 * tx prioritization once that will be resolved
-	 * https://github.com/umee-network/katana/issues/1289
+	 * https://github.com/mokitanetwork/katana/issues/1289
 	for _, c := range fees {
 		p := int64(math.MaxInt64)
 		gasPrice := c.Amount.QuoRaw(gasAmount)

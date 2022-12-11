@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/umee-network/katana/price-feeder/oracle/types"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/types"
 )
 
 const (

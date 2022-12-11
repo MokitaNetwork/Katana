@@ -231,8 +231,8 @@ func (m *IncentiveProgram) GetRemainingRewards() types.Coin {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "katananetwork.katana.incentive.v1.Params")
-	proto.RegisterType((*IncentiveProgram)(nil), "katananetwork.katana.incentive.v1.IncentiveProgram")
+	proto.RegisterType((*Params)(nil), "mokitanetwork.katana.incentive.v1.Params")
+	proto.RegisterType((*IncentiveProgram)(nil), "mokitanetwork.katana.incentive.v1.IncentiveProgram")
 }
 
 func init() { proto.RegisterFile("katana/incentive/v1/incentive.proto", fileDescriptor_8c99c623956e199b) }

@@ -480,12 +480,12 @@ func (m *Unbonding) GetAmount() types.Coin {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "katananetwork.katana.incentive.v1.GenesisState")
-	proto.RegisterType((*Bond)(nil), "katananetwork.katana.incentive.v1.Bond")
-	proto.RegisterType((*PendingReward)(nil), "katananetwork.katana.incentive.v1.PendingReward")
-	proto.RegisterType((*RewardTracker)(nil), "katananetwork.katana.incentive.v1.RewardTracker")
-	proto.RegisterType((*RewardAccumulator)(nil), "katananetwork.katana.incentive.v1.RewardAccumulator")
-	proto.RegisterType((*Unbonding)(nil), "katananetwork.katana.incentive.v1.Unbonding")
+	proto.RegisterType((*GenesisState)(nil), "mokitanetwork.katana.incentive.v1.GenesisState")
+	proto.RegisterType((*Bond)(nil), "mokitanetwork.katana.incentive.v1.Bond")
+	proto.RegisterType((*PendingReward)(nil), "mokitanetwork.katana.incentive.v1.PendingReward")
+	proto.RegisterType((*RewardTracker)(nil), "mokitanetwork.katana.incentive.v1.RewardTracker")
+	proto.RegisterType((*RewardAccumulator)(nil), "mokitanetwork.katana.incentive.v1.RewardAccumulator")
+	proto.RegisterType((*Unbonding)(nil), "mokitanetwork.katana.incentive.v1.Unbonding")
 }
 
 func init() { proto.RegisterFile("katana/incentive/v1/genesis.proto", fileDescriptor_3f117566517b8062) }

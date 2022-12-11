@@ -23,9 +23,9 @@ endif
 ##                              Build / Install                              ##
 ###############################################################################
 
-ldflags = -X github.com/umee-network/katana/price-feeder/cmd.Version=$(VERSION) \
-		  -X github.com/umee-network/katana/price-feeder/cmd.Commit=$(COMMIT) \
-		  -X github.com/umee-network/katana/price-feeder/cmd.SDKVersion=$(SDK_VERSION)
+ldflags = -X github.com/mokitanetwork/katana/price-feeder/cmd.Version=$(VERSION) \
+		  -X github.com/mokitanetwork/katana/price-feeder/cmd.Commit=$(COMMIT) \
+		  -X github.com/mokitanetwork/katana/price-feeder/cmd.SDKVersion=$(SDK_VERSION)
 
 ifeq ($(LINK_STATICALLY),true)
 	ldflags += -linkmode=external -extldflags "-Wl,-z,muldefs -static"

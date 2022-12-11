@@ -12,7 +12,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
 )
 
 const (

@@ -1,8 +1,8 @@
 package integration
 
 import (
-	"github.com/umee-network/katana/price-feeder/oracle/provider"
-	"github.com/umee-network/katana/price-feeder/oracle/types"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/provider"
+	"github.com/mokitanetwork/katana/price-feeder/oracle/types"
 )
 
 var ProviderAndCurrencyPairsFixture = []struct {

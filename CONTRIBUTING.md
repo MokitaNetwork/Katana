@@ -8,15 +8,15 @@ smooth and timely workflow for all contributors, the general procedure for
 contributing has been established:
 
 1. If you would like to contribute, first do your best to check if discussions
-   already exist as either a Github [Discussion](https://github.com/umee-network/katana/discussions),
-   [Issue](https://github.com/umee-network/katana/issues) or
-   [PR](https://github.com/umee-network/katana/pulls). Be sure to also check out
+   already exist as either a Github [Discussion](https://github.com/mokitanetwork/katana/discussions),
+   [Issue](https://github.com/mokitanetwork/katana/issues) or
+   [PR](https://github.com/mokitanetwork/katana/pulls). Be sure to also check out
    our public [Discord](https://discord.gg/dN76DEBCd9). Existing discussions will help you
    gain context on the current status of the proposed contribution or topic. If
    one does not exist, feel free to start one.
-2. If you would like to create a [Github Issue](https://github.com/umee-network/katana/issues),
-   either [open](https://github.com/umee-network/katana/issues/new/choose) or
-   [find](https://github.com/umee-network/katana/issues) an issue you'd like to
+2. If you would like to create a [Github Issue](https://github.com/mokitanetwork/katana/issues),
+   either [open](https://github.com/mokitanetwork/katana/issues/new/choose) or
+   [find](https://github.com/mokitanetwork/katana/issues) an issue you'd like to
    help with. If the issue already exists, attempt to participate in thoughtful
    discussion on that issue.
 3. If you would like to contribute:
@@ -51,12 +51,12 @@ We follow the Cosmos SDK [Coding Guidelines](https://github.com/cosmos/cosmos-sd
 ## Design Documents
 
 When proposing a design decision for the Katana network, please start by
-opening an [Issue](https://github.com/umee-network/katana/issues/new/choose) or a
-[Discussion](https://github.com/umee-network/katana/discussions/new) with a summary
+opening an [Issue](https://github.com/mokitanetwork/katana/issues/new/choose) or a
+[Discussion](https://github.com/mokitanetwork/katana/discussions/new) with a summary
 of the proposal.
 
 Once the proposal has been discussed and there is rough alignment on a high-level
-approach to the design, a [design doc](https://github.com/umee-network/katana/blob/main/docs/design_docs/README.md) can be drafted in a dedicated pull request.
+approach to the design, a [design doc](https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/README.md) can be drafted in a dedicated pull request.
 We are following this process to ensure all involved parties are in agreement before any party begins coding the proposed implementation.
 
 ## Branching Model

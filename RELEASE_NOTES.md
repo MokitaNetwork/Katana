@@ -16,7 +16,7 @@ Highlights:
 - `QueryLiquidationTargets` RPC is now available when the node is run with `--enable-liquidator-query`. The LIQUIDATOR build flag has been removed. NOTE: this query should not be enabled for nodes with public API. The query involves intensive computation and can impact node stability when used by an attacker.
 - Introduced experimental features, available when build with `experimental` flag. This flag must not be used on mainnet.
 
-Please see the [CHANGELOG](https://github.com/umee-network/katana/blob/v3.2.0/CHANGELOG.md) for an exhaustive list of changes.
+Please see the [CHANGELOG](https://github.com/mokitanetwork/katana/blob/v3.2.0/CHANGELOG.md) for an exhaustive list of changes.
 
 ### Gravity Bridge
 
@@ -46,7 +46,7 @@ $ wget https://raw.githubusercontent.com/CosmWasm/wasmvm/v1.1.1/internal/api/lib
 - Swap binaries.
 - Restart the chain.
 
-You can use Cosmovisor → see [instructions](https://github.com/umee-network/katana/#cosmovisor).
+You can use Cosmovisor → see [instructions](https://github.com/mokitanetwork/katana/#cosmovisor).
 - If you use Cosmovisor, and you didn't build binary from source in the validator machine, you have to download the respective `libwasmvm` into your machine.  
 ```bash
 $ wget https://raw.githubusercontent.com/CosmWasm/wasmvm/v1.1.1/internal/api/libwasmvm.$(uname -m).so -O /lib/libwasmvm.$(uname -m).so

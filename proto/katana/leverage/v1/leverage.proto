@@ -8,7 +8,7 @@ option go_package = "github.com/mokitanetwork/katana/x/leverage/types";
 option (gogoproto.goproto_getters_all) = false;
 
 // Params defines the parameters for the leverage module.
-// See https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+// See https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 // for more details.
 message Params {
   option (gogoproto.goproto_stringer) = false;
@@ -76,7 +76,7 @@ message Params {
 
 // Token defines a token, along with its metadata and parameters, in the Katana
 // capital facility that can be supplied and borrowed.
-// See https://github.com/umee-network/katana/blob/main/docs/design_docs/010-market-params.md
+// See https://github.com/mokitanetwork/katana/blob/main/docs/design_docs/010-market-params.md
 // for more details.
 message Token {
   option (gogoproto.equal) = true;

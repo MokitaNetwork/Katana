@@ -260,7 +260,7 @@ Similarly, `AdjustedTotalBorrowed` is never set independently during regular ope
 
 ## Queries
 
-See [leverage query proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/query.proto) for list of supported queries.
+See [leverage query proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/leverage/v1/query.proto) for list of supported queries.
 
 Additionally, the query `liquidation-targets` is only enabled if the node is started with a flag:
 
@@ -277,7 +277,7 @@ katanad start
 
 ## Messages
 
-See [leverage tx proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/tx.proto#L11) for list of supported messages.
+See [leverage tx proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/leverage/v1/tx.proto#L11) for list of supported messages.
 
 ## Update Registry Proposal
 
@@ -360,11 +360,11 @@ where `proposal.json` contains:
 
 ## Events
 
-See [leverage events proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/events.proto) for list of supported events.
+See [leverage events proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/leverage/v1/events.proto) for list of supported events.
 
 ## Params
 
-See [leverage module proto](https://github.com/umee-network/katana/blob/main/proto/katana/leverage/v1/leverage.proto) for list of supported module params.
+See [leverage module proto](https://github.com/mokitanetwork/katana/blob/main/proto/katana/leverage/v1/leverage.proto) for list of supported module params.
 
 ## End Block
 

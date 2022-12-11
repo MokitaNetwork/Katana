@@ -1,4 +1,4 @@
-module github.com/umee-network/katana/price-feeder
+module github.com/mokitanetwork/katana/price-feeder
 
 go 1.19
 
